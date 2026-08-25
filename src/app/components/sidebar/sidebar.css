@@ -1,0 +1,37 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background: #ffc400;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  color: #111827;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 35px;
+}
+
+.sidebar a {
+  display: block;
+  color: #111827;
+  text-decoration: none;
+  padding: 14px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: rgba(17, 24, 39, 0.12);
+}
+
+.sidebar a.active {
+  background: rgba(17, 24, 39, 0.15);
+  font-weight: bold;
+}

@@ -1,0 +1,15 @@
+<app-sidebar></app-sidebar>
+
+@if (loadingService.loading()) {
+  <div class="loading-overlay">
+    <div class="loading-box">
+      Yükleniyor...
+    </div>
+  </div>
+}
+
+<div class="content">
+  <app-breadcrumb></app-breadcrumb>
+
+  <router-outlet></router-outlet>
+</div>

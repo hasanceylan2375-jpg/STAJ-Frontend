@@ -1,0 +1,83 @@
+<h2>Müşteri Ekle</h2>
+
+<form (ngSubmit)="kaydet()" #musteriForm="ngForm">
+
+  <label>Ad</label>
+  <input
+    type="text"
+    [(ngModel)]="ad"
+    name="ad"
+    required
+    pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$"
+    #adKontrol="ngModel">
+
+  @if (adKontrol.invalid && adKontrol.touched) {
+    @if (adKontrol.errors?.['required']) {
+      <small>Ad alanı boş bırakılamaz.</small>
+    }
+
+    @if (adKontrol.errors?.['pattern']) {
+      <small>Ad sadece harflerden oluşmalıdır.</small>
+    }
+  }
+
+
+  <label>Soyad</label>
+  <input
+    type="text"
+    [(ngModel)]="soyad"
+    name="soyad"
+    required
+    pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$"
+    #soyadKontrol="ngModel">
+
+  @if (soyadKontrol.invalid && soyadKontrol.touched) {
+    @if (soyadKontrol.errors?.['required']) {
+      <small>Soyad alanı boş bırakılamaz.</small>
+    }
+
+    @if (soyadKontrol.errors?.['pattern']) {
+      <small>Soyad sadece harflerden oluşmalıdır.</small>
+    }
+  }
+
+
+  <label>Telefon</label>
+  <input
+    type="text"
+    [(ngModel)]="telefon"
+    name="telefon"
+    required
+    pattern="^[0-9]{10,11}$"
+    #telefonKontrol="ngModel">
+
+  @if (telefonKontrol.invalid && telefonKontrol.touched) {
+    @if (telefonKontrol.errors?.['required']) {
+      <small>Telefon alanı boş bırakılamaz.</small>
+    }
+
+    @if (telefonKontrol.errors?.['pattern']) {
+      <small>Telefon 10 veya 11 rakamdan oluşmalıdır.</small>
+    }
+  }
+
+
+  <label>E-posta</label>
+  <input
+    type="email"
+    [(ngModel)]="email"
+    name="email"
+    required
+    email
+    #emailKontrol="ngModel">
+
+  @if (emailKontrol.invalid && emailKontrol.touched) {
+    <small>Geçerli bir e-posta adresi giriniz.</small>
+  }
+
+
+  <button type="submit" [disabled]="musteriForm.invalid">
+    Kaydet
+  </button>
+
+</form>

@@ -1,0 +1,42 @@
+h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+th {
+  background: #ffc400;
+  color: #111111;
+  padding: 12px;
+  text-align: left;
+}
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+tr:hover {
+  background: #fff8d6;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 12px;
+  margin: 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,46 @@
+.forbidden-container {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forbidden-card {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  padding: 50px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.error-code {
+  font-size: 72px;
+  font-weight: bold;
+  color: #dc2626;
+  margin-bottom: 10px;
+}
+
+.forbidden-card h1 {
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.forbidden-card p {
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+.forbidden-card a {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #1f2937;
+  color: white;
+  text-decoration: none;
+  border-radius: 7px;
+}
+
+.forbidden-card a:hover {
+  opacity: 0.85;
+}
