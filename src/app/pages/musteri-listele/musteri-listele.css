@@ -12,8 +12,8 @@ p {
   color: #6b7280;
   margin: 0 0 20px;
   padding: 8px 12px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: #fffaf0;
+  border: 1px solid #f1d77a;
   border-radius: 999px;
 }
 
@@ -52,10 +52,35 @@ tr:hover td {
 }
 
 td button {
-  padding: 8px 12px;
-  margin: 2px;
+  padding: 9px 14px;
+  margin: 3px;
   border-radius: 9px;
   font-size: 13px;
+  font-weight: 750;
+  box-shadow: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+td button:first-child {
+  background: #ffe4e4;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+td button:last-child {
+  background: #fff0b3;
+  color: #7a5700;
+  border: 1px solid #f1d77a;
+}
+
+td button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(23, 32, 51, 0.12);
+  filter: brightness(0.98);
+}
+
+td button:active {
+  transform: translateY(0) scale(0.97);
 }
 
 @media (max-width: 850px) {
