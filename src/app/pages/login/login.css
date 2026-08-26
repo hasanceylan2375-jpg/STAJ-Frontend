@@ -2,10 +2,10 @@
   width: min(100%, 520px);
   margin: 8vh auto 0;
   padding: 42px;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid rgba(229, 231, 235, 0.9);
+  background: linear-gradient(145deg, #fffaf0, #fff3c7);
+  border: 1px solid #f1d77a;
   border-radius: 24px;
-  box-shadow: 0 20px 55px rgba(23, 32, 51, 0.12);
+  box-shadow: 0 20px 55px rgba(23, 32, 51, 0.12), 0 0 0 1px rgba(255, 196, 0, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -52,13 +52,26 @@
 .login-container input {
   width: 100%;
   min-height: 48px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.login-container input:hover {
+  border-color: #d9a600;
 }
 
 .login-container button {
   width: 100%;
-  min-height: 50px;
+  min-height: 52px;
   margin-top: 8px;
   font-size: 16px;
+}
+
+.login-container button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.01);
+}
+
+.login-container button:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
 }
 
 @media (max-width: 600px) {
