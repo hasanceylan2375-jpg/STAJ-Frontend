@@ -1,5 +1,4 @@
-<p>login works!</p>
-<div class="login-container">
+<section class="login-container">
   <h2>Giriş Yap</h2>
 
   <form (ngSubmit)="login()">
@@ -10,6 +9,8 @@
         type="text"
         name="kullaniciAdi"
         [(ngModel)]="kullaniciAdi"
+        placeholder="Kullanıcı adınızı girin"
+        autocomplete="username"
         required
       />
     </div>
@@ -21,10 +22,12 @@
         type="password"
         name="sifre"
         [(ngModel)]="sifre"
+        placeholder="Şifrenizi girin"
+        autocomplete="current-password"
         required
       />
     </div>
 
-    <button type="submit">Giriş Yap</button>
+    <button type="submit">Giriş Yap →</button>
   </form>
-</div>
+</section>
