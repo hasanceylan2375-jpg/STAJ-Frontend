@@ -1,42 +1,67 @@
 h2 {
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0 0 8px;
+  font-size: 30px;
+  letter-spacing: -0.03em;
 }
 
 p {
-  font-size: 18px;
-  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0 0 20px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 14px 38px rgba(23, 32, 51, 0.08);
 }
 
 th {
-  background: #ffc400;
-  color: #111111;
-  padding: 12px;
+  background: #172033;
+  color: #fff;
+  padding: 14px 16px;
   text-align: left;
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
+
 td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-tr:hover {
-  background: #fff8d6;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eef0f3;
+  color: #374151;
 }
 
-button {
-  border: none;
-  border-radius: 5px;
-  padding: 7px 12px;
+tr:last-child td {
+  border-bottom: 0;
+}
+
+tr:hover td {
+  background: #fffaf0;
+}
+
+td button {
+  padding: 8px 12px;
   margin: 2px;
-  cursor: pointer;
+  border-radius: 9px;
+  font-size: 13px;
 }
 
-button:hover {
-  opacity: 0.8;
+@media (max-width: 850px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
