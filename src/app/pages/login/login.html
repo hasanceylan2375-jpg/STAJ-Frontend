@@ -1,0 +1,30 @@
+<p>login works!</p>
+<div class="login-container">
+  <h2>Giriş Yap</h2>
+
+  <form (ngSubmit)="login()">
+    <div>
+      <label for="kullaniciAdi">Kullanıcı Adı</label>
+      <input
+        id="kullaniciAdi"
+        type="text"
+        name="kullaniciAdi"
+        [(ngModel)]="kullaniciAdi"
+        required
+      />
+    </div>
+
+    <div>
+      <label for="sifre">Şifre</label>
+      <input
+        id="sifre"
+        type="password"
+        name="sifre"
+        [(ngModel)]="sifre"
+        required
+      />
+    </div>
+
+    <button type="submit">Giriş Yap</button>
+  </form>
+</div>

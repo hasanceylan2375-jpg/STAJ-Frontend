@@ -33,6 +33,12 @@ export const routes: Routes = [
       .then(m => m.Faq)
 },
 {
+  path: 'login',
+  loadComponent: () =>
+    import('./pages/login/login')
+      .then(m => m.Login)
+},
+{
   path: 'forbidden',
   loadComponent: () =>
     import('./pages/forbidden/forbidden')
