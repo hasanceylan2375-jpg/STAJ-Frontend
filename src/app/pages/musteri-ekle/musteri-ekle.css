@@ -3,47 +3,58 @@ h2 {
   text-align: center;
   font-size: 30px;
   letter-spacing: -0.03em;
+  color: #111111;
 }
 
 form {
-  background: linear-gradient(145deg, #fffaf0, #fff3c7);
+  background: #ffffff;
   padding: 32px;
   width: 100%;
   max-width: 620px;
   margin: 0 auto;
-  border: 1px solid #f1d77a;
+  border: 1px solid #e5e7eb;
+  border-top: 7px solid #111111;
   border-radius: 22px;
-  box-shadow: 0 16px 45px rgba(23, 32, 51, 0.09);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.1);
 }
 
 label {
   display: block;
   margin: 0 0 7px;
-  font-weight: 750;
-  color: #172033;
+  font-weight: 800;
+  color: #111111;
 }
 
 input {
   width: 100%;
-  min-height: 48px;
-  padding: 12px 13px;
+  min-height: 50px;
+  padding: 12px 14px;
   margin-bottom: 5px;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #e2e2e2;
   border-radius: 10px;
   box-sizing: border-box;
+  background: #ffffff;
+  color: #111111;
   transition: 0.2s ease;
-  background: rgba(255, 255, 255, 0.88);
 }
 
 input:hover {
-  border-color: #d9a600;
+  border-color: #ffc400;
 }
 
 input:focus {
   outline: none;
-  border-color: #ffc400;
-  box-shadow: 0 0 0 4px rgba(255, 196, 0, 0.15);
-  background: #fff;
+  border-color: #111111;
+  box-shadow: 0 0 0 4px rgba(255, 196, 0, 0.2);
+  background: #ffffff;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #111111;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 9999s ease-out 0s;
 }
 
 small {
@@ -57,12 +68,18 @@ button {
   width: 100%;
   min-height: 50px;
   margin-top: 15px;
+  background: #ffc400;
+  color: #111111;
+  border: 2px solid #111111;
+  box-shadow: 0 6px 0 #111111;
 }
 
 button:hover:not(:disabled) {
   transform: translateY(-3px);
+  box-shadow: 0 9px 0 #111111;
 }
 
 button:active:not(:disabled) {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #111111;
 }
