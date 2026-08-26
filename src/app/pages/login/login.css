@@ -2,10 +2,10 @@
   width: min(100%, 520px);
   margin: 8vh auto 0;
   padding: 42px;
-  background: linear-gradient(145deg, #fffaf0, #fff3c7);
-  border: 1px solid #f1d77a;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 24px;
-  box-shadow: 0 20px 55px rgba(23, 32, 51, 0.12), 0 0 0 1px rgba(255, 196, 0, 0.08);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.12);
   position: relative;
   overflow: hidden;
 }
@@ -14,8 +14,8 @@
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 6px;
-  background: linear-gradient(90deg, #ffd21a, #ffc400, #f2b800);
+  height: 7px;
+  background: #111111;
 }
 
 .login-container h2 {
@@ -23,13 +23,14 @@
   text-align: center;
   font-size: 34px;
   letter-spacing: -0.04em;
+  color: #111111;
 }
 
 .login-container::after {
   content: "Müşteri Yönetim Sistemi";
   display: block;
   text-align: center;
-  color: #6b7280;
+  color: #777777;
   margin-bottom: 30px;
   font-size: 15px;
 }
@@ -45,18 +46,38 @@
 }
 
 .login-container label {
-  font-weight: 750;
-  color: #172033;
+  font-weight: 800;
+  color: #111111;
 }
 
 .login-container input {
   width: 100%;
-  min-height: 48px;
-  background: rgba(255, 255, 255, 0.82);
+  min-height: 50px;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: #111111;
+  border: 2px solid #e2e2e2;
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .login-container input:hover {
-  border-color: #d9a600;
+  border-color: #ffc400;
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 4px rgba(255, 196, 0, 0.22);
+  transform: translateY(-1px);
+}
+
+.login-container input:-webkit-autofill,
+.login-container input:-webkit-autofill:hover,
+.login-container input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #111111;
+  box-shadow: 0 0 0 1000px #ffffff inset, 0 0 0 4px rgba(255, 196, 0, 0.12);
+  transition: background-color 9999s ease-out 0s;
 }
 
 .login-container button {
@@ -64,14 +85,20 @@
   min-height: 52px;
   margin-top: 8px;
   font-size: 16px;
+  background: #ffc400;
+  color: #111111;
+  border: 2px solid #111111;
+  box-shadow: 0 7px 0 #111111;
 }
 
 .login-container button:hover:not(:disabled) {
-  transform: translateY(-3px) scale(1.01);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 0 #111111;
 }
 
 .login-container button:active:not(:disabled) {
-  transform: translateY(0) scale(0.99);
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #111111;
 }
 
 @media (max-width: 600px) {
