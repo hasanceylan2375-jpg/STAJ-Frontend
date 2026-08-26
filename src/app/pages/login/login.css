@@ -1,7 +1,8 @@
 .login-container {
-  width: min(100%, 520px);
+  width: min(100%, 620px);
   margin: 8vh auto 0;
-  padding: 42px;
+  padding: 42px 52px 46px;
+  box-sizing: border-box;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 24px;
@@ -19,25 +20,24 @@
 }
 
 .login-container h2 {
-  margin: 4px 0 8px;
+  margin: 8px 0 4px;
   text-align: center;
   font-size: 34px;
+  line-height: 1.2;
   letter-spacing: -0.04em;
   color: #111111;
 }
 
-.login-container::after {
-  content: "Müşteri Yönetim Sistemi";
-  display: block;
+.login-subtitle {
+  margin: 0 0 30px;
   text-align: center;
   color: #777777;
-  margin-bottom: 30px;
   font-size: 15px;
 }
 
 .login-container form {
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 .login-container form > div {
@@ -54,6 +54,7 @@
   width: 100%;
   min-height: 50px;
   padding: 12px 14px;
+  box-sizing: border-box;
   background: #ffffff;
   color: #111111;
   border: 2px solid #e2e2e2;
@@ -83,7 +84,7 @@
 .login-container button {
   width: 100%;
   min-height: 52px;
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: 16px;
   background: #ffc400;
   color: #111111;
@@ -103,7 +104,8 @@
 
 @media (max-width: 600px) {
   .login-container {
+    width: calc(100% - 32px);
     margin-top: 24px;
-    padding: 28px 22px;
+    padding: 30px 22px 34px;
   }
 }
