@@ -26,7 +26,7 @@ export class Login {
       })
       .subscribe({
         next: (response) => {
-          this.authService.login(response.accessToken);
+          this.authService.login(response.accessToken, response.refreshToken);
           this.router.navigate(['/musteri-listele']);
         },
         error: () => {
