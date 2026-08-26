@@ -6,12 +6,12 @@ h2 {
 }
 
 form {
-  background: rgba(255, 255, 255, 0.96);
+  background: linear-gradient(145deg, #fffaf0, #fff3c7);
   padding: 32px;
   width: 100%;
   max-width: 620px;
   margin: 0 auto;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #f1d77a;
   border-radius: 22px;
   box-shadow: 0 16px 45px rgba(23, 32, 51, 0.09);
 }
@@ -32,12 +32,18 @@ input {
   border-radius: 10px;
   box-sizing: border-box;
   transition: 0.2s ease;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+input:hover {
+  border-color: #d9a600;
 }
 
 input:focus {
   outline: none;
   border-color: #ffc400;
   box-shadow: 0 0 0 4px rgba(255, 196, 0, 0.15);
+  background: #fff;
 }
 
 small {
@@ -51,4 +57,12 @@ button {
   width: 100%;
   min-height: 50px;
   margin-top: 15px;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0) scale(0.99);
 }
