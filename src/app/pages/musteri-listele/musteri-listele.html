@@ -4,17 +4,20 @@
   <input type="text" [(ngModel)]="search" (keyup.enter)="ara()" placeholder="Müşteri ara...">
   <button class="ara-btn" (click)="ara()">Ara</button>
 
-  <select [(ngModel)]="sort" (change)="sirala()">
-    <option value="">Sıralama</option>
-    <option value="ad">Ad: A-Z</option>
-    <option value="ad_desc">Ad: Z-A</option>
-    <option value="soyad">Soyad: A-Z</option>
-    <option value="soyad_desc">Soyad: Z-A</option>
-    <option value="id_desc">En yeni kayıtlar</option>
-  </select>
+  <div class="siralama-kontrol">
+    <span class="siralama-ikon">↕</span>
+    <select [(ngModel)]="sort" (change)="sirala()" [class.secili]="sort !== ''">
+      <option value="">Sıralama</option>
+      <option value="ad">Ad: A-Z</option>
+      <option value="ad_desc">Ad: Z-A</option>
+      <option value="soyad">Soyad: A-Z</option>
+      <option value="soyad_desc">Soyad: Z-A</option>
+      <option value="id_desc">En yeni kayıtlar</option>
+    </select>
+  </div>
 
   @if (search || sort) {
-    <button class="temizle-btn" (click)="temizle()">Tümünü Göster</button>
+    <button class="temizle-btn" (click)="temizle()">↺ Tümünü Göster</button>
   }
 
   <button class="cursor-btn" (click)="cursorModunuDegistir()">
