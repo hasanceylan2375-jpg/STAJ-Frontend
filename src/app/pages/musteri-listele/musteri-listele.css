@@ -12,6 +12,7 @@ h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: -0.03em; color: #111111;
 .siralama-kontrol select { min-width: 165px; padding-left: 38px; cursor: pointer; font-weight: 700; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
 .siralama-kontrol:hover select { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }
 .siralama-kontrol select.secili { background: #ffc400; }
+.siralama-kontrol select option { background: #ffffff; color: #111111; }
 .siralama-ikon { position: absolute; left: 14px; z-index: 1; font-size: 18px; font-weight: 900; pointer-events: none; }
 .arama-alani button:hover, .sayfalama button:hover { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }
 .arama-alani button:active, .sayfalama button:active { transform: translateY(1px); box-shadow: 0 2px 0 #111111; }
