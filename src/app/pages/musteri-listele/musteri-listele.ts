@@ -13,6 +13,7 @@ import { ToastService } from '../../services/toast.service';
 export class MusteriListele implements OnInit {
   musteriler = signal<any[]>([]);
   search = '';
+  sort = '';
   page = 1;
   pageSize = 5;
 
@@ -21,7 +22,7 @@ export class MusteriListele implements OnInit {
   ngOnInit(): void { this.musterileriGetir(); }
 
   musterileriGetir(): void {
-    this.musteriService.getMusteriler(this.search, this.page, this.pageSize).subscribe({
+    this.musteriService.getMusteriler(this.search, this.sort, this.page, this.pageSize).subscribe({
       next: (response: any) => this.musteriler.set(response.data ?? []),
       error: (error) => {
         console.error('Müşteriler alınamadı:', error);
@@ -32,8 +33,11 @@ export class MusteriListele implements OnInit {
 
   ara(): void { this.page = 1; this.musterileriGetir(); }
 
+  sirala(): void { this.page = 1; this.musterileriGetir(); }
+
   temizle(): void {
     this.search = '';
+    this.sort = '';
     this.page = 1;
     this.musterileriGetir();
   }
