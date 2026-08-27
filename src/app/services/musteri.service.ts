@@ -15,6 +15,12 @@ export class MusteriService {
     return this.http.get<any>(this.apiUrl, { params });
   }
 
+  getMusterilerCursor(lastId: number | null = null, pageSize = 5) {
+    let params = new HttpParams().set('pageSize', pageSize);
+    if (lastId !== null) params = params.set('lastId', lastId);
+    return this.http.get<any>(`${this.apiUrl}/cursor`, { params });
+  }
+
   musteriEkle(musteri: any) { return this.http.post(this.apiUrl, musteri); }
   musteriGuncelle(id: number, musteri: any) { return this.http.put(`${this.apiUrl}/${id}`, musteri); }
   musteriSil(id: number) { return this.http.delete(`${this.apiUrl}/${id}`); }
