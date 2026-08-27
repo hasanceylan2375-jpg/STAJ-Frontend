@@ -11,7 +11,11 @@
   <a routerLink="/faq" routerLinkActive="active">?&nbsp; SSS</a>
   <a routerLink="/profile" routerLinkActive="active">♙&nbsp; Profilim</a>
 
-  <button type="button" class="logout-btn" [class.logging-out]="isLoggingOut" [disabled]="isLoggingOut" (click)="logout()">
-    {{ isLoggingOut ? '↻ Çıkış yapılıyor...' : '⇥ Çıkış Yap' }}
-  </button>
+  <button type="button" class="logout-btn" (click)="logout()">⇥&nbsp; Çıkış Yap</button>
 </div>
+
+@if (showLogoutMessage) {
+  <div class="logout-overlay">
+    <div class="logout-message">✓ Çıkış yapıldı</div>
+  </div>
+}
