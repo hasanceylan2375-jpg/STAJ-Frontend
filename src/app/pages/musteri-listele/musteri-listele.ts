@@ -13,22 +13,16 @@ import { ToastService } from '../../services/toast.service';
 export class MusteriListele implements OnInit {
   musteriler = signal<any[]>([]);
   search = '';
+  page = 1;
+  pageSize = 5;
 
-  constructor(
-    private musteriService: MusteriService,
-    private router: Router,
-    private toastService: ToastService
-  ) {}
+  constructor(private musteriService: MusteriService, private router: Router, private toastService: ToastService) {}
 
-  ngOnInit(): void {
-    this.musterileriGetir();
-  }
+  ngOnInit(): void { this.musterileriGetir(); }
 
   musterileriGetir(): void {
-    this.musteriService.getMusteriler(this.search).subscribe({
-      next: (response: any) => {
-        this.musteriler.set(response.data ?? []);
-      },
+    this.musteriService.getMusteriler(this.search, this.page, this.pageSize).subscribe({
+      next: (response: any) => this.musteriler.set(response.data ?? []),
       error: (error) => {
         console.error('Müşteriler alınamadı:', error);
         this.toastService.error(error?.error?.message || 'Müşteriler alınırken hata oluştu.');
@@ -36,28 +30,30 @@ export class MusteriListele implements OnInit {
     });
   }
 
-  ara(): void {
+  ara(): void { this.page = 1; this.musterileriGetir(); }
+
+  temizle(): void {
+    this.search = '';
+    this.page = 1;
     this.musterileriGetir();
+  }
+
+  oncekiSayfa(): void {
+    if (this.page > 1) { this.page--; this.musterileriGetir(); }
+  }
+
+  sonrakiSayfa(): void {
+    if (this.musteriler().length === this.pageSize) { this.page++; this.musterileriGetir(); }
   }
 
   musteriSil(id: number): void {
     if (confirm('Bu müşteriyi silmek istediğinize emin misiniz?')) {
       this.musteriService.musteriSil(id).subscribe({
-        next: (response: any) => {
-          this.musteriler.update(liste => liste.filter(musteri => musteri.id !== id));
-          this.toastService.success(response?.message || 'Müşteri başarıyla silindi.');
-        },
-        error: (error) => {
-          console.error('Müşteri silinemedi:', error);
-          this.toastService.error(error?.error?.message || 'Müşteri silinirken hata oluştu.');
-        }
+        next: (response: any) => { this.toastService.success(response?.message || 'Müşteri başarıyla silindi.'); this.musterileriGetir(); },
+        error: (error) => this.toastService.error(error?.error?.message || 'Müşteri silinirken hata oluştu.')
       });
     }
   }
 
-  musteriGuncelle(musteri: any): void {
-    this.router.navigate(['/musteri-ekle'], {
-      state: { musteri }
-    });
-  }
+  musteriGuncelle(musteri: any): void { this.router.navigate(['/musteri-ekle'], { state: { musteri } }); }
 }
