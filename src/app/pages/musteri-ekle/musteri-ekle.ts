@@ -16,25 +16,22 @@ export class MusteriEkle implements OnInit {
   email = '';
   guncellenenId: number | null = null;
 
-  constructor(
-    private musteriService: MusteriService,
-    private toastService: ToastService
-  ) {}
+  constructor(private musteriService: MusteriService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     const state = history.state || {};
-
     if (state.musteri) {
-      this.guncellenenId = state.musteri.id;
-      this.ad = state.musteri.ad;
-      this.soyad = state.musteri.soyad;
-      this.telefon = state.musteri.telefon;
-      this.email = state.musteri.email;
+      this.guncellenenId = Number(state.musteri.id);
+      this.ad = state.musteri.ad ?? '';
+      this.soyad = state.musteri.soyad ?? '';
+      this.telefon = state.musteri.telefon ?? '';
+      this.email = state.musteri.email ?? '';
     }
   }
 
   kaydet(): void {
     const musteri = {
+      id: this.guncellenenId ?? 0,
       ad: this.ad,
       soyad: this.soyad,
       telefon: this.telefon,
@@ -48,14 +45,19 @@ export class MusteriEkle implements OnInit {
           this.formuTemizle();
         },
         error: (error) => {
-          console.error(error);
-          this.toastService.error(error?.error?.message || 'Müşteri güncellenirken hata oluştu!');
+          console.error('Güncelleme hatası:', error);
+          this.toastService.error(error?.error?.message || `Güncelleme başarısız (${error?.status ?? 'bilinmeyen hata'}).`);
         }
       });
       return;
     }
 
-    this.musteriService.musteriEkle(musteri).subscribe({
+    this.musteriService.musteriEkle({
+      ad: this.ad,
+      soyad: this.soyad,
+      telefon: this.telefon,
+      email: this.email
+    }).subscribe({
       next: (response: any) => {
         this.toastService.success(response?.message || 'Müşteri başarıyla eklendi!');
         this.formuTemizle();
