@@ -19,9 +19,9 @@ export class MusteriListele implements OnInit {
 
   ngOnInit(): void {
     this.musteriService.getMusteriler().subscribe({
-      next: (data) => {
-        console.log('Gelen müşteriler:', data);
-        this.musteriler.set(data);
+      next: (response: any) => {
+        console.log('Gelen müşteriler:', response);
+        this.musteriler.set(response.data ?? []);
         console.log('Atandıktan sonra:', this.musteriler().length);
       },
       error: (error) => {
