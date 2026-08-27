@@ -11,16 +11,15 @@ import { AuthService } from '../../services/auth/auth.service';
 export class Sidebar {
   private authService = inject(AuthService);
   private router = inject(Router);
-  isLoggingOut = false;
+  showLogoutMessage = false;
 
   logout(): void {
-    if (this.isLoggingOut) return;
-
-    this.isLoggingOut = true;
+    this.authService.logout();
+    this.showLogoutMessage = true;
 
     setTimeout(() => {
-      this.authService.logout();
       this.router.navigate(['/']);
-    }, 900);
+      this.showLogoutMessage = false;
+    }, 1200);
   }
 }
