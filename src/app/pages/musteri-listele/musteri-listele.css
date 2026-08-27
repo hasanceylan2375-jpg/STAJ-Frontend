@@ -1,8 +1,9 @@
 h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: -0.03em; color: #111111; }
 
 .arama-alani { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
-.arama-alani input { flex: 1; max-width: 360px; padding: 12px 14px; border: 2px solid #111111; border-radius: 10px; font-size: 14px; outline: none; }
-.arama-alani input:focus { box-shadow: 4px 4px 0 #ffc400; }
+.arama-alani input, .arama-alani select { padding: 12px 14px; border: 2px solid #111111; border-radius: 10px; font-size: 14px; background: #ffffff; outline: none; }
+.arama-alani input { flex: 1; max-width: 360px; }
+.arama-alani input:focus, .arama-alani select:focus { box-shadow: 4px 4px 0 #ffc400; }
 .arama-alani button, .sayfalama button { padding: 11px 16px; border: 2px solid #111111; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
 .ara-btn { background: #ffc400; color: #111111; }
 .temizle-btn { background: #ffffff; color: #111111; }
