@@ -1,16 +1,18 @@
 import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-musteri-listele',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './musteri-listele.html',
   styleUrl: './musteri-listele.css'
 })
 export class MusteriListele implements OnInit {
   musteriler = signal<any[]>([]);
+  search = '';
 
   constructor(
     private musteriService: MusteriService,
@@ -19,7 +21,11 @@ export class MusteriListele implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.musteriService.getMusteriler().subscribe({
+    this.musterileriGetir();
+  }
+
+  musterileriGetir(): void {
+    this.musteriService.getMusteriler(this.search).subscribe({
       next: (response: any) => {
         this.musteriler.set(response.data ?? []);
       },
@@ -28,6 +34,10 @@ export class MusteriListele implements OnInit {
         this.toastService.error(error?.error?.message || 'Müşteriler alınırken hata oluştu.');
       }
     });
+  }
+
+  ara(): void {
+    this.musterileriGetir();
   }
 
   musteriSil(id: number): void {
