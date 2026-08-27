@@ -16,6 +16,10 @@ export class MusteriListele implements OnInit {
   sort = '';
   page = 1;
   pageSize = 5;
+  cursorModu = false;
+  nextCursor: number | null = null;
+  currentCursor: number | null = null;
+  cursorGecmisi: (number | null)[] = [];
 
   constructor(private musteriService: MusteriService, private router: Router, private toastService: ToastService) {}
 
@@ -31,8 +35,43 @@ export class MusteriListele implements OnInit {
     });
   }
 
-  ara(): void { this.page = 1; this.musterileriGetir(); }
+  cursorIleGetir(): void {
+    this.musteriService.getMusterilerCursor(this.currentCursor, this.pageSize).subscribe({
+      next: (response: any) => {
+        const data = response.data ?? {};
+        this.musteriler.set(data.items ?? []);
+        this.nextCursor = data.nextCursor ?? null;
+      },
+      error: (error) => {
+        console.error('Cursor pagination hatası:', error);
+        this.toastService.error(error?.error?.message || 'Müşteriler alınırken hata oluştu.');
+      }
+    });
+  }
 
+  cursorModunuDegistir(): void {
+    this.cursorModu = !this.cursorModu;
+    this.currentCursor = null;
+    this.nextCursor = null;
+    this.cursorGecmisi = [];
+    this.page = 1;
+    this.cursorModu ? this.cursorIleGetir() : this.musterileriGetir();
+  }
+
+  cursorSonraki(): void {
+    if (this.nextCursor === null || this.musteriler().length < this.pageSize) return;
+    this.cursorGecmisi.push(this.currentCursor);
+    this.currentCursor = this.nextCursor;
+    this.cursorIleGetir();
+  }
+
+  cursorOnceki(): void {
+    if (this.cursorGecmisi.length === 0) return;
+    this.currentCursor = this.cursorGecmisi.pop() ?? null;
+    this.cursorIleGetir();
+  }
+
+  ara(): void { this.page = 1; this.musterileriGetir(); }
   sirala(): void { this.page = 1; this.musterileriGetir(); }
 
   temizle(): void {
@@ -53,7 +92,10 @@ export class MusteriListele implements OnInit {
   musteriSil(id: number): void {
     if (confirm('Bu müşteriyi silmek istediğinize emin misiniz?')) {
       this.musteriService.musteriSil(id).subscribe({
-        next: (response: any) => { this.toastService.success(response?.message || 'Müşteri başarıyla silindi.'); this.musterileriGetir(); },
+        next: (response: any) => {
+          this.toastService.success(response?.message || 'Müşteri başarıyla silindi.');
+          this.cursorModu ? this.cursorIleGetir() : this.musterileriGetir();
+        },
         error: (error) => this.toastService.error(error?.error?.message || 'Müşteri silinirken hata oluştu.')
       });
     }
