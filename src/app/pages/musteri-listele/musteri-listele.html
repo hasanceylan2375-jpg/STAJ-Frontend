@@ -1,7 +1,12 @@
 <h2>Müşteri Listesi</h2>
 
 <div class="arama-alani">
-  <input type="text" [(ngModel)]="search" (keyup.enter)="ara()" placeholder="Müşteri ara...">
+  <input
+    type="text"
+    [(ngModel)]="search"
+    (ngModelChange)="aramaDegisti()"
+    (keyup.enter)="ara()"
+    placeholder="Müşteri ara...">
   <button class="ara-btn" (click)="ara()">Ara</button>
 
   <div class="siralama-kontrol">
@@ -25,7 +30,11 @@
   </button>
 </div>
 
-@if (cursorModu) {
+@if (araniyor) {
+  <p class="arama-durum">⌕ Aranıyor...</p>
+} @else if (search.trim().length > 0 && search.trim().length < 3) {
+  <p class="arama-durum">En az 3 karakter yazın</p>
+} @else if (cursorModu) {
   <p>Cursor Pagination modu aktif</p>
 } @else {
   <p>Bu sayfada {{ musteriler().length }} müşteri gösteriliyor</p>
