@@ -1,42 +1,26 @@
 <h2>Müşteri Listesi</h2>
 
 <div class="arama-alani">
-  <input
-    type="text"
-    [(ngModel)]="search"
-    (keyup.enter)="ara()"
-    placeholder="Ad veya soyad ile ara...">
-
-  <button (click)="ara()">Ara</button>
+  <input type="text" [(ngModel)]="search" (keyup.enter)="ara()" placeholder="Müşteri ara...">
+  <button class="ara-btn" (click)="ara()">Ara</button>
+  @if (search) {
+    <button class="temizle-btn" (click)="temizle()">Tümünü Göster</button>
+  }
 </div>
 
-<p>Toplam müşteri: {{ musteriler().length }}</p>
+<p>Bu sayfada {{ musteriler().length }} müşteri gösteriliyor</p>
 
 <table border="1">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Ad</th>
-      <th>Soyad</th>
-      <th>Telefon</th>
-      <th>E-posta</th>
-      <th>İşlemler</th>
-    </tr>
-  </thead>
-
+  <thead><tr><th>ID</th><th>Ad</th><th>Soyad</th><th>Telefon</th><th>E-posta</th><th>İşlemler</th></tr></thead>
   <tbody>
     @for (musteri of musteriler(); track musteri.id) {
-      <tr>
-        <td>{{ musteri.id }}</td>
-        <td>{{ musteri.ad }}</td>
-        <td>{{ musteri.soyad }}</td>
-        <td>{{ musteri.telefon }}</td>
-        <td>{{ musteri.email }}</td>
-        <td>
-          <button (click)="musteriSil(musteri.id)">Sil</button>
-          <button (click)="musteriGuncelle(musteri)">Güncelle</button>
-        </td>
-      </tr>
+      <tr><td>{{ musteri.id }}</td><td>{{ musteri.ad }}</td><td>{{ musteri.soyad }}</td><td>{{ musteri.telefon }}</td><td>{{ musteri.email }}</td><td><button (click)="musteriSil(musteri.id)">Sil</button><button (click)="musteriGuncelle(musteri)">Güncelle</button></td></tr>
     }
   </tbody>
 </table>
+
+<div class="sayfalama">
+  <button (click)="oncekiSayfa()" [disabled]="page === 1">← Önceki</button>
+  <span>Sayfa {{ page }}</span>
+  <button (click)="sonrakiSayfa()" [disabled]="musteriler().length < pageSize">Sonraki →</button>
+</div>
