@@ -1,5 +1,15 @@
 <h2>Müşteri Listesi</h2>
 
+<div class="arama-alani">
+  <input
+    type="text"
+    [(ngModel)]="search"
+    (keyup.enter)="ara()"
+    placeholder="Ad veya soyad ile ara...">
+
+  <button (click)="ara()">Ara</button>
+</div>
+
 <p>Toplam müşteri: {{ musteriler().length }}</p>
 
 <table border="1">
@@ -10,7 +20,7 @@
       <th>Soyad</th>
       <th>Telefon</th>
       <th>E-posta</th>
-<th>İşlemler</th>
+      <th>İşlemler</th>
     </tr>
   </thead>
 
@@ -22,11 +32,10 @@
         <td>{{ musteri.soyad }}</td>
         <td>{{ musteri.telefon }}</td>
         <td>{{ musteri.email }}</td>
-<td>
-  
-  <button (click)="musteriSil(musteri.id)">Sil</button>
-   <button (click)="musteriGuncelle(musteri)">Güncelle</button>
-</td>
+        <td>
+          <button (click)="musteriSil(musteri.id)">Sil</button>
+          <button (click)="musteriGuncelle(musteri)">Güncelle</button>
+        </td>
       </tr>
     }
   </tbody>
