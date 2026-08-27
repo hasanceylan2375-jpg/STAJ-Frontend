@@ -6,11 +6,12 @@ export class MusteriService {
   private apiUrl = 'https://localhost:7233/api/Musteri';
   constructor(private http: HttpClient) {}
 
-  getMusteriler(search = '', page = 1, pageSize = 5) {
+  getMusteriler(search = '', sort = '', page = 1, pageSize = 5) {
     let params = new HttpParams()
       .set('page', page)
       .set('pageSize', pageSize);
     if (search.trim()) params = params.set('search', search.trim());
+    if (sort) params = params.set('sort', sort);
     return this.http.get<any>(this.apiUrl, { params });
   }
 
