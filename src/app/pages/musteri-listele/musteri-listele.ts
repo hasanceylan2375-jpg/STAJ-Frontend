@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { MusteriService } from '../../services/musteri.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-musteri-listele',
@@ -9,23 +10,22 @@ import { MusteriService } from '../../services/musteri.service';
   styleUrl: './musteri-listele.css'
 })
 export class MusteriListele implements OnInit {
-
   musteriler = signal<any[]>([]);
 
   constructor(
     private musteriService: MusteriService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.musteriService.getMusteriler().subscribe({
       next: (response: any) => {
-        console.log('Gelen müşteriler:', response);
         this.musteriler.set(response.data ?? []);
-        console.log('Atandıktan sonra:', this.musteriler().length);
       },
       error: (error) => {
         console.error('Müşteriler alınamadı:', error);
+        this.toastService.error(error?.error?.message || 'Müşteriler alınırken hata oluştu.');
       }
     });
   }
@@ -33,15 +33,13 @@ export class MusteriListele implements OnInit {
   musteriSil(id: number): void {
     if (confirm('Bu müşteriyi silmek istediğinize emin misiniz?')) {
       this.musteriService.musteriSil(id).subscribe({
-        next: () => {
-          this.musteriler.update(
-            liste => liste.filter(musteri => musteri.id !== id)
-          );
-          alert('Müşteri silindi.');
+        next: (response: any) => {
+          this.musteriler.update(liste => liste.filter(musteri => musteri.id !== id));
+          this.toastService.success(response?.message || 'Müşteri başarıyla silindi.');
         },
         error: (error) => {
           console.error('Müşteri silinemedi:', error);
-          alert('Müşteri silinirken hata oluştu.');
+          this.toastService.error(error?.error?.message || 'Müşteri silinirken hata oluştu.');
         }
       });
     }
@@ -49,7 +47,7 @@ export class MusteriListele implements OnInit {
 
   musteriGuncelle(musteri: any): void {
     this.router.navigate(['/musteri-ekle'], {
-      state: { musteri: musteri }
+      state: { musteri }
     });
   }
 }
