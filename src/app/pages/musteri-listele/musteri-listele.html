@@ -32,7 +32,7 @@
   <thead><tr><th>ID</th><th>Ad</th><th>Soyad</th><th>Telefon</th><th>E-posta</th><th>İşlemler</th></tr></thead>
   <tbody>
     @for (musteri of musteriler(); track musteri.id) {
-      <tr><td>{{ musteri.id }}</td><td>{{ mustteri.ad }}</td><td>{{ musteri.soyad }}</td><td>{{ musteri.telefon }}</td><td>{{ musteri.email }}</td><td><button (click)="musteriSil(musteri.id)">Sil</button><button (click)="musteriGuncelle(musteri)">Güncelle</button></td></tr>
+      <tr><td>{{ musteri.id }}</td><td>{{ musteri.ad }}</td><td>{{ musteri.soyad }}</td><td>{{ musteri.telefon }}</td><td>{{ musteri.email }}</td><td><button (click)="musteriSil(musteri.id)">Sil</button><button (click)="musteriGuncelle(musteri)">Güncelle</button></td></tr>
     }
   </tbody>
 </table>
