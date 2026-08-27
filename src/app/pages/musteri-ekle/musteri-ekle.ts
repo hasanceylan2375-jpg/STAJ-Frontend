@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MusteriService } from '../../services/musteri.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-musteri-ekle',
@@ -9,28 +10,30 @@ import { MusteriService } from '../../services/musteri.service';
   styleUrl: './musteri-ekle.css'
 })
 export class MusteriEkle implements OnInit {
-
   ad = '';
   soyad = '';
   telefon = '';
   email = '';
-
   guncellenenId: number | null = null;
 
-  constructor(private musteriService: MusteriService) {}
+  constructor(
+    private musteriService: MusteriService,
+    private toastService: ToastService
+  ) {}
+
   ngOnInit(): void {
-  const state = history.state || {};
+    const state = history.state || {};
 
-if (state.musteri) {
-    this.guncellenenId = state.musteri.id;
-    this.ad = state.musteri.ad;
-    this.soyad = state.musteri.soyad;
-    this.telefon = state.musteri.telefon;
-    this.email = state.musteri.email;
+    if (state.musteri) {
+      this.guncellenenId = state.musteri.id;
+      this.ad = state.musteri.ad;
+      this.soyad = state.musteri.soyad;
+      this.telefon = state.musteri.telefon;
+      this.email = state.musteri.email;
+    }
   }
-}
-  kaydet() {
 
+  kaydet(): void {
     const musteri = {
       ad: this.ad,
       soyad: this.soyad,
@@ -38,39 +41,33 @@ if (state.musteri) {
       email: this.email
     };
 
-    // Güncelleme modu
     if (this.guncellenenId !== null) {
-
       this.musteriService.musteriGuncelle(this.guncellenenId, musteri).subscribe({
-        next: () => {
-          alert('Müşteri başarıyla güncellendi!');
-
+        next: (response: any) => {
+          this.toastService.success(response?.message || 'Müşteri başarıyla güncellendi!');
           this.formuTemizle();
         },
         error: (error) => {
           console.error(error);
-          alert('Müşteri güncellenirken hata oluştu!');
+          this.toastService.error(error?.error?.message || 'Müşteri güncellenirken hata oluştu!');
         }
       });
-
       return;
     }
 
-    // Yeni müşteri ekleme
     this.musteriService.musteriEkle(musteri).subscribe({
-      next: () => {
-        alert('Müşteri başarıyla eklendi!');
-
+      next: (response: any) => {
+        this.toastService.success(response?.message || 'Müşteri başarıyla eklendi!');
         this.formuTemizle();
       },
       error: (error) => {
         console.error(error);
-        alert('Müşteri eklenirken hata oluştu!');
+        this.toastService.error(error?.error?.message || 'Müşteri eklenirken hata oluştu!');
       }
     });
   }
 
-  formuTemizle() {
+  formuTemizle(): void {
     this.ad = '';
     this.soyad = '';
     this.telefon = '';
