@@ -22,6 +22,7 @@ export class Sidebar {
     this.selectedLanguage = language;
     localStorage.setItem('language', language);
     this.applyLanguageClass();
+    window.dispatchEvent(new CustomEvent('app-language-changed', { detail: language }));
   }
 
   private applyLanguageClass(): void {
