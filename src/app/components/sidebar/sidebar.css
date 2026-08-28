@@ -12,119 +12,20 @@
   overflow-y: auto;
 }
 
-.sidebar h2 {
-  color: #171717;
-  font-size: 23px;
-  line-height: 1.15;
-  font-weight: 850;
-  margin: 4px 10px 24px;
-  letter-spacing: -0.03em;
-}
+.sidebar h2 { color: #171717; font-size: 23px; line-height: 1.15; font-weight: 850; margin: 4px 10px 18px; letter-spacing: -0.03em; }
+.sidebar h2::after { content: ""; display: block; width: 42px; height: 4px; margin-top: 12px; border-radius: 99px; background: rgba(23, 23, 23, 0.22); }
 
-.sidebar h2::after {
-  content: "";
-  display: block;
-  width: 42px;
-  height: 4px;
-  margin-top: 12px;
-  border-radius: 99px;
-  background: rgba(23, 23, 23, 0.22);
-}
+.language-selector { display: flex; gap: 6px; margin: 0 8px 18px; }
+.language-selector button { flex: 1; padding: 8px 6px; border: 2px solid #171717; border-radius: 9px; background: rgba(255,255,255,.35); color: #171717; font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; transition: transform .18s ease, background .18s ease, color .18s ease; }
+.language-selector button:hover { transform: translateY(-2px); background: #fff; }
+.language-selector button.active-language { background: #171717; color: #fff; }
 
-.sidebar a,
-.logout-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  box-sizing: border-box;
-  color: #171717;
-  text-decoration: none;
-  padding: 12px 13px;
-  margin-bottom: 7px;
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background: transparent;
-  font: inherit;
-  font-weight: 650;
-  text-align: left;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-}
-
-.sidebar a:hover {
-  background: rgba(255, 255, 255, 0.28);
-  transform: translateX(4px);
-}
-
-.sidebar a.active {
-  background: #171717;
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(23, 23, 23, 0.18);
-}
-
-.logout-btn:hover {
-  background: #d62828;
-  color: #fff;
-  transform: translateX(4px);
-  box-shadow: 0 8px 18px rgba(120, 0, 0, 0.22);
-}
-
-.logout-btn:active {
-  transform: translateX(4px) scale(0.98);
-}
-
-.logout-overlay {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  z-index: 2000;
-  pointer-events: none;
-}
-
-.logout-message {
-  padding: 18px 30px;
-  border-radius: 16px;
-  background: #171717;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 750;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-  animation: logoutPop 0.25s ease-out;
-}
-
-@keyframes logoutPop {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@media (max-width: 900px) {
-  .sidebar {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: calc(100% - 24px);
-    height: auto;
-    margin: 12px;
-    padding: 14px;
-    border-radius: 18px;
-  }
-
-  .sidebar h2 {
-    margin-bottom: 12px;
-  }
-
-  .sidebar a,
-  .logout-btn {
-    display: inline-flex;
-    width: auto;
-    margin: 3px;
-  }
-}
+.sidebar a, .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; box-sizing: border-box; color: #171717; text-decoration: none; padding: 12px 13px; margin-bottom: 7px; border: 1px solid transparent; border-radius: 12px; background: transparent; font: inherit; font-weight: 650; text-align: left; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease; }
+.sidebar a:hover { background: rgba(255, 255, 255, 0.28); transform: translateX(4px); }
+.sidebar a.active { background: #171717; color: #fff; box-shadow: 0 8px 18px rgba(23, 23, 23, 0.18); }
+.logout-btn:hover { background: #d62828; color: #fff; transform: translateX(4px); box-shadow: 0 8px 18px rgba(120, 0, 0, 0.22); }
+.logout-btn:active { transform: translateX(4px) scale(0.98); }
+.logout-overlay { position: fixed; inset: 0; display: grid; place-items: center; z-index: 2000; pointer-events: none; }
+.logout-message { padding: 18px 30px; border-radius: 16px; background: #171717; color: #fff; font-size: 18px; font-weight: 750; box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28); animation: logoutPop 0.25s ease-out; }
+@keyframes logoutPop { from { opacity: 0; transform: scale(0.92) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@media (max-width: 900px) { .sidebar { position: relative; left: auto; top: auto; width: calc(100% - 24px); height: auto; margin: 12px; padding: 14px; border-radius: 18px; } .sidebar h2 { margin-bottom: 12px; } .sidebar a, .logout-btn { display: inline-flex; width: auto; margin: 3px; } }
