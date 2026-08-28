@@ -11,7 +11,11 @@ export class MusteriListele implements OnInit, OnDestroy {
   isEnglish = localStorage.getItem('language') === 'en-US';
   private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription;
   constructor(private musteriService:MusteriService, private router:Router, private toastService:ToastService) {}
-  @HostListener('window:app-language-changed', ['$event']) onLanguageChanged(event: CustomEvent): void { this.isEnglish = event.detail === 'en-US'; }
+  @HostListener('window:app-language-changed', ['$event'])
+  onLanguageChanged(event: Event): void {
+    const languageEvent = event as CustomEvent<string>;
+    this.isEnglish = languageEvent.detail === 'en-US';
+  }
   ngOnInit():void { this.musterileriGetir(); this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap()); }
   ngOnDestroy():void { this.aramaAboneligi?.unsubscribe(); }
   aramaDegisti():void { if(this.cursorModu)return; this.araniyor=true; this.aramaDegisimi.next(this.search); }
