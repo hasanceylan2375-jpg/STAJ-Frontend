@@ -1,26 +1,20 @@
 <div class="sidebar">
-  <h2>Müşteri Yönetimi</h2>
-
+  <h2><span class="tr-only">Müşteri Yönetimi</span><span class="en-only">Customer Management</span></h2>
   <div class="language-selector">
     <button type="button" [class.active-language]="selectedLanguage === 'tr-TR'" (click)="setLanguage('tr-TR')">🇹🇷 Türkçe</button>
     <button type="button" [class.active-language]="selectedLanguage === 'en-US'" (click)="setLanguage('en-US')">🇬🇧 English</button>
   </div>
-
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">⌂&nbsp; Ana Sayfa</a>
-  <a routerLink="/login" routerLinkActive="active">⇥&nbsp; Giriş Yap</a>
-  <a routerLink="/musteri-ekle" routerLinkActive="active">＋&nbsp; Müşteri Ekle</a>
-  <a routerLink="/musteri-listele" routerLinkActive="active">▤&nbsp; Müşteri Listele</a>
-  <a routerLink="/about" routerLinkActive="active">◎&nbsp; Hakkımızda</a>
-  <a routerLink="/contact" routerLinkActive="active">✉&nbsp; İletişim</a>
-  <a routerLink="/features" routerLinkActive="active">✦&nbsp; Özellikler</a>
-  <a routerLink="/faq" routerLinkActive="active">?&nbsp; SSS</a>
-  <a routerLink="/profile" routerLinkActive="active">♙&nbsp; Profilim</a>
-
-  <button type="button" class="logout-btn" (click)="logout()">⇥&nbsp; Çıkış Yap</button>
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="tr-only">⌂&nbsp; Ana Sayfa</span><span class="en-only">⌂&nbsp; Home</span></a>
+  <a routerLink="/login" routerLinkActive="active"><span class="tr-only">⇥&nbsp; Giriş Yap</span><span class="en-only">⇥&nbsp; Login</span></a>
+  <a routerLink="/musteri-ekle" routerLinkActive="active"><span class="tr-only">＋&nbsp; Müşteri Ekle</span><span class="en-only">＋&nbsp; Add Customer</span></a>
+  <a routerLink="/musteri-listele" routerLinkActive="active"><span class="tr-only">▤&nbsp; Müşteri Listele</span><span class="en-only">▤&nbsp; Customer List</span></a>
+  <a routerLink="/about" routerLinkActive="active"><span class="tr-only">◎&nbsp; Hakkımızda</span><span class="en-only">◎&nbsp; About Us</span></a>
+  <a routerLink="/contact" routerLinkActive="active"><span class="tr-only">✉&nbsp; İletişim</span><span class="en-only">✉&nbsp; Contact</span></a>
+  <a routerLink="/features" routerLinkActive="active"><span class="tr-only">✦&nbsp; Özellikler</span><span class="en-only">✦&nbsp; Features</span></a>
+  <a routerLink="/faq" routerLinkActive="active"><span class="tr-only">?&nbsp; SSS</span><span class="en-only">?&nbsp; FAQ</span></a>
+  <a routerLink="/profile" routerLinkActive="active"><span class="tr-only">♙&nbsp; Profilim</span><span class="en-only">♙&nbsp; My Profile</span></a>
+  <button type="button" class="logout-btn" (click)="logout()"><span class="tr-only">⇥&nbsp; Çıkış Yap</span><span class="en-only">⇥&nbsp; Logout</span></button>
 </div>
-
 @if (showLogoutMessage) {
-  <div class="logout-overlay">
-    <div class="logout-message">✓ Çıkış yapıldı</div>
-  </div>
+  <div class="logout-overlay"><div class="logout-message"><span class="tr-only">✓ Çıkış yapıldı</span><span class="en-only">✓ Logged out</span></div></div>
 }
