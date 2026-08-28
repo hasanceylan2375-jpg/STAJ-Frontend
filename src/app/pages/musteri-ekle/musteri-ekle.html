@@ -1,83 +1,25 @@
-<h2>Müşteri Ekle</h2>
-
+<h2><span class="tr-only">Müşteri Ekle</span><span class="en-only">Add Customer</span></h2>
 <form (ngSubmit)="kaydet()" #musteriForm="ngForm">
-
-  <label>Ad</label>
-  <input
-    type="text"
-    [(ngModel)]="ad"
-    name="ad"
-    required
-    pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$"
-    #adKontrol="ngModel">
-
+  <label><span class="tr-only">Ad</span><span class="en-only">First Name</span></label>
+  <input type="text" [(ngModel)]="ad" name="ad" required pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$" #adKontrol="ngModel">
   @if (adKontrol.invalid && adKontrol.touched) {
-    @if (adKontrol.errors?.['required']) {
-      <small>Ad alanı boş bırakılamaz.</small>
-    }
-
-    @if (adKontrol.errors?.['pattern']) {
-      <small>Ad sadece harflerden oluşmalıdır.</small>
-    }
+    @if (adKontrol.errors?.['required']) { <small><span class="tr-only">Ad alanı boş bırakılamaz.</span><span class="en-only">First name is required.</span></small> }
+    @if (adKontrol.errors?.['pattern']) { <small><span class="tr-only">Ad sadece harflerden oluşmalıdır.</span><span class="en-only">First name must contain letters only.</span></small> }
   }
-
-
-  <label>Soyad</label>
-  <input
-    type="text"
-    [(ngModel)]="soyad"
-    name="soyad"
-    required
-    pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$"
-    #soyadKontrol="ngModel">
-
+  <label><span class="tr-only">Soyad</span><span class="en-only">Last Name</span></label>
+  <input type="text" [(ngModel)]="soyad" name="soyad" required pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$" #soyadKontrol="ngModel">
   @if (soyadKontrol.invalid && soyadKontrol.touched) {
-    @if (soyadKontrol.errors?.['required']) {
-      <small>Soyad alanı boş bırakılamaz.</small>
-    }
-
-    @if (soyadKontrol.errors?.['pattern']) {
-      <small>Soyad sadece harflerden oluşmalıdır.</small>
-    }
+    @if (soyadKontrol.errors?.['required']) { <small><span class="tr-only">Soyad alanı boş bırakılamaz.</span><span class="en-only">Last name is required.</span></small> }
+    @if (soyadKontrol.errors?.['pattern']) { <small><span class="tr-only">Soyad sadece harflerden oluşmalıdır.</span><span class="en-only">Last name must contain letters only.</span></small> }
   }
-
-
-  <label>Telefon</label>
-  <input
-    type="text"
-    [(ngModel)]="telefon"
-    name="telefon"
-    required
-    pattern="^[0-9]{10,11}$"
-    #telefonKontrol="ngModel">
-
+  <label><span class="tr-only">Telefon</span><span class="en-only">Phone</span></label>
+  <input type="text" [(ngModel)]="telefon" name="telefon" required pattern="^[0-9]{10,11}$" #telefonKontrol="ngModel">
   @if (telefonKontrol.invalid && telefonKontrol.touched) {
-    @if (telefonKontrol.errors?.['required']) {
-      <small>Telefon alanı boş bırakılamaz.</small>
-    }
-
-    @if (telefonKontrol.errors?.['pattern']) {
-      <small>Telefon 10 veya 11 rakamdan oluşmalıdır.</small>
-    }
+    @if (telefonKontrol.errors?.['required']) { <small><span class="tr-only">Telefon alanı boş bırakılamaz.</span><span class="en-only">Phone is required.</span></small> }
+    @if (telefonKontrol.errors?.['pattern']) { <small><span class="tr-only">Telefon 10 veya 11 rakamdan oluşmalıdır.</span><span class="en-only">Phone must contain 10 or 11 digits.</span></small> }
   }
-
-
-  <label>E-posta</label>
-  <input
-    type="email"
-    [(ngModel)]="email"
-    name="email"
-    required
-    email
-    #emailKontrol="ngModel">
-
-  @if (emailKontrol.invalid && emailKontrol.touched) {
-    <small>Geçerli bir e-posta adresi giriniz.</small>
-  }
-
-
-  <button type="submit" [disabled]="musteriForm.invalid">
-    Kaydet
-  </button>
-
+  <label><span class="tr-only">E-posta</span><span class="en-only">Email</span></label>
+  <input type="email" [(ngModel)]="email" name="email" required email #emailKontrol="ngModel">
+  @if (emailKontrol.invalid && emailKontrol.touched) { <small><span class="tr-only">Geçerli bir e-posta adresi giriniz.</span><span class="en-only">Please enter a valid email address.</span></small> }
+  <button type="submit" [disabled]="musteriForm.invalid"><span class="tr-only">Kaydet</span><span class="en-only">Save</span></button>
 </form>
