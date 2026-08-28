@@ -1,6 +1,11 @@
 <div class="sidebar">
   <h2>Müşteri Yönetimi</h2>
 
+  <div class="language-selector">
+    <button type="button" [class.active-language]="selectedLanguage === 'tr-TR'" (click)="setLanguage('tr-TR')">🇹🇷 Türkçe</button>
+    <button type="button" [class.active-language]="selectedLanguage === 'en-US'" (click)="setLanguage('en-US')">🇬🇧 English</button>
+  </div>
+
   <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">⌂&nbsp; Ana Sayfa</a>
   <a routerLink="/login" routerLinkActive="active">⇥&nbsp; Giriş Yap</a>
   <a routerLink="/musteri-ekle" routerLinkActive="active">＋&nbsp; Müşteri Ekle</a>
