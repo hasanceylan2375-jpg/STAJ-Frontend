@@ -14,9 +14,19 @@ export class Sidebar {
   showLogoutMessage = false;
   selectedLanguage = localStorage.getItem('language') ?? 'tr-TR';
 
+  constructor() {
+    this.applyLanguageClass();
+  }
+
   setLanguage(language: string): void {
     this.selectedLanguage = language;
     localStorage.setItem('language', language);
+    this.applyLanguageClass();
+  }
+
+  private applyLanguageClass(): void {
+    document.documentElement.classList.toggle('lang-en', this.selectedLanguage === 'en-US');
+    document.documentElement.classList.toggle('lang-tr', this.selectedLanguage !== 'en-US');
   }
 
   logout(): void {
