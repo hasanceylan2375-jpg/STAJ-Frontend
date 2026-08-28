@@ -12,16 +12,19 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
 
   const token = authService.getToken();
+  const language = localStorage.getItem('language') ?? 'tr-TR';
 
   loadingService.show();
 
+  const headers: Record<string, string> = {
+    'Accept-Language': language
+  };
+
   if (token) {
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    headers['Authorization'] = `Bearer ${token}`;
   }
+
+  req = req.clone({ setHeaders: headers });
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -32,10 +35,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         return authService.refreshAccessToken().pipe(
           switchMap(() => {
             const newToken = authService.getToken();
-
             const retryRequest = req.clone({
               setHeaders: {
-                Authorization: `Bearer ${newToken}`
+                Authorization: `Bearer ${newToken}`,
+                'Accept-Language': language
               }
             });
 
