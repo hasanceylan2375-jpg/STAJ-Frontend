@@ -12,6 +12,12 @@ export class Sidebar {
   private authService = inject(AuthService);
   private router = inject(Router);
   showLogoutMessage = false;
+  selectedLanguage = localStorage.getItem('language') ?? 'tr-TR';
+
+  setLanguage(language: string): void {
+    this.selectedLanguage = language;
+    localStorage.setItem('language', language);
+  }
 
   logout(): void {
     this.authService.logout();
