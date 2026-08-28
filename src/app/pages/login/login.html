@@ -1,34 +1,15 @@
 <section class="login-container">
-  <h2>Giriş Yap</h2>
-  <p class="login-subtitle">Müşteri Yönetim Sistemi</p>
-
+  <h2><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></h2>
+  <p class="login-subtitle"><span class="tr-only">Müşteri Yönetim Sistemi</span><span class="en-only">Customer Management System</span></p>
   <form (ngSubmit)="login()">
     <div>
-      <label for="kullaniciAdi">Kullanıcı Adı</label>
-      <input
-        id="kullaniciAdi"
-        type="text"
-        name="kullaniciAdi"
-        [(ngModel)]="kullaniciAdi"
-        placeholder="Kullanıcı adınızı girin"
-        autocomplete="username"
-        required
-      />
+      <label for="kullaniciAdi"><span class="tr-only">Kullanıcı Adı</span><span class="en-only">Username</span></label>
+      <input id="kullaniciAdi" type="text" name="kullaniciAdi" [(ngModel)]="kullaniciAdi" [placeholder]="isEnglish ? 'Enter your username' : 'Kullanıcı adınızı girin'" autocomplete="username" required />
     </div>
-
     <div>
-      <label for="sifre">Şifre</label>
-      <input
-        id="sifre"
-        type="password"
-        name="sifre"
-        [(ngModel)]="sifre"
-        placeholder="Şifrenizi girin"
-        autocomplete="current-password"
-        required
-      />
+      <label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label>
+      <input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" [placeholder]="isEnglish ? 'Enter your password' : 'Şifrenizi girin'" autocomplete="current-password" required />
     </div>
-
-    <button type="submit">Giriş Yap →</button>
+    <button type="submit"><span class="tr-only">Giriş Yap →</span><span class="en-only">Login →</span></button>
   </form>
 </section>
