@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime } from 'rxjs';
@@ -8,9 +8,10 @@ import { ToastService } from '../../services/toast.service';
 @Component({ selector:'app-musteri-listele', imports:[FormsModule], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
 export class MusteriListele implements OnInit, OnDestroy {
   musteriler = signal<any[]>([]); search=''; sort=''; page=1; pageSize=5; cursorModu=false; nextCursor:number|null=null; currentCursor:number|null=null; cursorGecmisi:(number|null)[]=[]; araniyor=false;
-  get isEnglish(): boolean { return localStorage.getItem('language') === 'en-US'; }
+  isEnglish = localStorage.getItem('language') === 'en-US';
   private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription;
   constructor(private musteriService:MusteriService, private router:Router, private toastService:ToastService) {}
+  @HostListener('window:app-language-changed', ['$event']) onLanguageChanged(event: CustomEvent): void { this.isEnglish = event.detail === 'en-US'; }
   ngOnInit():void { this.musterileriGetir(); this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap()); }
   ngOnDestroy():void { this.aramaAboneligi?.unsubscribe(); }
   aramaDegisti():void { if(this.cursorModu)return; this.araniyor=true; this.aramaDegisimi.next(this.search); }
