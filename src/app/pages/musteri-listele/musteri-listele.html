@@ -1,20 +1,20 @@
 <h2><span class="tr-only">Müşteri Listesi</span><span class="en-only">Customer List</span></h2>
 <div class="arama-alani">
-  <input type="text" [(ngModel)]="search" (ngModelChange)="aramaDegisti()" (keyup.enter)="ara()" [placeholder]="'Müşteri ara...'">
+  <input type="text" [(ngModel)]="search" (ngModelChange)="aramaDegisti()" (keyup.enter)="ara()" [placeholder]="isEnglish ? 'Search customer...' : 'Müşteri ara...'">
   <button class="ara-btn" (click)="ara()"><span class="tr-only">Ara</span><span class="en-only">Search</span></button>
   <div class="siralama-kontrol">
     <span class="siralama-ikon">↕</span>
     <select [(ngModel)]="sort" (change)="sirala()" [class.secili]="sort !== ''">
-      <option value=""><span class="tr-only">Sıralama</span><span class="en-only">Sort</span></option>
-      <option value="ad"><span class="tr-only">Ad: A-Z</span><span class="en-only">First Name: A-Z</span></option>
-      <option value="ad_desc"><span class="tr-only">Ad: Z-A</span><span class="en-only">First Name: Z-A</span></option>
-      <option value="soyad"><span class="tr-only">Soyad: A-Z</span><span class="en-only">Last Name: A-Z</span></option>
-      <option value="soyad_desc"><span class="tr-only">Soyad: Z-A</span><span class="en-only">Last Name: Z-A</span></option>
-      <option value="id_desc"><span class="tr-only">En yeni kayıtlar</span><span class="en-only">Newest records</span></option>
+      <option value="">{{ isEnglish ? 'Sort' : 'Sıralama' }}</option>
+      <option value="ad">{{ isEnglish ? 'First Name: A-Z' : 'Ad: A-Z' }}</option>
+      <option value="ad_desc">{{ isEnglish ? 'First Name: Z-A' : 'Ad: Z-A' }}</option>
+      <option value="soyad">{{ isEnglish ? 'Last Name: A-Z' : 'Soyad: A-Z' }}</option>
+      <option value="soyad_desc">{{ isEnglish ? 'Last Name: Z-A' : 'Soyad: Z-A' }}</option>
+      <option value="id_desc">{{ isEnglish ? 'Newest records' : 'En yeni kayıtlar' }}</option>
     </select>
   </div>
   @if (search || sort) { <button class="temizle-btn" (click)="temizle()">↺ <span class="tr-only">Tümünü Göster</span><span class="en-only">Show All</span></button> }
-  <button class="cursor-btn" (click)="cursorModunuDegistir()">{{ cursorModu ? 'Normal Sayfalama' : 'Cursor Sayfalama' }}</button>
+  <button class="cursor-btn" (click)="cursorModunuDegistir()">{{ cursorModu ? (isEnglish ? 'Normal Pagination' : 'Normal Sayfalama') : (isEnglish ? 'Cursor Pagination' : 'Cursor Sayfalama') }}</button>
 </div>
 @if (araniyor) { <p class="arama-durum">⌕ <span class="tr-only">Aranıyor...</span><span class="en-only">Searching...</span></p> }
 @else if (search.trim().length > 0 && search.trim().length < 3) { <p class="arama-durum"><span class="tr-only">En az 3 karakter yazın</span><span class="en-only">Enter at least 3 characters</span></p> }
