@@ -12,12 +12,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
 
   const token = authService.getToken();
-  const language = localStorage.getItem('language') ?? 'tr-TR';
+  const currentLanguage = () => localStorage.getItem('language') ?? 'tr-TR';
 
   loadingService.show();
 
   const headers: Record<string, string> = {
-    'Accept-Language': language
+    'Accept-Language': currentLanguage()
   };
 
   if (token) {
@@ -38,7 +38,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             const retryRequest = req.clone({
               setHeaders: {
                 Authorization: `Bearer ${newToken}`,
-                'Accept-Language': language
+                'Accept-Language': currentLanguage()
               }
             });
 
