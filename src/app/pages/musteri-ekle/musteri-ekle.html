@@ -4,9 +4,9 @@
   <label><span class="tr-only">Soyad</span><span class="en-only">Last Name</span></label><input type="text" [(ngModel)]="soyad" name="soyad" required pattern="^[a-zA-ZçÇğĞıİöÖşŞüÜ\s]+$">
   <label><span class="tr-only">Telefon</span><span class="en-only">Phone</span></label><input type="text" [(ngModel)]="telefon" name="telefon" required pattern="^[0-9]{10,11}$">
   <label><span class="tr-only">E-posta</span><span class="en-only">Email</span></label><input type="email" [(ngModel)]="email" name="email" required email>
-  <label><span class="tr-only">T.C. Kimlik No</span><span class="en-only">Turkish ID Number</span></label><input type="text" [(ngModel)]="tcKimlikNo" name="tcKimlikNo" required maxlength="11" inputmode="numeric" pattern="[0-9]{11}">
+  <label><span class="tr-only">T.C. Kimlik No</span><span class="en-only">Turkish ID Number</span></label><input type="text" [(ngModel)]="tcKimlikNo" name="tcKimlikNo" required maxlength="11" inputmode="numeric" pattern="^[0-9]{11}$">
   <label><span class="tr-only">Doğum Tarihi</span><span class="en-only">Birth Date</span></label><div class="date-input-wrapper"><input type="date" [(ngModel)]="dogumTarihi" name="dogumTarihi" [max]="maxDogumTarihi"></div>
   @if (dogumTarihi && dogumTarihi > maxDogumTarihi) { <small><span class="tr-only">Müşteri en az 18 yaşında olmalıdır.</span><span class="en-only">Customer must be at least 18 years old.</span></small> }
   <label><span class="tr-only">Profil Fotoğrafı (İsteğe bağlı)</span><span class="en-only">Profile Photo (Optional)</span></label><input type="file" accept="image/png,image/jpeg,image/webp" (change)="fotografSec($event)">
-  <button type="submit" [disabled]="musteriForm.invalid || (dogumTarihi && dogumTarihi > maxDogumTarihi)"><span class="tr-only">Kaydet</span><span class="en-only">Save</span></button>
+  <button type="submit" [disabled]="!musteriForm.valid || (dogumTarihi && dogumTarihi > maxDogumTarihi)"><span class="tr-only">Kaydet</span><span class="en-only">Save</span></button>
 </form>
