@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -18,7 +19,11 @@ export class MusteriEkle implements OnInit {
   secilenDosya: File | null = null;
   guncellenenId: number | null = null;
 
-  constructor(private musteriService: MusteriService, private toastService: ToastService) {}
+  constructor(
+    private musteriService: MusteriService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const state = history.state || {};
@@ -80,6 +85,7 @@ export class MusteriEkle implements OnInit {
       next: (response: any) => {
         this.toastService.success(response?.message || 'Müşteri başarıyla eklendi!');
         this.formuTemizle();
+        this.router.navigate(['/musteri-listele']);
       },
       error: (error) => {
         console.error(error);
