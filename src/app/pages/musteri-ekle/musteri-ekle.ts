@@ -66,7 +66,9 @@ export class MusteriEkle implements OnInit {
       soyad: this.soyad,
       telefon: this.telefon,
       email: this.email,
-      dogumTarihi: this.dogumTarihi || null,
+      dogumTarihi: this.dogumTarihi
+  ? `${this.dogumTarihi}T00:00:00Z`
+  : null,
       profilFotoUrl: this.profilFotoUrl
     };
 
