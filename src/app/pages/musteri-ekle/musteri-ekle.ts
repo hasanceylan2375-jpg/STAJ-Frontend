@@ -14,6 +14,8 @@ export class MusteriEkle implements OnInit {
   soyad = '';
   telefon = '';
   email = '';
+  profilFotoUrl: string | null = null;
+  secilenDosya: File | null = null;
   guncellenenId: number | null = null;
 
   constructor(private musteriService: MusteriService, private toastService: ToastService) {}
@@ -26,16 +28,38 @@ export class MusteriEkle implements OnInit {
       this.soyad = state.musteri.soyad ?? '';
       this.telefon = state.musteri.telefon ?? '';
       this.email = state.musteri.email ?? '';
+      this.profilFotoUrl = state.musteri.profilFotoUrl ?? null;
     }
   }
 
+  fotografSec(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.secilenDosya = input.files?.[0] ?? null;
+  }
+
   kaydet(): void {
+    if (this.secilenDosya) {
+      this.musteriService.fotografYukle(this.secilenDosya).subscribe({
+        next: (response) => {
+          this.profilFotoUrl = response.url;
+          this.musteriyiKaydet();
+        },
+        error: () => this.toastService.error('Fotoğraf yüklenirken hata oluştu!')
+      });
+      return;
+    }
+
+    this.musteriyiKaydet();
+  }
+
+  private musteriyiKaydet(): void {
     const musteri = {
       id: this.guncellenenId ?? 0,
       ad: this.ad,
       soyad: this.soyad,
       telefon: this.telefon,
-      email: this.email
+      email: this.email,
+      profilFotoUrl: this.profilFotoUrl
     };
 
     if (this.guncellenenId !== null) {
@@ -52,12 +76,7 @@ export class MusteriEkle implements OnInit {
       return;
     }
 
-    this.musteriService.musteriEkle({
-      ad: this.ad,
-      soyad: this.soyad,
-      telefon: this.telefon,
-      email: this.email
-    }).subscribe({
+    this.musteriService.musteriEkle(musteri).subscribe({
       next: (response: any) => {
         this.toastService.success(response?.message || 'Müşteri başarıyla eklendi!');
         this.formuTemizle();
@@ -74,6 +93,8 @@ export class MusteriEkle implements OnInit {
     this.soyad = '';
     this.telefon = '';
     this.email = '';
+    this.profilFotoUrl = null;
+    this.secilenDosya = null;
     this.guncellenenId = null;
   }
 }
