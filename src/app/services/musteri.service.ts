@@ -28,6 +28,12 @@ export class MusteriService {
     return this.http.get(`${this.apiUrl}/excel`, { params, responseType: 'blob' });
   }
 
+  fotografYukle(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${this.apiUrl}/fotoğraf`, formData);
+  }
+
   musteriEkle(musteri: any) { return this.http.post(this.apiUrl, musteri); }
   musteriGuncelle(id: number, musteri: any) { return this.http.put(`${this.apiUrl}/${id}`, musteri); }
   musteriSil(id: number) { return this.http.delete(`${this.apiUrl}/${id}`); }
