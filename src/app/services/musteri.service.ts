@@ -21,6 +21,13 @@ export class MusteriService {
     return this.http.get<any>(`${this.apiUrl}/cursor`, { params });
   }
 
+  excelAktar(search = '', sort = '') {
+    let params = new HttpParams();
+    if (search.trim()) params = params.set('search', search.trim());
+    if (sort) params = params.set('sort', sort);
+    return this.http.get(`${this.apiUrl}/excel`, { params, responseType: 'blob' });
+  }
+
   musteriEkle(musteri: any) { return this.http.post(this.apiUrl, musteri); }
   musteriGuncelle(id: number, musteri: any) { return this.http.put(`${this.apiUrl}/${id}`, musteri); }
   musteriSil(id: number) { return this.http.delete(`${this.apiUrl}/${id}`); }
