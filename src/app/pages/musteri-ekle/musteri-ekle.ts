@@ -15,6 +15,7 @@ export class MusteriEkle implements OnInit {
   soyad = '';
   telefon = '';
   email = '';
+  dogumTarihi = '';
   profilFotoUrl: string | null = null;
   secilenDosya: File | null = null;
   guncellenenId: number | null = null;
@@ -33,6 +34,7 @@ export class MusteriEkle implements OnInit {
       this.soyad = state.musteri.soyad ?? '';
       this.telefon = state.musteri.telefon ?? '';
       this.email = state.musteri.email ?? '';
+      this.dogumTarihi = state.musteri.dogumTarihi ? state.musteri.dogumTarihi.substring(0, 10) : '';
       this.profilFotoUrl = state.musteri.profilFotoUrl ?? null;
     }
   }
@@ -64,6 +66,7 @@ export class MusteriEkle implements OnInit {
       soyad: this.soyad,
       telefon: this.telefon,
       email: this.email,
+      dogumTarihi: this.dogumTarihi || null,
       profilFotoUrl: this.profilFotoUrl
     };
 
@@ -99,6 +102,7 @@ export class MusteriEkle implements OnInit {
     this.soyad = '';
     this.telefon = '';
     this.email = '';
+    this.dogumTarihi = '';
     this.profilFotoUrl = null;
     this.secilenDosya = null;
     this.guncellenenId = null;
