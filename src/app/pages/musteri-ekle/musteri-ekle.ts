@@ -16,6 +16,7 @@ export class MusteriEkle implements OnInit {
   telefon = '';
   email = '';
   dogumTarihi = '';
+  maxDogumTarihi = this.onSekizYasSiniri();
   profilFotoUrl: string | null = null;
   secilenDosya: File | null = null;
   guncellenenId: number | null = null;
@@ -37,6 +38,12 @@ export class MusteriEkle implements OnInit {
       this.dogumTarihi = state.musteri.dogumTarihi ? state.musteri.dogumTarihi.substring(0, 10) : '';
       this.profilFotoUrl = state.musteri.profilFotoUrl ?? null;
     }
+  }
+
+  private onSekizYasSiniri(): string {
+    const tarih = new Date();
+    tarih.setFullYear(tarih.getFullYear() - 18);
+    return tarih.toISOString().split('T')[0];
   }
 
   fotografSec(event: Event): void {
@@ -66,7 +73,9 @@ export class MusteriEkle implements OnInit {
       soyad: this.soyad,
       telefon: this.telefon,
       email: this.email,
-      dogumTarihi: this.dogumTarihi || null,
+      dogumTarihi: this.dogumTarihi
+        ? `${this.dogumTarihi}T00:00:00Z`
+        : null,
       profilFotoUrl: this.profilFotoUrl
     };
 
@@ -77,8 +86,7 @@ export class MusteriEkle implements OnInit {
           this.formuTemizle();
         },
         error: (error) => {
-          console.error('Güncelleme hatası:', error);
-          this.toastService.error(error?.error?.message || `Güncelleme başarısız (${error?.status ?? 'bilinmeyen hata'}).`);
+          this.toastService.error(error?.error?.message || 'Güncelleme başarısız!');
         }
       });
       return;
@@ -91,7 +99,6 @@ export class MusteriEkle implements OnInit {
         this.router.navigate(['/musteri-listele']);
       },
       error: (error) => {
-        console.error(error);
         this.toastService.error(error?.error?.message || 'Müşteri eklenirken hata oluştu!');
       }
     });
