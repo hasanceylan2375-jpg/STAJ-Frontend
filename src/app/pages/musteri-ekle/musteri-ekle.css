@@ -49,6 +49,23 @@ input:focus {
   background: #ffffff;
 }
 
+.date-input-wrapper {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+input[type="date"] {
+  margin-bottom: 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
