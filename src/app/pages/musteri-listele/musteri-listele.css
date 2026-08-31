@@ -1,39 +1,15 @@
 h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: -0.03em; color: #111111; }
-
 .arama-alani { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
 .arama-alani input, .arama-alani select { padding: 12px 14px; border: 2px solid #111111; border-radius: 10px; font-size: 14px; background: #ffffff; outline: none; }
 .arama-alani input { flex: 1; max-width: 360px; }
 .arama-alani input:focus, .arama-alani select:focus { box-shadow: 4px 4px 0 #ffc400; }
 .arama-alani button, .sayfalama button { padding: 11px 16px; border: 2px solid #111111; border-radius: 10px; font-weight: 800; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
-.ara-btn { background: #ffc400; color: #111111; }
-.temizle-btn { background: #ffffff; color: #111111; }
-.cursor-btn { background: #111111; color: #ffffff; }
-.siralama-kontrol { position: relative; display: flex; align-items: center; }
-.siralama-kontrol select { min-width: 165px; padding-left: 38px; cursor: pointer; font-weight: 700; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-.siralama-kontrol:hover select { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }
-.siralama-kontrol select.secili { background: #ffc400; }
-.siralama-kontrol select option { background: #ffffff; color: #111111; }
-.siralama-ikon { position: absolute; left: 14px; z-index: 1; font-size: 18px; font-weight: 900; pointer-events: none; }
-.arama-alani button:hover, .sayfalama button:hover { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }
-.arama-alani button:active, .sayfalama button:active { transform: translateY(1px); box-shadow: 0 2px 0 #111111; }
-button:disabled { opacity: .45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
-
+.ara-btn { background: #ffc400; color: #111111; }.temizle-btn { background: #ffffff; color: #111111; }.cursor-btn { background: #111111; color: #ffffff; }
+.siralama-kontrol { position: relative; display: flex; align-items: center; }.siralama-kontrol select { min-width: 165px; padding-left: 38px; cursor: pointer; font-weight: 700; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }.siralama-kontrol:hover select { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }.siralama-kontrol select.secili { background: #ffc400; }.siralama-kontrol select option { background: #ffffff; color: #111111; }.siralama-ikon { position: absolute; left: 14px; z-index: 1; font-size: 18px; font-weight: 900; pointer-events: none; }
+.arama-alani button:hover, .sayfalama button:hover { transform: translateY(-2px); box-shadow: 0 5px 0 #111111; }.arama-alani button:active, .sayfalama button:active { transform: translateY(1px); box-shadow: 0 2px 0 #111111; }button:disabled { opacity: .45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 p { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; color: #555555; margin: 0 0 20px; padding: 8px 12px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 999px; }
-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; background: #ffffff; border: 1px solid #dddddd; border-radius: 18px; box-shadow: 0 14px 38px rgba(0, 0, 0, 0.09); }
-th { background: #111111; color: #ffffff; padding: 15px 16px; text-align: left; font-size: 13px; letter-spacing: 0.02em; }
-td { padding: 14px 16px; border-bottom: 1px solid #eeeeee; color: #333333; background: #ffffff; }
-tr:last-child td { border-bottom: 0; }
-tr:hover td { background: #fff9df; }
-.avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #ffc400; color: #111111; border: 2px solid #111111; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; }
-td button { padding: 9px 14px; margin: 3px; border-radius: 9px; font-size: 13px; font-weight: 800; transition: transform .18s ease, box-shadow .18s ease; }
-td button:first-child { background: #111111; color: #ffffff; border: 2px solid #111111; }
-td button:last-child { background: #ffc400; color: #111111; border: 2px solid #111111; }
-td button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #111111; }
-td button:active { transform: translateY(2px); box-shadow: 0 2px 0 #111111; }
-
-.sayfalama { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 22px; }
-.sayfalama span { font-weight: 800; color: #333333; }
-.sayfalama button { background: #ffffff; color: #111111; }
-.sayfalama button:last-child { background: #ffc400; }
-
+table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; background: #ffffff; border: 1px solid #dddddd; border-radius: 18px; box-shadow: 0 14px 38px rgba(0, 0, 0, 0.09); }th { background: #111111; color: #ffffff; padding: 15px 16px; text-align: left; font-size: 13px; letter-spacing: 0.02em; }td { padding: 14px 16px; border-bottom: 1px solid #eeeeee; color: #333333; background: #ffffff; }tr:last-child td { border-bottom: 0; }tr:hover td { background: #fff9df; }
+.avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #ffc400; color: #111111; border: 2px solid #111111; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; }.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+td button { padding: 9px 14px; margin: 3px; border-radius: 9px; font-size: 13px; font-weight: 800; transition: transform .18s ease, box-shadow .18s ease; }td button:first-child { background: #111111; color: #ffffff; border: 2px solid #111111; }td button:last-child { background: #ffc400; color: #111111; border: 2px solid #111111; }td button:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #111111; }td button:active { transform: translateY(2px); box-shadow: 0 2px 0 #111111; }
+.sayfalama { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 22px; }.sayfalama span { font-weight: 800; color: #333333; }.sayfalama button { background: #ffffff; color: #111111; }.sayfalama button:last-child { background: #ffc400; }
 @media (max-width: 850px) { table { display: block; overflow-x: auto; white-space: nowrap; } .arama-alani { flex-wrap: wrap; } .arama-alani input { max-width: none; width: 100%; } }
