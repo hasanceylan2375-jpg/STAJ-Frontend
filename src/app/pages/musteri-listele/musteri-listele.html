@@ -2,17 +2,7 @@
 <div class="arama-alani">
   <input type="text" [(ngModel)]="search" (ngModelChange)="aramaDegisti()" (keyup.enter)="ara()" [placeholder]="isEnglish ? 'Search customer...' : 'Müşteri ara...'">
   <button class="ara-btn" (click)="ara()"><span class="tr-only">Ara</span><span class="en-only">Search</span></button>
-  <div class="siralama-kontrol">
-    <span class="siralama-ikon">↕</span>
-    <select [(ngModel)]="sort" (change)="sirala()" [class.secili]="sort !== ''">
-      <option value="">{{ isEnglish ? 'Sort' : 'Sıralama' }}</option>
-      <option value="ad">{{ isEnglish ? 'First Name: A-Z' : 'Ad: A-Z' }}</option>
-      <option value="ad_desc">{{ isEnglish ? 'First Name: Z-A' : 'Ad: Z-A' }}</option>
-      <option value="soyad">{{ isEnglish ? 'Last Name: A-Z' : 'Soyad: A-Z' }}</option>
-      <option value="soyad_desc">{{ isEnglish ? 'Last Name: Z-A' : 'Soyad: Z-A' }}</option>
-      <option value="id_desc">{{ isEnglish ? 'Newest records' : 'En yeni kayıtlar' }}</option>
-    </select>
-  </div>
+  <div class="siralama-kontrol"><span class="siralama-ikon">↕</span><select [(ngModel)]="sort" (change)="sirala()" [class.secili]="sort !== ''"><option value="">{{ isEnglish ? 'Sort' : 'Sıralama' }}</option><option value="ad">{{ isEnglish ? 'First Name: A-Z' : 'Ad: A-Z' }}</option><option value="ad_desc">{{ isEnglish ? 'First Name: Z-A' : 'Ad: Z-A' }}</option><option value="soyad">{{ isEnglish ? 'Last Name: A-Z' : 'Soyad: A-Z' }}</option><option value="soyad_desc">{{ isEnglish ? 'Last Name: Z-A' : 'Soyad: Z-A' }}</option><option value="id_desc">{{ isEnglish ? 'Newest records' : 'En yeni kayıtlar' }}</option></select></div>
   @if (search || sort) { <button class="temizle-btn" (click)="temizle()">↺ <span class="tr-only">Tümünü Göster</span><span class="en-only">Show All</span></button> }
   <button class="cursor-btn" (click)="cursorModunuDegistir()">{{ cursorModu ? (isEnglish ? 'Normal Pagination' : 'Normal Sayfalama') : (isEnglish ? 'Cursor Pagination' : 'Cursor Sayfalama') }}</button>
   <button class="excel-btn" (click)="excelAktar()">📊 {{ isEnglish ? 'Export to Excel' : 'Excel’e Aktar' }}</button>
@@ -22,6 +12,6 @@
 @else if (cursorModu) { <p><span class="tr-only">Cursor Pagination modu aktif</span><span class="en-only">Cursor Pagination mode is active</span></p> }
 @else { <p><span class="tr-only">Bu sayfada {{ musteriler().length }} müşteri gösteriliyor</span><span class="en-only">{{ musteriler().length }} customers are shown on this page</span></p> }
 <table border="1"><thead><tr><th><span class="tr-only">Profil</span><span class="en-only">Profile</span></th><th>ID</th><th><span class="tr-only">Ad</span><span class="en-only">First Name</span></th><th><span class="tr-only">Soyad</span><span class="en-only">Last Name</span></th><th><span class="tr-only">Telefon</span><span class="en-only">Phone</span></th><th>E-mail</th><th><span class="tr-only">İşlemler</span><span class="en-only">Actions</span></th></tr></thead>
-<tbody>@for (musteri of musteriler(); track musteri.id) { <tr><td><div class="avatar" [title]="musteri.ad + ' ' + musteri.soyad">{{ musteri.ad.charAt(0) }}{{ musteri.soyad.charAt(0) }}</div></td><td>{{ musteri.id }}</td><td>{{ musteri.ad }}</td><td>{{ musteri.soyad }}</td><td>{{ musteri.telefon }}</td><td>{{ musteri.email }}</td><td><button (click)="musteriSil(musteri.id)"><span class="tr-only">Sil</span><span class="en-only">Delete</span></button><button (click)="musteriGuncelle(musteri)"><span class="tr-only">Güncelle</span><span class="en-only">Update</span></button></td></tr> }</tbody></table>
+<tbody>@for (musteri of musteriler(); track musteri.id) { <tr><td><div class="avatar" [title]="musteri.ad + ' ' + musteri.soyad">@if (musteri.profilFotoUrl) { <img [src]="'https://localhost:7233' + musteri.profilFotoUrl" [alt]="musteri.ad + ' ' + musteri.soyad"> } @else { <span>{{ musteri.ad.charAt(0) }}{{ musteri.soyad.charAt(0) }}</span> }</div></td><td>{{ musteri.id }}</td><td>{{ musteri.ad }}</td><td>{{ musteri.soyad }}</td><td>{{ musteri.telefon }}</td><td>{{ musteri.email }}</td><td><button (click)="musteriSil(musteri.id)"><span class="tr-only">Sil</span><span class="en-only">Delete</span></button><button (click)="musteriGuncelle(musteri)"><span class="tr-only">Güncelle</span><span class="en-only">Update</span></button></td></tr> }</tbody></table>
 @if (cursorModu) { <div class="sayfalama"><button (click)="cursorOnceki()" [disabled]="cursorGecmisi.length === 0">← <span class="tr-only">Önceki</span><span class="en-only">Previous</span></button><span><span class="tr-only">Cursor ile sayfalama</span><span class="en-only">Cursor pagination</span></span><button (click)="cursorSonraki()" [disabled]="nextCursor === null || musteriler().length < pageSize"><span class="tr-only">Sonraki</span><span class="en-only">Next</span> →</button></div> }
 @else { <div class="sayfalama"><button (click)="oncekiSayfa()" [disabled]="page === 1">← <span class="tr-only">Önceki</span><span class="en-only">Previous</span></button><span><span class="tr-only">Sayfa</span><span class="en-only">Page</span> {{ page }}</span><button (click)="sonrakiSayfa()" [disabled]="musteriler().length < pageSize"><span class="tr-only">Sonraki</span><span class="en-only">Next</span> →</button></div> }
