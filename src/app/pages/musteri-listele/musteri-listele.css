@@ -24,6 +24,7 @@ th { background: #111111; color: #ffffff; padding: 15px 16px; text-align: left; 
 td { padding: 14px 16px; border-bottom: 1px solid #eeeeee; color: #333333; background: #ffffff; }
 tr:last-child td { border-bottom: 0; }
 tr:hover td { background: #fff9df; }
+.avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #ffc400; color: #111111; border: 2px solid #111111; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em; }
 td button { padding: 9px 14px; margin: 3px; border-radius: 9px; font-size: 13px; font-weight: 800; transition: transform .18s ease, box-shadow .18s ease; }
 td button:first-child { background: #111111; color: #ffffff; border: 2px solid #111111; }
 td button:last-child { background: #ffc400; color: #111111; border: 2px solid #111111; }
