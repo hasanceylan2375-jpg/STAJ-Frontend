@@ -25,6 +25,9 @@
   <input type="email" [(ngModel)]="email" name="email" required email #emailKontrol="ngModel">
   @if (emailKontrol.invalid && emailKontrol.touched) { <small><span class="tr-only">Geçerli bir e-posta adresi giriniz.</span><span class="en-only">Please enter a valid email address.</span></small> }
 
+  <label><span class="tr-only">Doğum Tarihi</span><span class="en-only">Birth Date</span></label>
+  <input type="date" [(ngModel)]="dogumTarihi" name="dogumTarihi">
+
   <label><span class="tr-only">Profil Fotoğrafı (İsteğe bağlı)</span><span class="en-only">Profile Photo (Optional)</span></label>
   <input type="file" accept="image/png,image/jpeg,image/webp" (change)="fotografSec($event)">
 
