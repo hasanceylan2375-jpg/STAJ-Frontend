@@ -34,6 +34,10 @@ export class MusteriService {
     return this.http.post<any>(`${this.apiUrl}/fotoğraf`, formData);
   }
 
+  fotografIndir(dosyaAdi: string) {
+    return this.http.get(`${this.apiUrl}/fotoğraf/indir/${encodeURIComponent(dosyaAdi)}`, { responseType: 'blob' });
+  }
+
   musteriEkle(musteri: any) { return this.http.post(this.apiUrl, musteri); }
   musteriGuncelle(id: number, musteri: any) { return this.http.put(`${this.apiUrl}/${id}`, musteri); }
   musteriSil(id: number) { return this.http.delete(`${this.apiUrl}/${id}`); }
