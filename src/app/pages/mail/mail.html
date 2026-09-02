@@ -1,0 +1,23 @@
+<div class="mail-page">
+  <h1>Mail Gönder</h1>
+  <p>Backend üzerinden alıcıya mail gönderebilirsin.</p>
+
+  <form (ngSubmit)="send()">
+    <label for="to">Alıcı E-posta</label>
+    <input id="to" type="email" name="to" [(ngModel)]="to" required>
+
+    <label for="subject">Konu</label>
+    <input id="subject" type="text" name="subject" [(ngModel)]="subject" required>
+
+    <label for="body">Mesaj</label>
+    <textarea id="body" name="body" rows="7" [(ngModel)]="body" required></textarea>
+
+    <button type="submit" [disabled]="sending">
+      {{ sending ? 'Gönderiliyor...' : 'Mail Gönder' }}
+    </button>
+  </form>
+
+  @if (message) {
+    <p class="message">{{ message }}</p>
+  }
+</div>
