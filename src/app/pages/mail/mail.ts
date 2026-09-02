@@ -20,8 +20,7 @@ export class Mail {
 
   send(): void {
     if (!this.to || !this.subject || !this.body) {
-      this.message = 'Lütfen tüm alanları doldurun.';
-      setTimeout(() => this.message = '', 3000);
+      this.showMessage('Lütfen tüm alanları doldurun.');
       return;
     }
 
@@ -30,18 +29,21 @@ export class Mail {
 
     this.mailService.sendMail({ to: this.to, subject: this.subject, body: this.body }).subscribe({
       next: () => {
-        this.message = 'Mail başarıyla gönderildi.';
         this.to = '';
         this.subject = '';
         this.body = '';
         this.sending = false;
-        setTimeout(() => this.message = '', 3000);
+        this.showMessage('Mail başarıyla gönderildi.');
       },
       error: () => {
-        this.message = 'Mail gönderilirken bir hata oluştu.';
         this.sending = false;
-        setTimeout(() => this.message = '', 3000);
+        this.showMessage('Mail gönderilirken bir hata oluştu.');
       }
     });
+  }
+
+  private showMessage(text: string): void {
+    this.message = text;
+    setTimeout(() => this.message = '', 3000);
   }
 }
