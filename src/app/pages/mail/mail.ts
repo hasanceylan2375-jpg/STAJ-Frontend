@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { finalize, timeout } from 'rxjs';
 import { MailService } from '../../services/mail.service';
 
 @Component({
@@ -32,21 +31,12 @@ export class Mail {
     this.message = '';
 
     this.mailService.sendMail({ to: this.to, subject: this.subject, body: this.body })
-      .pipe(
-        timeout(60000),
-        finalize(() => this.sending = false)
-      )
       .subscribe({
-        next: () => {
-          this.to = '';
-          this.subject = '';
-          this.body = '';
-          this.showMessage('Mail başarıyla gönderildi.');
-        },
-        error: () => {
-          this.showMessage('Mail gönderilirken bir hata oluştu.');
-        }
+        next: () => this.showMessage('Mail başarıyla gönderildi.'),
+        error: () => this.showMessage('Mail gönderilirken bir hata oluştu.')
       });
+
+    setTimeout(() => this.sending = false, 1500);
   }
 
   private showMessage(text: string): void {
