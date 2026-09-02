@@ -8,9 +8,7 @@ interface RefreshResponse {
   refreshTokenExpiresAt: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private tokenKey = 'authToken';
   private refreshTokenKey = 'refreshToken';
@@ -26,23 +24,23 @@ export class AuthService {
     localStorage.removeItem(this.refreshTokenKey);
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
+  isLoggedIn(): boolean { return !!localStorage.getItem(this.tokenKey); }
+  getToken(): string | null { return localStorage.getItem(this.tokenKey); }
+  getRefreshToken(): string | null { return localStorage.getItem(this.refreshTokenKey); }
+
+  getRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] ?? payload.role ?? null;
+    } catch { return null; }
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
-
-  getRefreshToken(): string | null {
-    return localStorage.getItem(this.refreshTokenKey);
-  }
+  isAdmin(): boolean { return this.getRole() === 'Admin'; }
 
   refreshAccessToken(): Observable<RefreshResponse> {
-    return this.http.post<RefreshResponse>(
-      'https://localhost:7233/api/Auth/refresh',
-      { refreshToken: this.getRefreshToken() }
-    ).pipe(
+    return this.http.post<RefreshResponse>('https://localhost:7233/api/Auth/refresh', { refreshToken: this.getRefreshToken() }).pipe(
       tap(response => {
         localStorage.setItem(this.tokenKey, response.accessToken);
         localStorage.setItem(this.refreshTokenKey, response.refreshToken);
