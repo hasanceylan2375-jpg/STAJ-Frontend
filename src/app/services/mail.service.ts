@@ -14,7 +14,9 @@ export class MailService {
 
   constructor(private http: HttpClient) {}
 
-  sendMail(request: SendMailRequest): Observable<unknown> {
-    return this.http.post(`${this.apiUrl}/send`, request);
+  sendMail(request: SendMailRequest): Observable<string> {
+    return this.http.post(`${this.apiUrl}/send`, request, {
+      responseType: 'text'
+    });
   }
 }
