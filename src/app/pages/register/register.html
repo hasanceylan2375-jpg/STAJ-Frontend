@@ -6,7 +6,8 @@
     <div><label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label><input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" required></div>
     <div><label for="sifreTekrar"><span class="tr-only">Şifre Tekrar</span><span class="en-only">Confirm Password</span></label><input id="sifreTekrar" type="password" name="sifreTekrar" [(ngModel)]="sifreTekrar" required></div>
     @if (hata) { <p class="hata">{{ hata }}</p> }
-    <button type="submit" [disabled]="yukleniyor">{{ yukleniyor ? (isEnglish ? 'Creating...' : 'Oluşturuluyor...') : (isEnglish ? 'Create Account →' : 'Hesap Oluştur →') }}</button>
+    @if (basarili) { <p class="basarili"><span class="tr-only">✓ Hesabınız başarıyla oluşturuldu! Giriş sayfasına yönlendiriliyorsunuz...</span><span class="en-only">✓ Your account has been created successfully! Redirecting to login...</span></p> }
+    <button type="submit" [disabled]="yukleniyor || basarili">{{ basarili ? (isEnglish ? 'Account Created ✓' : 'Hesap Oluşturuldu ✓') : yukleniyor ? (isEnglish ? 'Creating...' : 'Oluşturuluyor...') : (isEnglish ? 'Create Account →' : 'Hesap Oluştur →') }}</button>
     <p class="login-link"><span class="tr-only">Zaten hesabın var mı? </span><span class="en-only">Already have an account? </span><a routerLink="/login"><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></a></p>
   </form>
 </section>
