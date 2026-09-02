@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: 'features', loadComponent: () => import('./pages/features/features').then(m => m.Features) },
   { path: 'faq', loadComponent: () => import('./pages/faq/faq').then(m => m.Faq) },
   { path: 'login', loadComponent: () => import('./pages/login/login').then(m => m.Login) },
+  { path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.Register) },
   { path: 'forbidden', loadComponent: () => import('./pages/forbidden/forbidden').then(m => m.Forbidden) },
   { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile').then(m => m.Profile) },
   { path: 'musteri-ekle', canActivate: [authGuard], loadComponent: () => import('./pages/musteri-ekle/musteri-ekle').then(m => m.MusteriEkle) },
