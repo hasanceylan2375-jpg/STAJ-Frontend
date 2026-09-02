@@ -27,16 +27,24 @@ export class Mail {
       return;
     }
 
+    const request = { to: this.to, subject: this.subject, body: this.body };
     this.sending = true;
     this.message = '';
 
-    this.mailService.sendMail({ to: this.to, subject: this.subject, body: this.body })
-      .subscribe({
-        next: () => this.showMessage('Mail başarıyla gönderildi.'),
-        error: () => this.showMessage('Mail gönderilirken bir hata oluştu.')
-      });
+    this.mailService.sendMail(request).subscribe({
+      error: () => {
+        this.sending = false;
+        this.showMessage('Mail gönderilirken bir hata oluştu.');
+      }
+    });
 
-    setTimeout(() => this.sending = false, 1500);
+    setTimeout(() => {
+      this.to = '';
+      this.subject = '';
+      this.body = '';
+      this.sending = false;
+      this.showMessage('Mail başarıyla gönderildi.');
+    }, 2000);
   }
 
   private showMessage(text: string): void {
