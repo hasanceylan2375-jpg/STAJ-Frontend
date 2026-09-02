@@ -1,12 +1,14 @@
-import { Component, OnInit, OnDestroy, signal, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
+import { AuthService } from '../../services/auth/auth.service';
 @Component({ selector:'app-musteri-listele', imports:[FormsModule], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
 export class MusteriListele implements OnInit, OnDestroy {
   musteriler=signal<any[]>([]); search=''; sort=''; page=1; pageSize=5; cursorModu=false; nextCursor:number|null=null; currentCursor:number|null=null; cursorGecmisi:(number|null)[]=[]; araniyor=false; isEnglish=localStorage.getItem('language')==='en-US';
+  readonly authService=inject(AuthService);
   private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription;
   constructor(private musteriService:MusteriService,private router:Router,private toastService:ToastService){}
   @HostListener('window:app-language-changed',['$event']) onLanguageChanged(event:Event):void{this.isEnglish=(event as CustomEvent<string>).detail==='en-US';}
