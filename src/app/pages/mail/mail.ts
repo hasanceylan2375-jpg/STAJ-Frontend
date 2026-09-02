@@ -21,6 +21,7 @@ export class Mail {
   send(): void {
     if (!this.to || !this.subject || !this.body) {
       this.message = 'Lütfen tüm alanları doldurun.';
+      setTimeout(() => this.message = '', 3000);
       return;
     }
 
@@ -34,10 +35,12 @@ export class Mail {
         this.subject = '';
         this.body = '';
         this.sending = false;
+        setTimeout(() => this.message = '', 3000);
       },
       error: () => {
         this.message = 'Mail gönderilirken bir hata oluştu.';
         this.sending = false;
+        setTimeout(() => this.message = '', 3000);
       }
     });
   }
