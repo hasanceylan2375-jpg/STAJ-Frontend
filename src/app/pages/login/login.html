@@ -2,14 +2,9 @@
   <h2><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></h2>
   <p class="login-subtitle"><span class="tr-only">Müşteri Yönetim Sistemi</span><span class="en-only">Customer Management System</span></p>
   <form (ngSubmit)="login()">
-    <div>
-      <label for="kullaniciAdi"><span class="tr-only">Kullanıcı Adı</span><span class="en-only">Username</span></label>
-      <input id="kullaniciAdi" type="text" name="kullaniciAdi" [(ngModel)]="kullaniciAdi" [placeholder]="isEnglish ? 'Enter your username' : 'Kullanıcı adınızı girin'" autocomplete="username" required />
-    </div>
-    <div>
-      <label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label>
-      <input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" [placeholder]="isEnglish ? 'Enter your password' : 'Şifrenizi girin'" autocomplete="current-password" required />
-    </div>
+    <div><label for="kullaniciAdi"><span class="tr-only">Kullanıcı Adı</span><span class="en-only">Username</span></label><input id="kullaniciAdi" type="text" name="kullaniciAdi" [(ngModel)]="kullaniciAdi" [placeholder]="isEnglish ? 'Enter your username' : 'Kullanıcı adınızı girin'" autocomplete="username" required /></div>
+    <div><label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label><input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" [placeholder]="isEnglish ? 'Enter your password' : 'Şifrenizi girin'" autocomplete="current-password" required /></div>
     <button type="submit"><span class="tr-only">Giriş Yap →</span><span class="en-only">Login →</span></button>
+    <p class="login-link"><span class="tr-only">Hesabın yok mu? </span><span class="en-only">Don't have an account? </span><a routerLink="/register"><span class="tr-only">Kayıt Ol</span><span class="en-only">Register</span></a></p>
   </form>
 </section>
