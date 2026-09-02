@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
-@Component({ selector:'app-register', imports:[FormsModule], templateUrl:'./register.html', styleUrl:'./register.css' })
+@Component({ selector:'app-register', imports:[FormsModule, RouterLink], templateUrl:'./register.html', styleUrl:'./register.css' })
 export class Register {
   kullaniciAdi=''; sifre=''; sifreTekrar=''; hata=''; yukleniyor=false;
   get isEnglish():boolean { return localStorage.getItem('language') === 'en-US'; }
