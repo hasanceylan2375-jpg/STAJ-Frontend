@@ -1,0 +1,12 @@
+<section class="login-container">
+  <h2><span class="tr-only">Kayıt Ol</span><span class="en-only">Register</span></h2>
+  <p class="login-subtitle"><span class="tr-only">Yeni hesabınızı oluşturun</span><span class="en-only">Create your new account</span></p>
+  <form (ngSubmit)="kayitOl()">
+    <div><label for="kullaniciAdi"><span class="tr-only">Kullanıcı Adı</span><span class="en-only">Username</span></label><input id="kullaniciAdi" type="text" name="kullaniciAdi" [(ngModel)]="kullaniciAdi" required></div>
+    <div><label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label><input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" required></div>
+    <div><label for="sifreTekrar"><span class="tr-only">Şifre Tekrar</span><span class="en-only">Confirm Password</span></label><input id="sifreTekrar" type="password" name="sifreTekrar" [(ngModel)]="sifreTekrar" required></div>
+    @if (hata) { <p class="hata">{{ hata }}</p> }
+    <button type="submit" [disabled]="yukleniyor">{{ yukleniyor ? (isEnglish ? 'Creating...' : 'Oluşturuluyor...') : (isEnglish ? 'Create Account →' : 'Hesap Oluştur →') }}</button>
+    <p class="login-link"><span class="tr-only">Zaten hesabın var mı? </span><span class="en-only">Already have an account? </span><a routerLink="/login"><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></a></p>
+  </form>
+</section>
