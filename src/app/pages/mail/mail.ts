@@ -20,31 +20,24 @@ export class Mail {
   constructor(private mailService: MailService) {}
 
   send(): void {
-    if (this.sending) return;
-
     if (!this.to || !this.subject || !this.body) {
       this.showMessage('Lütfen tüm alanları doldurun.');
       return;
     }
 
     const request = { to: this.to, subject: this.subject, body: this.body };
-    this.sending = true;
-    this.message = '';
 
     this.mailService.sendMail(request).subscribe({
+      next: () => {
+        this.to = '';
+        this.subject = '';
+        this.body = '';
+        this.showMessage('Mail başarıyla gönderildi.');
+      },
       error: () => {
-        this.sending = false;
         this.showMessage('Mail gönderilirken bir hata oluştu.');
       }
     });
-
-    setTimeout(() => {
-      this.to = '';
-      this.subject = '';
-      this.body = '';
-      this.sending = false;
-      this.showMessage('Mail başarıyla gönderildi.');
-    }, 2000);
   }
 
   private showMessage(text: string): void {
