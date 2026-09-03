@@ -21,6 +21,7 @@ export class MusteriEkle implements OnInit {
   profilFotoUrl: string | null = null;
   secilenDosya: File | null = null;
   guncellenenId: number | null = null;
+  private idempotencyKey: string | null = null;
 
   constructor(
     private musteriService: MusteriService,
@@ -97,9 +98,14 @@ export class MusteriEkle implements OnInit {
       return;
     }
 
-    this.musteriService.musteriEkle(musteri).subscribe({
+    if (!this.idempotencyKey) {
+      this.idempotencyKey = crypto.randomUUID();
+    }
+
+    this.musteriService.musteriEkle(musteri, this.idempotencyKey).subscribe({
       next: (r: any) => {
         this.toastService.success(r?.message || 'Müşteri başarıyla eklendi!');
+        this.idempotencyKey = null;
         this.formuTemizle();
         this.router.navigate(['/musteri-listele']);
       },
