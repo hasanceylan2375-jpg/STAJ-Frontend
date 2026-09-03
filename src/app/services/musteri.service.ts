@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class MusteriService {
@@ -38,7 +38,11 @@ export class MusteriService {
     return this.http.get(`${this.apiUrl}/fotoğraf/indir/${encodeURIComponent(dosyaAdi)}`, { responseType: 'blob' });
   }
 
-  musteriEkle(musteri: any) { return this.http.post(this.apiUrl, musteri); }
+  musteriEkle(musteri: any, idempotencyKey: string) {
+    const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
+    return this.http.post(this.apiUrl, musteri, { headers });
+  }
+
   musteriGuncelle(id: number, musteri: any) { return this.http.put(`${this.apiUrl}/${id}`, musteri); }
   musteriSil(id: number) { return this.http.delete(`${this.apiUrl}/${id}`); }
 }
