@@ -1,4 +1,4 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 @Injectable({providedIn:'root'})
-export class KonutService{private apiUrl='https://localhost:7233/api/Konut';constructor(private http:HttpClient){}getir(search=''){let params=new HttpParams();if(search.trim())params=params.set('search',search.trim());return this.http.get<any[]>(this.apiUrl,{params});}guncelle(id:number,konut:any){return this.http.put<any>(`${this.apiUrl}/${id}`,konut);}sil(id:number){return this.http.delete(`${this.apiUrl}/${id}`);}}
+export class KonutService{private apiUrl='https://localhost:7233/api/Konut';constructor(private http:HttpClient){}getir(search=''){let params=new HttpParams();if(search.trim())params=params.set('search',search.trim());return this.http.get<any[]>(this.apiUrl,{params});}ekle(konut:any){return this.http.post<any>(this.apiUrl,konut);}guncelle(id:number,konut:any){return this.http.put<any>(`${this.apiUrl}/${id}`,konut);}sil(id:number){return this.http.delete(`${this.apiUrl}/${id}`);}}
