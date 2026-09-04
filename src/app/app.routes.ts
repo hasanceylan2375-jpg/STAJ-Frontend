@@ -13,6 +13,9 @@ export const routes: Routes = [
   { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile').then(m => m.Profile) },
   { path: 'musteri-ekle', canActivate: [authGuard], loadComponent: () => import('./pages/musteri-ekle/musteri-ekle').then(m => m.MusteriEkle) },
   { path: 'musteri-listele', canActivate: [authGuard], loadComponent: () => import('./pages/musteri-listele/musteri-listele').then(m => m.MusteriListele) },
+  { path: 'sirket-listele', canActivate: [authGuard], loadComponent: () => import('./pages/sirket-listele/sirket-listele').then(m => m.SirketListele) },
+  { path: 'konut-listele', canActivate: [authGuard], loadComponent: () => import('./pages/konut-listele/konut-listele').then(m => m.KonutListele) },
+  { path: 'arac-listele', canActivate: [authGuard], loadComponent: () => import('./pages/arac-listele/arac-listele').then(m => m.AracListele) },
   { path: 'mail', canActivate: [authGuard], loadComponent: () => import('./pages/mail/mail').then(m => m.Mail) },
   { path: 'not-found', loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound) },
   { path: '**', redirectTo: 'not-found' }
