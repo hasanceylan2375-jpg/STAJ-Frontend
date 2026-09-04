@@ -1,22 +1,4 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
-
 export const routes: Routes = [
-  { path: '', loadComponent: () => import('./pages/home/home').then(m => m.Home) },
-  { path: 'about', loadComponent: () => import('./pages/about/about').then(m => m.About) },
-  { path: 'contact', loadComponent: () => import('./pages/contact/contact').then(m => m.Contact) },
-  { path: 'features', loadComponent: () => import('./pages/features/features').then(m => m.Features) },
-  { path: 'faq', loadComponent: () => import('./pages/faq/faq').then(m => m.Faq) },
-  { path: 'login', loadComponent: () => import('./pages/login/login').then(m => m.Login) },
-  { path: 'register', loadComponent: () => import('./pages/register/register').then(m => m.Register) },
-  { path: 'forbidden', loadComponent: () => import('./pages/forbidden/forbidden').then(m => m.Forbidden) },
-  { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile').then(m => m.Profile) },
-  { path: 'musteri-ekle', canActivate: [authGuard], loadComponent: () => import('./pages/musteri-ekle/musteri-ekle').then(m => m.MusteriEkle) },
-  { path: 'musteri-listele', canActivate: [authGuard], loadComponent: () => import('./pages/musteri-listele/musteri-listele').then(m => m.MusteriListele) },
-  { path: 'sirket-listele', canActivate: [authGuard], loadComponent: () => import('./pages/sirket-listele/sirket-listele').then(m => m.SirketListele) },
-  { path: 'konut-listele', canActivate: [authGuard], loadComponent: () => import('./pages/konut-listele/konut-listele').then(m => m.KonutListele) },
-  { path: 'arac-listele', canActivate: [authGuard], loadComponent: () => import('./pages/arac-listele/arac-listele').then(m => m.AracListele) },
-  { path: 'mail', canActivate: [authGuard], loadComponent: () => import('./pages/mail/mail').then(m => m.Mail) },
-  { path: 'not-found', loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound) },
-  { path: '**', redirectTo: 'not-found' }
-];
+{path:'',loadComponent:()=>import('./pages/home/home').then(m=>m.Home)},{path:'about',loadComponent:()=>import('./pages/about/about').then(m=>m.About)},{path:'contact',loadComponent:()=>import('./pages/contact/contact').then(m=>m.Contact)},{path:'features',loadComponent:()=>import('./pages/features/features').then(m=>m.Features)},{path:'faq',loadComponent:()=>import('./pages/faq/faq').then(m=>m.Faq)},{path:'login',loadComponent:()=>import('./pages/login/login').then(m=>m.Login)},{path:'register',loadComponent:()=>import('./pages/register/register').then(m=>m.Register)},{path:'forbidden',loadComponent:()=>import('./pages/forbidden/forbidden').then(m=>m.Forbidden)},{path:'profile',canActivate:[authGuard],loadComponent:()=>import('./pages/profile/profile').then(m=>m.Profile)},{path:'musteri-ekle',canActivate:[authGuard],loadComponent:()=>import('./pages/musteri-ekle/musteri-ekle').then(m=>m.MusteriEkle)},{path:'musteri-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/musteri-listele/musteri-listele').then(m=>m.MusteriListele)},{path:'sirket-ekle',canActivate:[authGuard],loadComponent:()=>import('./pages/sirket-ekle/sirket-ekle').then(m=>m.SirketEkle)},{path:'sirket-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/sirket-listele/sirket-listele').then(m=>m.SirketListele)},{path:'konut-ekle',canActivate:[authGuard],loadComponent:()=>import('./pages/konut-ekle/konut-ekle').then(m=>m.KonutEkle)},{path:'konut-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/konut-listele/konut-listele').then(m=>m.KonutListele)},{path:'arac-ekle',canActivate:[authGuard],loadComponent:()=>import('./pages/arac-ekle/arac-ekle').then(m=>m.AracEkle)},{path:'arac-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/arac-listele/arac-listele').then(m=>m.AracListele)},{path:'mail',canActivate:[authGuard],loadComponent:()=>import('./pages/mail/mail').then(m=>m.Mail)},{path:'not-found',loadComponent:()=>import('./pages/not-found/not-found').then(m=>m.NotFound)},{path:'**',redirectTo:'not-found'}];
