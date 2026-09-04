@@ -1,11 +1,17 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 import { SirketService } from '../../services/sirket.service';
-
-@Component({ selector: 'app-sirket-listele', imports: [FormsModule], templateUrl: './sirket-listele.html', styleUrl: './sirket-listele.css' })
-export class SirketListele implements OnInit {
-  sirketler = signal<any[]>([]); search = '';
-  constructor(private service: SirketService) {}
-  ngOnInit() { this.getir(); }
-  getir() { this.service.getir(this.search).subscribe(r => this.sirketler.set(r)); }
+import { ToastService } from '../../services/toast.service';
+import { AuthService } from '../../services/auth/auth.service';
+@Component({selector:'app-sirket-listele',imports:[FormsModule],templateUrl:'./sirket-listele.html',styleUrl:'./sirket-listele.css'})
+export class SirketListele implements OnInit,OnDestroy{
+  tumSirketler=signal<any[]>([]);sirketler=signal<any[]>([]);search='';sort='';page=1;pageSize=5;cursorModu=false;cursor=0;isEnglish=localStorage.getItem('language')==='en-US';duzenlenen:any=null;readonly authService=inject(AuthService);private arama=new Subject<void>();private abonelik?:Subscription;
+  constructor(private service:SirketService,private toast:ToastService){}
+  @HostListener('window:app-language-changed',['$event']) dil(e:Event){this.isEnglish=(e as CustomEvent<string>).detail==='en-US';}
+  ngOnInit(){this.getir();this.abonelik=this.arama.pipe(debounceTime(500)).subscribe(()=>this.getir());}ngOnDestroy(){this.abonelik?.unsubscribe();}
+  aramaDegisti(){if(!this.cursorModu)this.arama.next();}getir(){this.service.getir(this.search).subscribe({next:r=>{this.tumSirketler.set(this.siralaListe(r));this.uygula();},error:()=>this.toast.error(this.isEnglish?'Error while loading companies.':'Şirketler alınırken hata oluştu.')});}
+  private siralaListe(l:any[]){return [...l].sort((a,b)=>{if(this.sort==='ad')return a.ad.localeCompare(b.ad,'tr');if(this.sort==='ad_desc')return b.ad.localeCompare(a.ad,'tr');if(this.sort==='sektor')return (a.sektor||'').localeCompare(b.sektor||'','tr');if(this.sort==='id_desc')return b.id-a.id;return a.id-b.id;});}uygula(){const bas=this.cursorModu?this.cursor*this.pageSize:(this.page-1)*this.pageSize;this.sirketler.set(this.tumSirketler().slice(bas,bas+this.pageSize));}ara(){this.page=1;this.cursor=0;this.getir();}sirala(){this.page=1;this.cursor=0;this.getir();}temizle(){this.search='';this.sort='';this.page=1;this.cursor=0;this.getir();}onceki(){if(this.cursorModu?this.cursor>0:this.page>1){this.cursorModu?this.cursor--:this.page--;this.uygula();}}sonraki(){const max=this.tumSirketler().length;if((this.cursorModu?(this.cursor+1)*this.pageSize:this.page*this.pageSize)<max){this.cursorModu?this.cursor++:this.page++;this.uygula();}}cursorDegistir(){this.cursorModu=!this.cursorModu;this.cursor=0;this.page=1;this.uygula();}
+  excelAktar(){const rows=this.tumSirketler();const csv=['ID;Şirket;Sektör;E-posta;Telefon',...rows.map(x=>`${x.id};${x.ad};${x.sektor||''};${x.email||''};${x.telefon||''}`)].join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sirketler.csv';a.click();URL.revokeObjectURL(a.href);this.toast.success(this.isEnglish?'File downloaded successfully.':'Excel için dosya başarıyla indirildi.');}
+  duzenle(x:any){this.duzenlenen={...x};}kaydet(){if(!this.duzenlenen)return;this.service.guncelle(this.duzenlenen.id,this.duzenlenen).subscribe({next:()=>{this.toast.success(this.isEnglish?'Company updated successfully.':'Şirket başarıyla güncellendi.');this.duzenlenen=null;this.getir();},error:()=>this.toast.error(this.isEnglish?'Update failed.':'Güncelleme başarısız oldu.')});}sil(id:number){if(confirm(this.isEnglish?'Are you sure you want to delete this company?':'Bu şirketi silmek istediğinize emin misiniz?'))this.service.sil(id).subscribe({next:()=>{this.toast.success(this.isEnglish?'Company deleted successfully.':'Şirket başarıyla silindi.');this.getir();},error:()=>this.toast.error(this.isEnglish?'Delete failed.':'Silme işlemi başarısız oldu.')});}
 }
