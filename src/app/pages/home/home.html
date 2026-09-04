@@ -1,11 +1,18 @@
 <div class="home-container">
   <div class="hero">
     <h1><span class="tr-only">Müşteri Yönetim Sistemine Hoş Geldiniz</span><span class="en-only">Welcome to the Customer Management System</span></h1>
-    <p><span class="tr-only">Buradan müşteri ekleyebilir, listeleyebilir, güncelleyebilir ve silebilirsiniz.</span><span class="en-only">Here you can add, list, update and delete customers.</span></p>
+    <p><span class="tr-only">Müşteri, şirket, konut ve araç kayıtlarını buradan yönetebilirsiniz.</span><span class="en-only">Manage customer, company, property and vehicle records from here.</span></p>
+
     <div class="buttons">
       <a routerLink="/login" class="login-button"><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></a>
       <a routerLink="/musteri-ekle"><span class="tr-only">Müşteri Ekle</span><span class="en-only">Add Customer</span></a>
-      <a routerLink="/musteri-listele"><span class="tr-only">Müşterileri Listele</span><span class="en-only">List Customers</span></a>
+    </div>
+
+    <div class="management-links">
+      <a routerLink="/musteri-listele">👤 <span class="tr-only">Müşteriler</span><span class="en-only">Customers</span></a>
+      <a routerLink="/sirket-listele">🏢 <span class="tr-only">Şirketler</span><span class="en-only">Companies</span></a>
+      <a routerLink="/konut-listele">🏠 <span class="tr-only">Konutlar</span><span class="en-only">Properties</span></a>
+      <a routerLink="/arac-listele">🚗 <span class="tr-only">Araçlar</span><span class="en-only">Vehicles</span></a>
     </div>
   </div>
 </div>
