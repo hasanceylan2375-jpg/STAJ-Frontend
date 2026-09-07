@@ -14,6 +14,15 @@ export interface MusteriDegisikligi {
   profilFotoUrl?: string;
 }
 
+export interface BackgroundJobEvent {
+  job: string;
+  message: string;
+  completedAt?: string;
+  occurredAt?: string;
+  deletedCount?: number;
+  error?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
   private readonly authService = inject(AuthService);
@@ -23,6 +32,8 @@ export class SignalRService {
   readonly musteriEklendi$ = new Subject<MusteriDegisikligi>();
   readonly musteriGuncellendi$ = new Subject<MusteriDegisikligi>();
   readonly musteriSilindi$ = new Subject<{ id: number; ad?: string; soyad?: string }>();
+  readonly backgroundJobTamamlandi$ = new Subject<BackgroundJobEvent>();
+  readonly backgroundJobHatasi$ = new Subject<BackgroundJobEvent>();
   readonly baglantiDurumu$ = new Subject<'baglandi' | 'koptu' | 'hata'>();
 
   async start(): Promise<void> {
@@ -41,6 +52,8 @@ export class SignalRService {
     this.connection.on('musteriEklendi', (musteri: MusteriDegisikligi) => this.musteriEklendi$.next(musteri));
     this.connection.on('musteriGuncellendi', (musteri: MusteriDegisikligi) => this.musteriGuncellendi$.next(musteri));
     this.connection.on('musteriSilindi', (musteri: { id: number; ad?: string; soyad?: string }) => this.musteriSilindi$.next(musteri));
+    this.connection.on('backgroundJobTamamlandi', (job: BackgroundJobEvent) => this.backgroundJobTamamlandi$.next(job));
+    this.connection.on('backgroundJobHatasi', (job: BackgroundJobEvent) => this.backgroundJobHatasi$.next(job));
     this.connection.onreconnecting(() => this.baglantiDurumu$.next('koptu'));
     this.connection.onreconnected(() => this.baglantiDurumu$.next('baglandi'));
     this.connection.onclose(() => this.baglantiDurumu$.next('koptu'));
