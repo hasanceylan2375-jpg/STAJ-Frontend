@@ -5,16 +5,28 @@ import { Subject, Subscription, debounceTime } from 'rxjs';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { SignalRService } from '../../services/signalr.service';
 @Component({ selector:'app-musteri-listele', imports:[FormsModule], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
 export class MusteriListele implements OnInit, OnDestroy {
   musteriler=signal<any[]>([]); search=''; sort=''; page=1; pageSize=5; cursorModu=false; nextCursor:number|null=null; currentCursor:number|null=null; cursorGecmisi:(number|null)[]=[]; araniyor=false; isEnglish=localStorage.getItem('language')==='en-US';
   readonly authService=inject(AuthService);
-  private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription;
+  private signalRService=inject(SignalRService);
+  private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription; private signalRAbonelikleri:Subscription[]=[];
   constructor(private musteriService:MusteriService,private router:Router,private toastService:ToastService){}
   @HostListener('window:app-language-changed',['$event']) onLanguageChanged(event:Event):void{this.isEnglish=(event as CustomEvent<string>).detail==='en-US';}
-  ngOnInit():void{this.musterileriGetir();this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap());} ngOnDestroy():void{this.aramaAboneligi?.unsubscribe();}
+  ngOnInit():void{
+    this.musterileriGetir();
+    this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap());
+    this.signalRAbonelikleri.push(
+      this.signalRService.musteriEklendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was added.`:`${m.ad??''} ${m.soyad??''} müşterisi eklendi.`);this.listeyiYenile();}),
+      this.signalRService.musteriGuncellendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was updated.`:`${m.ad??''} ${m.soyad??''} müşterisi güncellendi.`);this.listeyiYenile();}),
+      this.signalRService.musteriSilindi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was deleted.`:`${m.ad??''} ${m.soyad??''} müşterisi silindi.`);this.listeyiYenile();})
+    );
+  }
+  ngOnDestroy():void{this.aramaAboneligi?.unsubscribe();this.signalRAbonelikleri.forEach(s=>s.unsubscribe());}
   aramaDegisti():void{if(this.cursorModu)return;this.araniyor=true;this.aramaDegisimi.next(this.search);} private debounceAramaYap():void{const a=this.search.trim();if(a.length>0&&a.length<3){this.araniyor=false;return;}this.page=1;this.musterileriGetir();}
   musterileriGetir():void{this.musteriService.getMusteriler(this.search,this.sort,this.page,this.pageSize).subscribe({next:(r:any)=>{this.musteriler.set(this.siralaListe(r.data??[]));this.araniyor=false;},error:(e)=>{this.araniyor=false;this.toastService.error(e?.error?.message||(this.isEnglish?'Error while loading customers.':'Müşteriler alınırken hata oluştu.'));}});}
+  private listeyiYenile():void{this.cursorModu?this.cursorIleGetir():this.musterileriGetir();}
   private siralaListe(l:any[]):any[]{return [...l].sort((a,b)=>{switch(this.sort){case'ad':return String(a.ad??'').localeCompare(String(b.ad??''),'tr');case'ad_desc':return String(b.ad??'').localeCompare(String(a.ad??''),'tr');case'soyad':return String(a.soyad??'').localeCompare(String(b.soyad??''),'tr');case'soyad_desc':return String(b.soyad??'').localeCompare(String(a.soyad??''),'tr');case'id_desc':return Number(b.id)-Number(a.id);default:return Number(a.id)-Number(b.id);}});}
   cursorIleGetir():void{this.musteriService.getMusterilerCursor(this.currentCursor,this.pageSize).subscribe({next:(r:any)=>{const d=r.data??{};this.musteriler.set(d.items??[]);this.nextCursor=d.nextCursor??null;},error:(e)=>this.toastService.error(e?.error?.message||(this.isEnglish?'Cursor pagination error.':'Cursor pagination hatası.'))});}
   cursorModunuDegistir():void{this.cursorModu=!this.cursorModu;this.currentCursor=null;this.nextCursor=null;this.cursorGecmisi=[];this.page=1;this.araniyor=false;this.cursorModu?this.cursorIleGetir():this.musterileriGetir();} cursorSonraki():void{if(this.nextCursor===null||this.musteriler().length<this.pageSize)return;this.cursorGecmisi.push(this.currentCursor);this.currentCursor=this.nextCursor;this.cursorIleGetir();} cursorOnceki():void{if(this.cursorGecmisi.length===0)return;this.currentCursor=this.cursorGecmisi.pop()??null;this.cursorIleGetir();}
