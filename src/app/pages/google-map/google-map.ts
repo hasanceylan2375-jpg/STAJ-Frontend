@@ -68,11 +68,16 @@ export class GoogleMap {
 
   ara(): void {
     const firstMatch = this.filtrelenmisYerler[0];
-    if (firstMatch) this.yerSec(firstMatch);
+    if (firstMatch) {
+      this.yerSec(firstMatch);
+      return;
+    }
+    if (this.arama.trim()) window.open(this.mapsSearchUrl, '_blank', 'noopener');
   }
 
   rotaOlustur(): void {
     if (!this.rotaBaslangic) this.rotaBaslangic = this.yerler[0].name;
     if (!this.rotaVaris) this.rotaVaris = this.yerler[1].name;
+    window.open(this.directionsUrl, '_blank', 'noopener');
   }
 }
