@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
+import { ImageService } from '../../services/image.service';
 
 @Component({
   selector: 'app-musteri-ekle',
@@ -21,17 +22,18 @@ export class MusteriEkle implements OnInit {
   profilFotoUrl: string | null = null;
   secilenDosya: File | null = null;
   guncellenenId: number | null = null;
+  yukleniyor = false;
   private idempotencyKey: string | null = null;
 
   constructor(
     private musteriService: MusteriService,
     private toastService: ToastService,
+    private imageService: ImageService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     const state = history.state || {};
-
     if (state.musteri) {
       this.guncellenenId = Number(state.musteri.id);
       this.ad = state.musteri.ad ?? '';
@@ -39,9 +41,7 @@ export class MusteriEkle implements OnInit {
       this.telefon = state.musteri.telefon ?? '';
       this.email = state.musteri.email ?? '';
       this.tcKimlikNo = state.musteri.tcKimlikNo ?? '';
-      this.dogumTarihi = state.musteri.dogumTarihi
-        ? state.musteri.dogumTarihi.substring(0, 10)
-        : '';
+      this.dogumTarihi = state.musteri.dogumTarihi ? state.musteri.dogumTarihi.substring(0, 10) : '';
       this.profilFotoUrl = state.musteri.profilFotoUrl ?? null;
     }
   }
@@ -58,17 +58,14 @@ export class MusteriEkle implements OnInit {
   }
 
   kaydet(): void {
+    this.yukleniyor = true;
     if (this.secilenDosya) {
-      this.musteriService.fotografYukle(this.secilenDosya).subscribe({
-        next: (r: any) => {
-          this.profilFotoUrl = r.url;
-          this.musteriyiKaydet();
-        },
-        error: () => this.toastService.error('Fotoğraf yüklenirken hata oluştu!')
+      this.imageService.upload(this.secilenDosya).subscribe({
+        next: (r) => { this.profilFotoUrl = r.url; this.musteriyiKaydet(); },
+        error: (e) => { this.yukleniyor = false; this.toastService.error(e?.message || 'Fotoğraf Cloudinary\'ye yüklenemedi!'); }
       });
       return;
     }
-
     this.musteriyiKaydet();
   }
 
@@ -80,49 +77,26 @@ export class MusteriEkle implements OnInit {
       telefon: this.telefon,
       email: this.email,
       tcKimlikNo: this.tcKimlikNo,
-      dogumTarihi: this.dogumTarihi
-        ? `${this.dogumTarihi}T00:00:00Z`
-        : null,
+      dogumTarihi: this.dogumTarihi ? `${this.dogumTarihi}T00:00:00Z` : null,
       profilFotoUrl: this.profilFotoUrl
     };
 
     if (this.guncellenenId !== null) {
       this.musteriService.musteriGuncelle(this.guncellenenId, musteri).subscribe({
-        next: (r: any) => {
-          this.toastService.success(r?.message || 'Müşteri başarıyla güncellendi!');
-          this.formuTemizle();
-        },
-        error: (e: any) =>
-          this.toastService.error(e?.error?.message || 'Güncelleme başarısız!')
+        next: (r: any) => { this.yukleniyor = false; this.toastService.success(r?.message || 'Müşteri başarıyla güncellendi!'); this.formuTemizle(); },
+        error: (e: any) => { this.yukleniyor = false; this.toastService.error(e?.error?.message || 'Güncelleme başarısız!'); }
       });
       return;
     }
 
-    if (!this.idempotencyKey) {
-      this.idempotencyKey = crypto.randomUUID();
-    }
-
+    if (!this.idempotencyKey) this.idempotencyKey = crypto.randomUUID();
     this.musteriService.musteriEkle(musteri, this.idempotencyKey).subscribe({
-      next: (r: any) => {
-        this.toastService.success(r?.message || 'Müşteri başarıyla eklendi!');
-        this.idempotencyKey = null;
-        this.formuTemizle();
-        this.router.navigate(['/musteri-listele']);
-      },
-      error: (e: any) =>
-        this.toastService.error(e?.error?.message || 'Müşteri eklenirken hata oluştu!')
+      next: (r: any) => { this.yukleniyor = false; this.toastService.success(r?.message || 'Müşteri başarıyla eklendi!'); this.idempotencyKey = null; this.formuTemizle(); this.router.navigate(['/musteri-listele']); },
+      error: (e: any) => { this.yukleniyor = false; this.toastService.error(e?.error?.message || 'Müşteri eklenirken hata oluştu!'); }
     });
   }
 
   formuTemizle(): void {
-    this.ad = '';
-    this.soyad = '';
-    this.telefon = '';
-    this.email = '';
-    this.tcKimlikNo = '';
-    this.dogumTarihi = '';
-    this.profilFotoUrl = null;
-    this.secilenDosya = null;
-    this.guncellenenId = null;
+    this.ad = ''; this.soyad = ''; this.telefon = ''; this.email = ''; this.tcKimlikNo = ''; this.dogumTarihi = ''; this.profilFotoUrl = null; this.secilenDosya = null; this.guncellenenId = null;
   }
 }
