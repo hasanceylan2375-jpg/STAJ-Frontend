@@ -18,6 +18,7 @@ interface MapPlace {
 })
 export class GoogleMap {
   arama = '';
+  aktifHarita: 'roadmap' | 'satellite' | 'terrain' = 'roadmap';
   rotaBaslangic = '';
   rotaVaris = '';
   seciliYer: MapPlace | null = null;
@@ -38,8 +39,14 @@ export class GoogleMap {
     return this.seciliYer ?? this.yerler[0];
   }
 
+  get mapTypeParameter(): string {
+    if (this.aktifHarita === 'satellite') return 'k';
+    if (this.aktifHarita === 'terrain') return 'p';
+    return 'm';
+  }
+
   get mapUrl(): SafeResourceUrl {
-    const url = `https://www.google.com/maps?q=${this.merkez.lat},${this.merkez.lng}&output=embed`;
+    const url = `https://www.google.com/maps?q=${this.merkez.lat},${this.merkez.lng}&t=${this.mapTypeParameter}&z=14&output=embed`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
