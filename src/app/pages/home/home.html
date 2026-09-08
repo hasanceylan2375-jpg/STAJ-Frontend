@@ -1,18 +1,84 @@
 <div class="home-container">
-  <div class="hero">
-    <h1><span class="tr-only">Müşteri Yönetim Sistemine Hoş Geldiniz</span><span class="en-only">Welcome to the Customer Management System</span></h1>
-    <p><span class="tr-only">Müşteri, şirket, konut ve araç kayıtlarını buradan yönetebilirsiniz.</span><span class="en-only">Manage customer, company, property and vehicle records from here.</span></p>
-
-    <div class="buttons">
-      <a routerLink="/login" class="login-button"><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></a>
-      <a routerLink="/musteri-ekle"><span class="tr-only">Müşteri Ekle</span><span class="en-only">Add Customer</span></a>
+  <section class="project-header">
+    <div class="project-mark">▣</div>
+    <div>
+      <span class="eyebrow">STAJ PROJESİ</span>
+      <h1><span class="tr-only">Müşteri ve Varlık Yönetim Sistemi</span><span class="en-only">Customer and Asset Management System</span></h1>
+      <p><span class="tr-only">Müşteri, şirket, konut ve araç kayıtlarını tek bir modern web uygulamasında yönetmek için geliştirilmiştir.</span><span class="en-only">A modern web application for managing customer, company, property and vehicle records in one place.</span></p>
     </div>
+    <div class="stack-badge"><strong>.NET 10 + Angular 22</strong><span><span class="tr-only">PostgreSQL ile</span><span class="en-only">with PostgreSQL</span></span></div>
+  </section>
 
-    <div class="management-links">
-      <a routerLink="/musteri-listele">👤 <span class="tr-only">Müşteriler</span><span class="en-only">Customers</span></a>
-      <a routerLink="/sirket-listele">🏢 <span class="tr-only">Şirketler</span><span class="en-only">Companies</span></a>
-      <a routerLink="/konut-listele">🏠 <span class="tr-only">Konutlar</span><span class="en-only">Properties</span></a>
-      <a routerLink="/arac-listele">🚗 <span class="tr-only">Araçlar</span><span class="en-only">Vehicles</span></a>
+  <section class="dashboard-shell">
+    <aside class="dashboard-nav">
+      <div class="brand">Staj<span>Pro</span></div>
+      <a class="nav-active" routerLink="/"><span>▦</span><span class="tr-only">Dashboard</span><span class="en-only">Dashboard</span></a>
+      <a routerLink="/musteri-listele"><span>👤</span><span class="tr-only">Müşteriler</span><span class="en-only">Customers</span></a>
+      <a routerLink="/sirket-listele"><span>▦</span><span class="tr-only">Şirketler</span><span class="en-only">Companies</span></a>
+      <a routerLink="/konut-listele"><span>⌂</span><span class="tr-only">Konutlar</span><span class="en-only">Properties</span></a>
+      <a routerLink="/arac-listele"><span>▱</span><span class="tr-only">Araçlar</span><span class="en-only">Vehicles</span></a>
+      <div class="nav-separator"></div>
+      <a routerLink="/mail"><span>✉</span><span class="tr-only">Mail</span><span class="en-only">Mail</span></a>
+      <a routerLink="/profile"><span>♙</span><span class="tr-only">Profil</span><span class="en-only">Profile</span></a>
+    </aside>
+
+    <div class="dashboard-content">
+      <div class="dashboard-topbar">
+        <div>
+          <h2><span class="tr-only">Dashboard</span><span class="en-only">Dashboard</span></h2>
+          <span><span class="tr-only">Sistemin genel görünümü</span><span class="en-only">System overview</span></span>
+        </div>
+        <div class="search-box">⌕ <span class="tr-only">Ara (müşteri, şirket, konut, araç...)</span><span class="en-only">Search (customer, company, property, vehicle...)</span></div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-icon customer">👤</div><span><span class="tr-only">Yönetilen Modül</span><span class="en-only">Managed Module</span></span><strong>4</strong><small><span class="tr-only">Müşteri · Şirket · Konut · Araç</span><span class="en-only">Customer · Company · Property · Vehicle</span></small></div>
+        <div class="stat-card"><div class="stat-icon secure">✓</div><span><span class="tr-only">Güvenlik</span><span class="en-only">Security</span></span><strong>JWT</strong><small><span class="tr-only">Authentication & Authorization</span><span class="en-only">Authentication & Authorization</span></small></div>
+        <div class="stat-card"><div class="stat-icon cloud">☁</div><span><span class="tr-only">Görsel Yönetimi</span><span class="en-only">Image Management</span></span><strong>Cloudinary</strong><small><span class="tr-only">Bulut tabanlı medya</span><span class="en-only">Cloud-based media</span></small></div>
+        <div class="stat-card"><div class="stat-icon realtime">⚡</div><span><span class="tr-only">Gerçek Zamanlı</span><span class="en-only">Real-time</span></span><strong>SignalR</strong><small><span class="tr-only">Anlık bildirimler</span><span class="en-only">Live notifications</span></small></div>
+      </div>
+
+      <div class="section-heading">
+        <h3><span class="tr-only">Proje Modülleri</span><span class="en-only">Project Modules</span></h3>
+        <a routerLink="/musteri-listele"><span class="tr-only">Müşterileri Gör →</span><span class="en-only">View Customers →</span></a>
+      </div>
+
+      <div class="module-grid">
+        <a class="module-card customer-card" routerLink="/musteri-listele"><div class="module-icon">👤</div><div><h4><span class="tr-only">Müşteri Yönetimi</span><span class="en-only">Customer Management</span></h4><p><span class="tr-only">Müşteri ekleme, güncelleme, silme, arama, sıralama ve profil fotoğrafı yönetimi.</span><span class="en-only">Add, update, delete, search, sort customers and manage profile photos.</span></p></div><b>→</b></a>
+        <a class="module-card company-card" routerLink="/sirket-listele"><div class="module-icon">▦</div><div><h4><span class="tr-only">Şirket Yönetimi</span><span class="en-only">Company Management</span></h4><p><span class="tr-only">Şirket bilgileri, logo yükleme ve listeleme işlemleri.</span><span class="en-only">Company information, logo upload and listing operations.</span></p></div><b>→</b></a>
+        <a class="module-card property-card" routerLink="/konut-listele"><div class="module-icon">⌂</div><div><h4><span class="tr-only">Konut Yönetimi</span><span class="en-only">Property Management</span></h4><p><span class="tr-only">Konut kayıtları, görseller, arama ve listeleme işlemleri.</span><span class="en-only">Property records, images, search and listing operations.</span></p></div><b>→</b></a>
+        <a class="module-card vehicle-card" routerLink="/arac-listele"><div class="module-icon">▱</div><div><h4><span class="tr-only">Araç Yönetimi</span><span class="en-only">Vehicle Management</span></h4><p><span class="tr-only">Araç kayıtları, görseller, arama ve listeleme işlemleri.</span><span class="en-only">Vehicle records, images, search and listing operations.</span></p></div><b>→</b></a>
+      </div>
+
+      <div class="bottom-grid">
+        <section class="feature-panel">
+          <h3>✓ <span class="tr-only">Öne Çıkan Özellikler</span><span class="en-only">Key Features</span></h3>
+          <ul>
+            <li><span class="check">✓</span><span class="tr-only">JWT tabanlı kimlik doğrulama ve rol bazlı yetkilendirme</span><span class="en-only">JWT authentication and role-based authorization</span></li>
+            <li><span class="check">✓</span><span class="tr-only">Cloudinary ile müşteri, şirket, konut ve araç görselleri</span><span class="en-only">Customer, company, property and vehicle images with Cloudinary</span></li>
+            <li><span class="check">✓</span><span class="tr-only">SignalR ile gerçek zamanlı müşteri bildirimleri</span><span class="en-only">Real-time customer notifications with SignalR</span></li>
+            <li><span class="check">✓</span><span class="tr-only">Hangfire ile zamanlanmış doğum günü e-postaları</span><span class="en-only">Scheduled birthday emails with Hangfire</span></li>
+            <li><span class="check">✓</span><span class="tr-only">Serilog, Correlation ID ve audit log ile izlenebilirlik</span><span class="en-only">Traceability with Serilog, Correlation ID and audit logs</span></li>
+            <li><span class="check">✓</span><span class="tr-only">Arama, sıralama, cursor pagination ve Excel dışa aktarma</span><span class="en-only">Search, sorting, cursor pagination and Excel export</span></li>
+          </ul>
+        </section>
+
+        <section class="tech-panel">
+          <h3>⚙ <span class="tr-only">Kullanılan Teknolojiler</span><span class="en-only">Technologies</span></h3>
+          <div class="tags"><span>.NET 10</span><span>Angular 22</span><span>PostgreSQL</span><span>JWT</span><span>Cloudinary</span><span>SignalR</span><span>Hangfire</span><span>Serilog</span><span>AutoMapper</span><span>FluentValidation</span><span>Excel</span></div>
+        </section>
+
+        <section class="purpose-panel">
+          <h3>💡 <span class="tr-only">Projenin Amacı</span><span class="en-only">Project Purpose</span></h3>
+          <p><span class="tr-only">Müşteri, şirket, konut ve araç bilgilerinin güvenli, düzenli ve modern bir arayüz üzerinden yönetilmesini sağlamak.</span><span class="en-only">To manage customer, company, property and vehicle information securely through a modern interface.</span></p>
+          <div class="mini-note"><strong><span class="tr-only">Özet</span><span class="en-only">Summary</span></strong><span><span class="tr-only">Frontend + Backend + Cloud + Real-time + Scheduled Jobs</span><span class="en-only">Frontend + Backend + Cloud + Real-time + Scheduled Jobs</span></span></div>
+        </section>
+      </div>
     </div>
+  </section>
+
+  <div class="quick-actions">
+    <a routerLink="/login" class="primary"><span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></a>
+    <a routerLink="/musteri-ekle"><span class="tr-only">+ Müşteri Ekle</span><span class="en-only">+ Add Customer</span></a>
   </div>
 </div>
