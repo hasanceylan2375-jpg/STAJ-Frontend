@@ -40,7 +40,7 @@ export class AuthService {
   isAdmin(): boolean { return this.getRole() === 'Admin'; }
 
   refreshAccessToken(): Observable<RefreshResponse> {
-    return this.http.post<RefreshResponse>('https://localhost:7233/api/Auth/refresh', { refreshToken: this.getRefreshToken() }).pipe(
+    return this.http.post<RefreshResponse>('/api/Auth/refresh', { refreshToken: this.getRefreshToken() }).pipe(
       tap(response => {
         localStorage.setItem(this.tokenKey, response.accessToken);
         localStorage.setItem(this.refreshTokenKey, response.refreshToken);
