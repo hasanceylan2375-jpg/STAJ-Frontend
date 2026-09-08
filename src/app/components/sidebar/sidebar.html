@@ -4,25 +4,25 @@
     <button type="button" [class.active-language]="selectedLanguage === 'tr-TR'" (click)="setLanguage('tr-TR')">🇹🇷 Türkçe</button>
     <button type="button" [class.active-language]="selectedLanguage === 'en-US'" (click)="setLanguage('en-US')">🇬🇧 English</button>
   </div>
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span class="tr-only">▦&nbsp; Dashboard</span><span class="en-only">▦&nbsp; Dashboard</span></a>
-  <a routerLink="/login" routerLinkActive="active"><span class="tr-only">⇥&nbsp; Giriş Yap</span><span class="en-only">⇥&nbsp; Login</span></a>
-  <a routerLink="/musteri-ekle" routerLinkActive="active"><span class="tr-only">＋&nbsp; Müşteri Ekle</span><span class="en-only">＋&nbsp; Add Customer</span></a>
-  <a routerLink="/musteri-listele" routerLinkActive="active"><span class="tr-only">▤&nbsp; Müşteri Listele</span><span class="en-only">▤&nbsp; Customer List</span></a>
-  <a routerLink="/sirket-ekle" routerLinkActive="active"><span class="tr-only">＋&nbsp; Şirket Ekle</span><span class="en-only">＋&nbsp; Add Company</span></a>
-  <a routerLink="/sirket-listele" routerLinkActive="active"><span class="tr-only">▦&nbsp; Şirket Listesi</span><span class="en-only">▦&nbsp; Company List</span></a>
-  <a routerLink="/konut-ekle" routerLinkActive="active"><span class="tr-only">＋&nbsp; Konut Ekle</span><span class="en-only">＋&nbsp; Add Property</span></a>
-  <a routerLink="/konut-listele" routerLinkActive="active"><span class="tr-only">⌂&nbsp; Konut Listesi</span><span class="en-only">⌂&nbsp; Property List</span></a>
-  <a routerLink="/arac-ekle" routerLinkActive="active"><span class="tr-only">＋&nbsp; Araç Ekle</span><span class="en-only">＋&nbsp; Add Vehicle</span></a>
-  <a routerLink="/arac-listele" routerLinkActive="active"><span class="tr-only">▱&nbsp; Araç Listesi</span><span class="en-only">▱&nbsp; Vehicle List</span></a>
-  <a routerLink="/google-map" routerLinkActive="active"><span class="tr-only">📍&nbsp; Harita</span><span class="en-only">📍&nbsp; Map</span></a>
-  <a routerLink="/user-control" routerLinkActive="active"><span class="tr-only">🧩&nbsp; Kullanıcı Kontrolü</span><span class="en-only">🧩&nbsp; User Control</span></a>
-  <a routerLink="/mail" routerLinkActive="active"><span class="tr-only">✉&nbsp; Mail Gönder</span><span class="en-only">✉&nbsp; Send Mail</span></a>
-  <a routerLink="/about" routerLinkActive="active"><span class="tr-only">◎&nbsp; Hakkımızda</span><span class="en-only">◎&nbsp; About Us</span></a>
-  <a routerLink="/contact" routerLinkActive="active"><span class="tr-only">✉&nbsp; İletişim</span><span class="en-only">✉&nbsp; Contact</span></a>
-  <a routerLink="/features" routerLinkActive="active"><span class="tr-only">✦&nbsp; Özellikler</span><span class="en-only">✦&nbsp; Features</span></a>
-  <a routerLink="/faq" routerLinkActive="active"><span class="tr-only">?&nbsp; SSS</span><span class="en-only">?&nbsp; FAQ</span></a>
-  <a routerLink="/profile" routerLinkActive="active"><span class="tr-only">♙&nbsp; Profilim</span><span class="en-only">♙&nbsp; My Profile</span></a>
-  <button type="button" class="logout-btn" (click)="logout()"><span class="tr-only">⇥&nbsp; Çıkış Yap</span><span class="en-only">⇥&nbsp; Logout</span></button>
+  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><span>▦&nbsp; <span class="tr-only">Dashboard</span><span class="en-only">Dashboard</span></span></a>
+  <a routerLink="/login" routerLinkActive="active"><span>⇥&nbsp; <span class="tr-only">Giriş Yap</span><span class="en-only">Login</span></span></a>
+  <a routerLink="/musteri-ekle" routerLinkActive="active"><span>＋&nbsp; <span class="tr-only">Müşteri Ekle</span><span class="en-only">Add Customer</span></span></a>
+  <a routerLink="/musteri-listele" routerLinkActive="active"><span>▤&nbsp; <span class="tr-only">Müşteri Listele</span><span class="en-only">Customer List</span></span></a>
+  <a routerLink="/sirket-ekle" routerLinkActive="active"><span>＋&nbsp; <span class="tr-only">Şirket Ekle</span><span class="en-only">Add Company</span></span></a>
+  <a routerLink="/sirket-listele" routerLinkActive="active"><span>▦&nbsp; <span class="tr-only">Şirket Listesi</span><span class="en-only">Company List</span></span></a>
+  <a routerLink="/konut-ekle" routerLinkActive="active"><span>＋&nbsp; <span class="tr-only">Konut Ekle</span><span class="en-only">Add Property</span></span></a>
+  <a routerLink="/konut-listele" routerLinkActive="active"><span>⌂&nbsp; <span class="tr-only">Konut Listesi</span><span class="en-only">Property List</span></span></a>
+  <a routerLink="/arac-ekle" routerLinkActive="active"><span>▱&nbsp; <span class="tr-only">Araç Ekle</span><span class="en-only">Add Vehicle</span></span></a>
+  <a routerLink="/arac-listele" routerLinkActive="active"><span>▱&nbsp; <span class="tr-only">Araç Listesi</span><span class="en-only">Vehicle List</span></span></a>
+  <a routerLink="/google-map" routerLinkActive="active"><span>⌖&nbsp; <span class="tr-only">Harita</span><span class="en-only">Map</span></span></a>
+  <a routerLink="/user-control" routerLinkActive="active"><span>✦&nbsp; <span class="tr-only">Kullanıcı Kontrolü</span><span class="en-only">User Control</span></span></a>
+  <a routerLink="/mail" routerLinkActive="active"><span>✉&nbsp; <span class="tr-only">Mail Gönder</span><span class="en-only">Send Mail</span></span></a>
+  <a routerLink="/about" routerLinkActive="active"><span>◎&nbsp; <span class="tr-only">Hakkımızda</span><span class="en-only">About Us</span></span></a>
+  <a routerLink="/contact" routerLinkActive="active"><span>✉&nbsp; <span class="tr-only">İletişim</span><span class="en-only">Contact</span></span></a>
+  <a routerLink="/features" routerLinkActive="active"><span>✦&nbsp; <span class="tr-only">Özellikler</span><span class="en-only">Features</span></span></a>
+  <a routerLink="/faq" routerLinkActive="active"><span>?&nbsp; <span class="tr-only">SSS</span><span class="en-only">FAQ</span></span></a>
+  <a routerLink="/profile" routerLinkActive="active"><span>♙&nbsp; <span class="tr-only">Profilim</span><span class="en-only">My Profile</span></span></a>
+  <button type="button" class="logout-btn" (click)="logout()"><span>⇥&nbsp; <span class="tr-only">Çıkış Yap</span><span class="en-only">Logout</span></span></button>
 </div>
 @if (showLogoutMessage) {
   <div class="logout-overlay"><div class="logout-message"><span class="tr-only">✓ Çıkış yapıldı</span><span class="en-only">✓ Logged out</span></div></div>
