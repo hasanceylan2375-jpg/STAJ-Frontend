@@ -1,0 +1,34 @@
+<article class="user-control" [class.compact]="compact" [class.is-loading]="loading">
+  <div class="avatar" aria-hidden="true">
+    @if (user.avatarUrl) { <img [src]="user.avatarUrl" [alt]="user.name" /> }
+    @else { <span>{{ user.name.charAt(0).toUpperCase() || '?' }}</span> }
+  </div>
+
+  <div class="user-body">
+    @if (editing) {
+      <div class="edit-grid">
+        <label>Ad Soyad<input [(ngModel)]="draft.name" autocomplete="name" /></label>
+        <label>E-posta<input [(ngModel)]="draft.email" type="email" autocomplete="email" /></label>
+        <label>Rol<input [(ngModel)]="draft.role" /></label>
+        <label>Durum<select [(ngModel)]="draft.status"><option value="active">Aktif</option><option value="inactive">Pasif</option><option value="pending">Beklemede</option></select></label>
+      </div>
+      @if (error) { <p class="error" role="alert">{{ error }}</p> }
+      <div class="actions">
+        <button type="button" class="primary" [disabled]="loading" (click)="submit()">{{ loading ? 'Kaydediliyor...' : 'Kaydet' }}</button>
+        <button type="button" (click)="cancelEdit()">İptal</button>
+      </div>
+    } @else {
+      <div class="identity">
+        <div><h3>{{ user.name || 'İsimsiz Kullanıcı' }}</h3><p>{{ user.email || 'E-posta yok' }}</p></div>
+        <span class="status" [class]="user.status">{{ user.status === 'active' ? 'Aktif' : user.status === 'inactive' ? 'Pasif' : 'Beklemede' }}</span>
+      </div>
+      <div class="meta"><span>Rol: <strong>{{ user.role }}</strong></span><span>Durum: <strong>{{ user.status }}</strong></span></div>
+      @if (showActions && (editable || logout)) {
+        <div class="actions">
+          @if (editable) { <button type="button" class="primary" (click)="startEdit()">Düzenle</button> }
+          @if (logout) { <button type="button" (click)="logout.emit()">Çıkış Yap</button> }
+        </div>
+      }
+    }
+  </div>
+</article>
