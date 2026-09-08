@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 interface MapPlace {
@@ -10,16 +12,16 @@ interface MapPlace {
 
 @Component({
   selector: 'app-google-map',
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './google-map.html',
   styleUrl: './google-map.css'
 })
 export class GoogleMap {
   arama = '';
-  aktifHarita = 'roadmap';
   rotaBaslangic = '';
   rotaVaris = '';
   seciliYer: MapPlace | null = null;
+  private readonly sanitizer = inject(DomSanitizer);
 
   readonly yerler: MapPlace[] = [
     { name: 'Merkez Ofis', lat: 41.4564, lng: 31.7987, type: 'merkez' },
@@ -36,9 +38,9 @@ export class GoogleMap {
     return this.seciliYer ?? this.yerler[0];
   }
 
-  get mapUrl(): string {
-    const place = `${this.merkez.lat},${this.merkez.lng}`;
-    return `https://www.google.com/maps/embed/v1/view?center=${this.merkez.lat},${this.merkez.lng}&zoom=13&maptype=${this.aktifHarita}&key=YOUR_GOOGLE_MAPS_API_KEY`;
+  get mapUrl(): SafeResourceUrl {
+    const url = `https://www.google.com/maps?q=${this.merkez.lat},${this.merkez.lng}&output=embed`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   get mapsSearchUrl(): string {
