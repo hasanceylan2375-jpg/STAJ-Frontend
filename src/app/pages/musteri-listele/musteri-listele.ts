@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, signal, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
@@ -9,20 +8,11 @@ import { SignalRService } from '../../services/signalr.service';
 @Component({ selector:'app-musteri-listele', imports:[FormsModule], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
 export class MusteriListele implements OnInit, OnDestroy {
   musteriler=signal<any[]>([]); search=''; sort=''; page=1; pageSize=5; cursorModu=false; nextCursor:number|null=null; currentCursor:number|null=null; cursorGecmisi:(number|null)[]=[]; araniyor=false; isEnglish=localStorage.getItem('language')==='en-US';
-  readonly authService=inject(AuthService);
-  private signalRService=inject(SignalRService);
+  readonly authService=inject(AuthService); private signalRService=inject(SignalRService);
   private aramaDegisimi=new Subject<string>(); private aramaAboneligi?:Subscription; private signalRAbonelikleri:Subscription[]=[];
   constructor(private musteriService:MusteriService,private router:Router,private toastService:ToastService){}
   @HostListener('window:app-language-changed',['$event']) onLanguageChanged(event:Event):void{this.isEnglish=(event as CustomEvent<string>).detail==='en-US';}
-  ngOnInit():void{
-    this.musterileriGetir();
-    this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap());
-    this.signalRAbonelikleri.push(
-      this.signalRService.musteriEklendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was added.`:`${m.ad??''} ${m.soyad??''} müşterisi eklendi.`);this.listeyiYenile();}),
-      this.signalRService.musteriGuncellendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was updated.`:`${m.ad??''} ${m.soyad??''} müşterisi güncellendi.`);this.listeyiYenile();}),
-      this.signalRService.musteriSilindi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was deleted.`:`${m.ad??''} ${m.soyad??''} müşterisi silindi.`);this.listeyiYenile();})
-    );
-  }
+  ngOnInit():void{this.musterileriGetir();this.aramaAboneligi=this.aramaDegisimi.pipe(debounceTime(500)).subscribe(()=>this.debounceAramaYap());this.signalRAbonelikleri.push(this.signalRService.musteriEklendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was added.`:`${m.ad??''} ${m.soyad??''} müşterisi eklendi.`);this.listeyiYenile();}),this.signalRService.musteriGuncellendi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was updated.`:`${m.ad??''} ${m.soyad??''} müşterisi güncellendi.`);this.listeyiYenile();}),this.signalRService.musteriSilindi$.subscribe((m)=>{this.toastService.info(this.isEnglish?`Customer ${m.ad??''} ${m.soyad??''} was deleted.`:`${m.ad??''} ${m.soyad??''} müşterisi silindi.`);this.listeyiYenile();}));}
   ngOnDestroy():void{this.aramaAboneligi?.unsubscribe();this.signalRAbonelikleri.forEach(s=>s.unsubscribe());}
   aramaDegisti():void{if(this.cursorModu)return;this.araniyor=true;this.aramaDegisimi.next(this.search);} private debounceAramaYap():void{const a=this.search.trim();if(a.length>0&&a.length<3){this.araniyor=false;return;}this.page=1;this.musterileriGetir();}
   musterileriGetir():void{this.musteriService.getMusteriler(this.search,this.sort,this.page,this.pageSize).subscribe({next:(r:any)=>{this.musteriler.set(this.siralaListe(r.data??[]));this.araniyor=false;},error:(e)=>{this.araniyor=false;this.toastService.error(e?.error?.message||(this.isEnglish?'Error while loading customers.':'Müşteriler alınırken hata oluştu.'));}});}
@@ -32,6 +22,6 @@ export class MusteriListele implements OnInit, OnDestroy {
   cursorModunuDegistir():void{this.cursorModu=!this.cursorModu;this.currentCursor=null;this.nextCursor=null;this.cursorGecmisi=[];this.page=1;this.araniyor=false;this.cursorModu?this.cursorIleGetir():this.musterileriGetir();} cursorSonraki():void{if(this.nextCursor===null||this.musteriler().length<this.pageSize)return;this.cursorGecmisi.push(this.currentCursor);this.currentCursor=this.nextCursor;this.cursorIleGetir();} cursorOnceki():void{if(this.cursorGecmisi.length===0)return;this.currentCursor=this.cursorGecmisi.pop()??null;this.cursorIleGetir();}
   ara():void{this.page=1;this.araniyor=false;this.musterileriGetir();} sirala():void{this.page=1;this.musterileriGetir();} temizle():void{this.search='';this.sort='';this.page=1;this.araniyor=false;this.musterileriGetir();} oncekiSayfa():void{if(this.page>1){this.page--;this.musterileriGetir();}} sonrakiSayfa():void{if(this.musteriler().length===this.pageSize){this.page++;this.musterileriGetir();}}
   excelAktar():void{this.musteriService.excelAktar(this.search,this.sort).subscribe({next:(dosya:Blob)=>{const url=window.URL.createObjectURL(dosya);const link=document.createElement('a');link.href=url;link.download='musteriler.xlsx';link.click();window.URL.revokeObjectURL(url);this.toastService.success(this.isEnglish?'Excel file downloaded successfully.':'Excel dosyası başarıyla indirildi.');},error:(e)=>this.toastService.error(e?.error?.message||(this.isEnglish?'Error while exporting Excel.':'Excel aktarılırken hata oluştu.'))});}
-  fotografIndir(profilFotoUrl:string):void{const dosyaAdi=profilFotoUrl.split('/').pop();if(!dosyaAdi)return;this.musteriService.fotografIndir(dosyaAdi).subscribe({next:(dosya:Blob)=>{const url=window.URL.createObjectURL(dosya);const link=document.createElement('a');link.href=url;link.download=dosyaAdi;link.click();window.URL.revokeObjectURL(url);this.toastService.success(this.isEnglish?'Photo downloaded successfully.':'Fotoğraf başarıyla indirildi.');},error:(e)=>this.toastService.error(e?.error?.message||(this.isEnglish?'Error while downloading photo.':'Fotoğraf indirilirken hata oluştu.'))});}
+  fotografIndir(profilFotoUrl:string):void{if(!profilFotoUrl)return;window.open(profilFotoUrl,'_blank','noopener,noreferrer');}
   musteriSil(id:number):void{if(confirm(this.isEnglish?'Are you sure you want to delete this customer?':'Bu müşteriyi silmek istediğinize emin misiniz?')){this.musteriService.musteriSil(id).subscribe({next:(r:any)=>{this.toastService.success(r?.message||(this.isEnglish?'Customer deleted successfully.':'Müşteri başarıyla silindi.'));this.cursorModu?this.cursorIleGetir():this.musterileriGetir();},error:(e)=>this.toastService.error(e?.error?.message||(this.isEnglish?'Error while deleting customer.':'Müşteri silinirken hata oluştu.'))});}} musteriGuncelle(m:any):void{this.router.navigate(['/musteri-ekle'],{state:{musteri:m}});}
 }
