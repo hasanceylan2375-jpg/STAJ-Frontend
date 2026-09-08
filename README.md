@@ -1,6 +1,6 @@
 # STAJFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.5.
+This project was generated using Angular CLI version 22.1.5.
 
 ## Development server
 
@@ -12,19 +12,17 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## API Base URL / Environment Management
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Backend API adresi servislerin içine sabit URL olarak yazılmaz. Ortama göre `src/environments` altındaki dosyalardan yönetilir:
 
-```bash
-ng generate component component-name
-```
+- `environment.development.ts` — development
+- `environment.test.ts` — test
+- `environment.ts` — production
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+HTTP isteklerinde `/api/...` veya `/hubs/...` şeklinde göreli endpoint kullanılır. `api-base-url.interceptor.ts`, BaseUrl'i merkezi olarak ekler; aynı interceptor istek timeout'u ve development loglamasını da yönetir.
 
-```bash
-ng generate --help
-```
+Detaylı açıklama için [`docs/api-base-url.md`](docs/api-base-url.md) dosyasına bakabilirsiniz.
 
 ## Building
 
@@ -34,26 +32,22 @@ To build the project run:
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Environment seçerek build almak için:
+
+```bash
+ng build --configuration development
+ng build --configuration test
+ng build --configuration production
+```
 
 ## Running unit tests
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+To execute the unit tests with the Vitest test runner, use:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
 ## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For more information on Angular, visit the Angular CLI documentation.
