@@ -5,7 +5,7 @@ import { Observable, catchError, throwError, timeout } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ImageService {
   private http = inject(HttpClient);
-  private readonly api = 'https://localhost:7233/api/Images';
+  private readonly api = '/api/Images';
 
   upload(file: File): Observable<{ url: string }> {
     const form = new FormData();
