@@ -2,6 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { AuthService } from './auth/auth.service';
+import { API_CONFIG } from '../config/api.config';
+import { environment } from '../../environments/environment';
 
 export interface MusteriDegisikligi {
   id?: number;
@@ -40,8 +42,14 @@ export class SignalRService {
     if (this.connection?.state === 'Connected' || this.baslatiliyor || !this.authService.isLoggedIn()) return;
 
     this.baslatiliyor = true;
+    const hubUrl = `${API_CONFIG.BASE_URL}/hubs/notifications`;
+
+    if (!environment.production) {
+      console.debug('[SignalR]', hubUrl);
+    }
+
     this.connection = new HubConnectionBuilder()
-      .withUrl('https://localhost:7233/hubs/notifications', {
+      .withUrl(hubUrl, {
         accessTokenFactory: () => this.authService.getToken() ?? ''
       })
       .withAutomaticReconnect([0, 2000, 5000, 10000])
