@@ -1,0 +1,17 @@
+<div class="demo-page">
+  <header><span class="eyebrow">STAJ 38</span><h1>User Control Component</h1><p>Yeniden kullanılabilir, test edilebilir ve bakımı kolay kullanıcı arayüz bileşeni.</p></header>
+  <section class="info-grid">
+    <div><strong>Reusable</strong><span>Input ve Output özellikleriyle farklı sayfalarda kullanılabilir.</span></div>
+    <div><strong>State</strong><span>Görüntüleme ve düzenleme durumları ayrı yönetilir.</span></div>
+    <div><strong>Validation</strong><span>Ad Soyad ve e-posta alanları kayıt öncesi kontrol edilir.</span></div>
+  </section>
+  <section class="component-preview">
+    <h2>Örnek Kullanım</h2>
+    <app-user-control [user]="user" [editable]="true" [showActions]="true" (save)="onSave($event)" (cancel)="onCancel()" (logout)="onLogout()" />
+    <p class="event">Son işlem: <strong>{{ lastAction }}</strong></p>
+  </section>
+  <section class="catalog">
+    <h2>Props / Events</h2>
+    <div class="table"><div><b>user</b><span>Kullanıcı verisi</span></div><div><b>editable</b><span>Düzenleme özelliğini açar</span></div><div><b>compact</b><span>Kompakt görünüm</span></div><div><b>loading</b><span>Kaydetme durumunu gösterir</span></div><div><b>save</b><span>Geçerli kullanıcı verisini dışarı bildirir</span></div><div><b>cancel / logout</b><span>Kullanıcı etkileşimlerini dışarı bildirir</span></div></div>
+  </section>
+</div>
