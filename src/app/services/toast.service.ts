@@ -34,6 +34,10 @@ export class ToastService {
     this.show(message, 'error');
   }
 
+  info(message: string): void {
+    this.show(message, 'info');
+  }
+
   clear(): void {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
