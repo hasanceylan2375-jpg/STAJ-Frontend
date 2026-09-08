@@ -12,6 +12,7 @@ import {
 
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth/auth.interceptor';
+import { apiBaseUrlInterceptor } from './services/api-base-url.interceptor';
 import { GlobalErrorHandler } from './services/global-error-handler.service';
 
 export const appConfig: ApplicationConfig = {
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([apiBaseUrlInterceptor, authInterceptor])
     ),
 
     {
