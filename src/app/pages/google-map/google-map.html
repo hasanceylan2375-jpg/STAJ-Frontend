@@ -1,5 +1,14 @@
 <div class="map-page">
   <section class="map-card">
+    <header class="page-header">
+      <div>
+        <span class="eyebrow">STAJ PROJESİ</span>
+        <h1>Frontend Google Map</h1>
+        <p>Arama, rota tarifi ve ofis konumlarını tek ekrandan görüntüle.</p>
+      </div>
+      <span class="map-badge">Google Maps</span>
+    </header>
+
     <div class="map-toolbar">
       <div class="search-area">
         <label for="map-search">Arama</label>
@@ -36,6 +45,11 @@
         </button>
         <p class="empty" *ngIf="!filtrelenmisYerler.length">Konum bulunamadı.</p>
 
+        <div class="legend">
+          <span><i class="pin"></i> Merkez Ofis</span>
+          <span><i class="pin branch"></i> Şube Ofis</span>
+        </div>
+
         <a class="directions" [href]="directionsUrl" target="_blank" rel="noopener">↗ Google Maps'te rota aç</a>
       </aside>
 
@@ -46,8 +60,9 @@
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-        <div class="api-note">
-          Google Maps Embed API anahtarı `YOUR_GOOGLE_MAPS_API_KEY` yerine yapılandırılmalıdır.
+        <div class="map-caption">
+          <strong>{{ merkez.name }}</strong>
+          <span>{{ merkez.lat }}, {{ merkez.lng }}</span>
         </div>
       </div>
     </div>
