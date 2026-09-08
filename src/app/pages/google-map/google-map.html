@@ -1,0 +1,55 @@
+<div class="map-page">
+  <section class="map-card">
+    <div class="map-toolbar">
+      <div class="search-area">
+        <label for="map-search">Arama</label>
+        <div class="search-row">
+          <input id="map-search" [(ngModel)]="arama" (keyup.enter)="ara()" placeholder="Konum ara..." />
+          <button type="button" (click)="ara()">⌕ Ara</button>
+        </div>
+      </div>
+
+      <div class="route-area">
+        <label>Rota Tarifi</label>
+        <div class="route-row">
+          <input [(ngModel)]="rotaBaslangic" placeholder="Başlangıç" />
+          <span>→</span>
+          <input [(ngModel)]="rotaVaris" placeholder="Varış" />
+          <button type="button" (click)="rotaOlustur()">Rota</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-tabs" role="tablist" aria-label="Harita türü">
+      <button type="button" [class.active]="aktifHarita === 'roadmap'" (click)="aktifHarita='roadmap'">Harita</button>
+      <button type="button" [class.active]="aktifHarita === 'satellite'" (click)="aktifHarita='satellite'">Uydu</button>
+      <button type="button" [class.active]="aktifHarita === 'terrain'" (click)="aktifHarita='terrain'">Arazi</button>
+      <a [href]="mapsSearchUrl" target="_blank" rel="noopener">📍 Google Haritalar'da Aç</a>
+    </div>
+
+    <div class="content-grid">
+      <aside class="places-panel">
+        <h3>İşaretler</h3>
+        <button class="place" type="button" *ngFor="let yer of filtrelenmisYerler" (click)="yerSec(yer)" [class.selected]="seciliYer?.name === yer.name">
+          <span class="pin" [class.branch]="yer.type === 'sube'">●</span>
+          <span>{{ yer.name }}</span>
+        </button>
+        <p class="empty" *ngIf="!filtrelenmisYerler.length">Konum bulunamadı.</p>
+
+        <a class="directions" [href]="directionsUrl" target="_blank" rel="noopener">↗ Google Maps'te rota aç</a>
+      </aside>
+
+      <div class="map-frame-wrap">
+        <iframe
+          [src]="mapUrl"
+          title="Google Harita"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="api-note">
+          Google Maps Embed API anahtarı `YOUR_GOOGLE_MAPS_API_KEY` yerine yapılandırılmalıdır.
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
