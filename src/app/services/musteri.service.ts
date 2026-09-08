@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class MusteriService {
-  private apiUrl = 'https://localhost:7233/api/Musteri';
+  private apiUrl = '/api/Musteri';
   constructor(private http: HttpClient) {}
 
   getMusteriler(search = '', sort = '', page = 1, pageSize = 5) {
