@@ -10,7 +10,7 @@ export interface SendMailRequest {
 
 @Injectable({ providedIn: 'root' })
 export class MailService {
-  private readonly apiUrl = 'https://localhost:7233/api/Mail';
+  private readonly apiUrl = '/api/Mail';
 
   constructor(private http: HttpClient) {}
 
