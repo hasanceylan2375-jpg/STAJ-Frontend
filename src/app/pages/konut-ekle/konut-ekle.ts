@@ -1,2 +1,18 @@
-import { Component } from '@angular/core';import { FormsModule } from '@angular/forms';import { Router } from '@angular/router';import { KonutService } from '../../services/konut.service';import { ImageService } from '../../services/image.service';
-@Component({selector:'app-konut-ekle',imports:[FormsModule],templateUrl:'./konut-ekle.html',styleUrl:'./konut-ekle.css'})export class KonutEkle{baslik='';konum='';odaSayisi:number|null=null;fiyat:number|null=null;secilenDosya:File|null=null;hata='';yukleniyor=false;constructor(private service:KonutService,private imageService:ImageService,private router:Router){}dosyaSecildi(event:Event){const input=event.target as HTMLInputElement;this.secilenDosya=input.files?.[0]??null;}kaydet(){this.hata='';this.yukleniyor=true;const kaydetKonut=(id:string|null)=>this.service.ekle({baslik:this.baslik,konum:this.konum,odaSayisi:this.odaSayisi,fiyat:this.fiyat,gorselUrl:id}).subscribe({next:()=>this.router.navigate(['/konut-listele']),error:e=>{this.hata=e?.error?.message||'Konut kaydedilemedi.';this.yukleniyor=false;}});if(this.secilenDosya){this.imageService.upload(this.secilenDosya).subscribe({next:r=>kaydetKonut(r.id),error:e=>{this.hata=e?.error||'Görsel yüklenemedi.';this.yukleniyor=false;}});}else kaydetKonut(null);}}
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { KonutService } from '../../services/konut.service';
+import { ImageService } from '../../services/image.service';
+
+@Component({selector:'app-konut-ekle',imports:[FormsModule],templateUrl:'./konut-ekle.html',styleUrl:'./konut-ekle.css'})
+export class KonutEkle {
+  baslik=''; konum=''; odaSayisi:number|null=null; fiyat:number|null=null;
+  secilenDosya:File|null=null; hata=''; yukleniyor=false;
+  constructor(private service:KonutService,private imageService:ImageService,private router:Router){}
+  dosyaSecildi(event:Event){const input=event.target as HTMLInputElement;this.secilenDosya=input.files?.[0]??null;}
+  kaydet(){
+    this.hata='';this.yukleniyor=true;
+    const kaydetKonut=(gorselUrl:string|null)=>this.service.ekle({baslik:this.baslik,konum:this.konum,odaSayisi:this.odaSayisi,fiyat:this.fiyat,gorselUrl}).subscribe({next:()=>this.router.navigate(['/konut-listele']),error:e=>{this.hata=e?.error?.message||'Konut kaydedilemedi.';this.yukleniyor=false;}});
+    if(this.secilenDosya)this.imageService.upload(this.secilenDosya).subscribe({next:r=>kaydetKonut(r.url),error:e=>{this.hata=e?.error||'Görsel Cloudinary\'ye yüklenemedi.';this.yukleniyor=false;}});else kaydetKonut(null);
+  }
+}
