@@ -15,7 +15,7 @@ export class Register {
     this.hata='';
     if(this.sifre!==this.sifreTekrar){ this.hata=this.isEnglish?'Passwords do not match.':'Şifreler eşleşmiyor.'; return; }
     this.yukleniyor=true;
-    this.http.post<any>('https://localhost:7233/api/Auth/register',{kullaniciAdi:this.kullaniciAdi.trim(),sifre:this.sifre}).pipe(
+    this.http.post<any>('/api/Auth/register',{kullaniciAdi:this.kullaniciAdi.trim(),sifre:this.sifre}).pipe(
       timeout(10000),
       finalize(()=>this.yukleniyor=false)
     ).subscribe({
