@@ -21,6 +21,7 @@ export const routes: Routes = [
   {path:'arac-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/arac-listele/arac-listele').then(m=>m.AracListele)},
   {path:'mail',canActivate:[authGuard],loadComponent:()=>import('./pages/mail/mail').then(m=>m.Mail)},
   {path:'google-map',canActivate:[authGuard],loadComponent:()=>import('./pages/google-map/google-map').then(m=>m.GoogleMap)},
+  {path:'user-control',canActivate:[authGuard],loadComponent:()=>import('./pages/user-control-demo/user-control-demo').then(m=>m.UserControlDemo)},
   {path:'not-found',loadComponent:()=>import('./pages/not-found/not-found').then(m=>m.NotFound)},
   {path:'**',redirectTo:'not-found'}
 ];
