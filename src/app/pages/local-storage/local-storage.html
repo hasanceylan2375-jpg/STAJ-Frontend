@@ -1,0 +1,16 @@
+<main class="page">
+  <header class="hero"><div><span class="eyebrow">STAJ 42</span><h1>Local Storage</h1><p>Tarayıcıda anahtar-değer verilerini kalıcı olarak saklama ve yönetme demosu.</p></div><span class="api-badge">Web Storage API</span></header>
+
+  <section class="grid">
+    <article class="panel"><h2>1. Temel İşlemler</h2><p class="muted">setItem, getItem, removeItem ve clear işlemlerini deneyin.</p><input [(ngModel)]="rawKey" placeholder="Anahtar"><input [(ngModel)]="rawValue" placeholder="Değer"><div class="actions"><button (click)="setDemo()">setItem</button><button (click)="getDemo()">getItem</button><button (click)="removeDemo()">removeItem</button><button class="danger" (click)="clearDemo()">clear</button></div></article>
+
+    <article class="panel"><h2>2. Kullanıcı Tercihleri</h2><label>Tema<select [(ngModel)]="preference.theme"><option value="light">Light</option><option value="dark">Dark</option></select></label><label>Dil<select [(ngModel)]="preference.language"><option value="tr-TR">Türkçe</option><option value="en-US">English</option></select></label><button (click)="savePreferences()">Tercihleri Kaydet</button><p class="muted">Sayfa yenilendiğinde tercihler Local Storage'dan okunur.</p></article>
+
+    <article class="panel"><h2>3. Form</h2><div class="form-grid"><input [(ngModel)]="profile.name" placeholder="Ad Soyad"><input [(ngModel)]="profile.email" type="email" placeholder="E-posta"><input [(ngModel)]="profile.phone" placeholder="Telefon"></div><button (click)="saveProfile()">Formu Kaydet</button><p class="muted">Ad ve geçerli e-posta kontrolü yapılır.</p></article>
+
+    <article class="panel cart"><h2>4. Sepet Uygulaması</h2><div class="products">@for (product of products; track product.id) {<div class="product"><span>{{ product.name }}</span><strong>₺{{ product.price | number:'1.0-0' }}</strong><button (click)="addToCart(product)">Sepete Ekle</button></div>}</div><div class="cart-list"><h3>Sepet ({{ cart.length }})</h3>@if (cart.length === 0) {<p class="muted">Sepet boş.</p>} @else {@for (item of cart; track item.id) {<div class="cart-item"><span>{{ item.name }} × {{ item.quantity }}</span><span>₺{{ item.price * item.quantity | number:'1.0-0' }} <button class="link" (click)="removeFromCart(item.id)">Sil</button></span></div>}<strong>Toplam: ₺{{ total | number:'1.0-0' }}</strong>}</div></article>
+
+    <article class="panel full"><h2>5. Veri Yönetimi / Son Kontrol</h2><p class="muted">Uygulamanın oluşturduğu anahtarlar:</p><div class="keys">@for (key of storageKeys; track key) {<code>{{ key }}</code>}</div><p class="hint">Gereksiz veya geçici anahtarları removeItem ile temiz tutun. clear tüm Local Storage'ı siler.</p></article>
+  </section>
+  @if (message) { <div class="toast">{{ message }}</div> }
+</main>
