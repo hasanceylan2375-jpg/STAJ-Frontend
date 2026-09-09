@@ -1,1 +1,37 @@
-<section class="workflow-page"><div class="page-head"><div><span class="eyebrow">WORKFLOW</span><h1>Müşteri Taleplerim</h1><p>Müşteri ekleme taleplerinin onay durumunu takip edin.</p></div><button type="button" (click)="yukle()">Yenile</button></div>@if (yukleniyor) {<div class="state">Talepler yükleniyor...</div>} @else if (hata) {<div class="state error">{{ hata }}</div>} @else if (!talepler.length) {<div class="state">Henüz bir müşteri ekleme talebiniz yok.</div>} @else {<div class="cards">@for (talep of talepler; track talep.id) {<article class="card"><div class="card-top"><strong>#{{ talep.id }} · {{ talep.musteri?.ad }} {{ talep.musteri?.soyad }}</strong><span class="status" [class.approved]="talep.status==='Approved'" [class.rejected]="talep.status==='Rejected'">{{ durum(talep.status) }}</span></div><div class="info"><span>✉ {{ talep.musteri?.email }}</span><span>☎ {{ talep.musteri?.telefon }}</span><span>Talep: {{ talep.createdAt | date:'dd.MM.yyyy HH:mm' }}</span></div>@if (talep.reviewComment) {<p class="comment">Müdür notu: {{ talep.reviewComment }}</p>}</article>}}</div>}</section>
+<section class="workflow-page">
+  <div class="page-head">
+    <div>
+      <span class="eyebrow">WORKFLOW</span>
+      <h1>Müşteri Taleplerim</h1>
+      <p>Müşteri ekleme taleplerinin onay durumunu takip edin.</p>
+    </div>
+    <button type="button" (click)="yukle()">Yenile</button>
+  </div>
+
+  @if (yukleniyor) {
+    <div class="state">Talepler yükleniyor...</div>
+  } @else if (hata) {
+    <div class="state error">{{ hata }}</div>
+  } @else if (!talepler.length) {
+    <div class="state">Henüz bir müşteri ekleme talebiniz yok.</div>
+  } @else {
+    <div class="cards">
+      @for (talep of talepler; track talep.id) {
+        <article class="card">
+          <div class="card-top">
+            <strong>#{{ talep.id }} · {{ talep.musteri?.ad }} {{ talep.musteri?.soyad }}</strong>
+            <span class="status" [class.approved]="talep.status==='Approved'" [class.rejected]="talep.status==='Rejected'">{{ durum(talep.status) }}</span>
+          </div>
+          <div class="info">
+            <span>✉ {{ talep.musteri?.email }}</span>
+            <span>☎ {{ talep.musteri?.telefon }}</span>
+            <span>Talep: {{ talep.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+          </div>
+          @if (talep.reviewComment) {
+            <p class="comment">Müdür notu: {{ talep.reviewComment }}</p>
+          }
+        </article>
+      }
+    </div>
+  }
+</section>
