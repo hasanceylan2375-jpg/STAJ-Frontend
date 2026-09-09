@@ -20,6 +20,10 @@ export class Sidebar {
     this.applyLanguageClass();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   setLanguage(language: string): void {
     this.selectedLanguage = language;
     localStorage.setItem('language', language);
