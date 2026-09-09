@@ -23,6 +23,7 @@ export const routes: Routes = [
   {path:'google-map',canActivate:[authGuard],loadComponent:()=>import('./pages/google-map/google-map').then(m=>m.GoogleMap)},
   {path:'user-control',canActivate:[authGuard],loadComponent:()=>import('./pages/user-control-demo/user-control-demo').then(m=>m.UserControlDemo)},
   {path:'accordion-carousel',canActivate:[authGuard],loadComponent:()=>import('./pages/accordion-carousel/accordion-carousel').then(m=>m.AccordionCarousel)},
+  {path:'local-storage',canActivate:[authGuard],loadComponent:()=>import('./pages/local-storage/local-storage').then(m=>m.LocalStorage)},
   {path:'not-found',loadComponent:()=>import('./pages/not-found/not-found').then(m=>m.NotFound)},
   {path:'**',redirectTo:'not-found'}
 ];
