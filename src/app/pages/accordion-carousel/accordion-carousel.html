@@ -1,0 +1,49 @@
+<section class="page-shell">
+  <div class="page-heading">
+    <div><span class="eyebrow">FRONTEND</span><h2>Accordion &amp; Carousel</h2><p>Bilgiyi düzenli sunun, içeriği etkileşimli ve dikkat çekici hale getirin.</p></div>
+    <div class="chips"><span>▤ ACCORDION</span><span>▧ CAROUSEL</span></div>
+  </div>
+
+  <div class="info-grid">
+    <section class="panel">
+      <div class="panel-title"><span class="icon">▤</span><div><h3>Accordion</h3><p>Başlıklarla açılıp kapanan içerikler</p></div></div>
+      <div class="accordion" role="region" aria-label="Sıkça sorulan sorular">
+        @for (item of accordionItems; track $index) {
+          <div class="accordion-item" [class.open]="activeAccordion === $index">
+            <button type="button" class="accordion-header" [attr.aria-expanded]="activeAccordion === $index" (click)="toggleAccordion($index)">
+              <span>{{ item.title }}</span><span class="chevron">{{ activeAccordion === $index ? '−' : '+' }}</span>
+            </button>
+            @if (activeAccordion === $index) { <div class="accordion-content">{{ item.content }}</div> }
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="panel carousel-panel">
+      <div class="panel-title"><span class="icon">▧</span><div><h3>Carousel</h3><p>Banner / kampanya görselleri</p></div></div>
+      <div class="carousel" tabindex="0" (keydown.arrowleft)="previousSlide()" (keydown.arrowright)="nextSlide()">
+        <button type="button" class="nav prev" aria-label="Önceki slayt" (click)="previousSlide()">‹</button>
+        <img [src]="carouselItems[currentSlide].image" [alt]="carouselItems[currentSlide].title">
+        <div class="caption"><strong>{{ carouselItems[currentSlide].title }}</strong><span>{{ carouselItems[currentSlide].text }}</span></div>
+        <button type="button" class="nav next" aria-label="Sonraki slayt" (click)="nextSlide()">›</button>
+      </div>
+      <div class="dots" role="tablist" aria-label="Carousel slaytları">
+        @for (slide of carouselItems; track $index) { <button type="button" [class.active]="currentSlide === $index" [attr.aria-label]="'Slayt ' + ($index + 1)" (click)="selectSlide($index)"></button> }
+      </div>
+    </section>
+  </div>
+
+  <div class="bottom-grid">
+    <section class="panel">
+      <h3>Özellikler</h3>
+      <ul><li>Tekrar kullanılabilir</li><li>Responsive ve erişilebilir</li><li>Klavyeden kontrol edilebilir</li><li>ARIA durumları desteklenir</li><li>Otomatik ve manuel gezinme</li></ul>
+    </section>
+    <section class="panel">
+      <h3>UI Durumları</h3>
+      <div class="state-row"><span>Normal</span><span>Hover</span><span>Loading</span><span>Empty</span></div>
+      <div class="mini-states"><button type="button">Accordion başlığı</button><span class="loading-bar"></span><span class="empty-state">İçerik bulunamadı</span></div>
+    </section>
+  </div>
+
+  <section class="panel usage"><h3>Kullanım</h3><p>Accordion ve Carousel ayrı, yeniden kullanılabilir UI davranışları olarak tasarlanmıştır. Bu demo sayfası bileşenlerin etkileşimlerini ve erişilebilirlik durumlarını gösterir.</p></section>
+</section>
