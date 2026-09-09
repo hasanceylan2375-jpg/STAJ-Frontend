@@ -1,1 +1,46 @@
-<section class="workflow-page"><div class="page-head"><div><span class="eyebrow">MANAGER APPROVAL</span><h1>Müşteri Onay Talepleri</h1><p>Bekleyen müşteri ekleme taleplerini inceleyip onaylayın veya reddedin.</p></div><button type="button" (click)="yukle()">Yenile</button></div>@if (mesaj) {<div class="message">{{ mesaj }}</div>}@if (yukleniyor) {<div class="state">Talepler yükleniyor...</div>} @else if (!talepler.length) {<div class="state">Bekleyen müşteri talebi yok.</div>} @else {<div class="cards">@for (talep of talepler; track talep.id) {<article class="card"><div class="card-top"><strong>#{{ talep.id }} · {{ talep.musteri?.ad }} {{ talep.musteri?.soyad }}</strong><span class="pending">Müdür Onayı</span></div><div class="info"><span>Talep eden: {{ talep.requestedBy }}</span><span>✉ {{ talep.musteri?.email }}</span><span>☎ {{ talep.musteri?.telefon }}</span><span>TC: {{ talep.musteri?.tcKimlikNo || '—' }}</span><span>Talep tarihi: {{ talep.createdAt | date:'dd.MM.yyyy HH:mm' }}</span></div><textarea [(ngModel)]="yorum[talep.id]" rows="2" placeholder="Müdür notu (opsiyonel)"></textarea><div class="actions"><button type="button" class="approve" (click)="onayla(talep)">✓ Onayla ve Müşteriyi Oluştur</button><button type="button" class="reject" (click)="reddet(talep)">✕ Reddet</button></div></article>}}</div>}</section>
+<section class="workflow-page">
+  <div class="page-head">
+    <div>
+      <span class="eyebrow">MANAGER APPROVAL</span>
+      <h1>Müşteri Onay Talepleri</h1>
+      <p>Bekleyen müşteri ekleme taleplerini inceleyip onaylayın veya reddedin.</p>
+    </div>
+    <button type="button" (click)="yukle()">Yenile</button>
+  </div>
+
+  @if (mesaj) {
+    <div class="message">{{ mesaj }}</div>
+  }
+
+  @if (yukleniyor) {
+    <div class="state">Talepler yükleniyor...</div>
+  } @else if (!talepler.length) {
+    <div class="state">Bekleyen müşteri talebi yok.</div>
+  } @else {
+    <div class="cards">
+      @for (talep of talepler; track talep.id) {
+        <article class="card">
+          <div class="card-top">
+            <strong>#{{ talep.id }} · {{ talep.musteri?.ad }} {{ talep.musteri?.soyad }}</strong>
+            <span class="pending">Müdür Onayı</span>
+          </div>
+
+          <div class="info">
+            <span>Talep eden: {{ talep.requestedBy }}</span>
+            <span>✉ {{ talep.musteri?.email }}</span>
+            <span>☎ {{ talep.musteri?.telefon }}</span>
+            <span>TC: {{ talep.musteri?.tcKimlikNo || '—' }}</span>
+            <span>Talep tarihi: {{ talep.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+          </div>
+
+          <textarea [(ngModel)]="yorum[talep.id]" rows="2" placeholder="Müdür notu (opsiyonel)"></textarea>
+
+          <div class="actions">
+            <button type="button" class="approve" (click)="onayla(talep)">✓ Onayla ve Müşteriyi Oluştur</button>
+            <button type="button" class="reject" (click)="reddet(talep)">✕ Reddet</button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>
