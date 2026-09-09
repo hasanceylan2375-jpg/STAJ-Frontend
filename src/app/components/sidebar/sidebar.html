@@ -12,14 +12,19 @@
   <a routerLink="/sirket-listele" routerLinkActive="active"><span>▦&nbsp; <span class="tr-only">Şirket Listesi</span><span class="en-only">Company List</span></span></a>
   <a routerLink="/konut-ekle" routerLinkActive="active"><span>＋&nbsp; <span class="tr-only">Konut Ekle</span><span class="en-only">Add Property</span></span></a>
   <a routerLink="/konut-listele" routerLinkActive="active"><span>⌂&nbsp; <span class="tr-only">Konut Listesi</span><span class="en-only">Property List</span></span></a>
-  <a routerLink="/arac-ekle" routerLinkActive="active"><span>▱&nbsp; <span class="tr-only">Araç Ekle</span><span class="en-only">Add Vehicle</span></span></a>
+  <a routerLink="/arac-ekle" routerLinkActive="active"><span>＋&nbsp; <span class="tr-only">Araç Ekle</span><span class="en-only">Add Vehicle</span></span></a>
   <a routerLink="/arac-listele" routerLinkActive="active"><span>▱&nbsp; <span class="tr-only">Araç Listesi</span><span class="en-only">Vehicle List</span></span></a>
   <a routerLink="/google-map" routerLinkActive="active"><span>⌖&nbsp; <span class="tr-only">Harita</span><span class="en-only">Map</span></span></a>
   <a routerLink="/user-control" routerLinkActive="active"><span>✦&nbsp; <span class="tr-only">Kullanıcı Kontrolü</span><span class="en-only">User Control</span></span></a>
   <a routerLink="/accordion-carousel" routerLinkActive="active"><span>▤&nbsp; <span class="tr-only">Accordion &amp; Carousel</span><span class="en-only">Accordion &amp; Carousel</span></span></a>
   <a routerLink="/local-storage" routerLinkActive="active"><span>▣&nbsp; <span class="tr-only">Local Storage</span><span class="en-only">Local Storage</span></span></a>
-  <a routerLink="/workflow-taleplerim" routerLinkActive="active"><span>↗&nbsp; <span class="tr-only">Taleplerim</span><span class="en-only">My Requests</span></span></a>
-  <a routerLink="/workflow-onay" routerLinkActive="active"><span>✓&nbsp; <span class="tr-only">Müdür Onayı</span><span class="en-only">Manager Approval</span></span></a>
+
+  @if (isAdmin()) {
+    <a routerLink="/workflow-onay" routerLinkActive="active"><span>✓&nbsp; <span class="tr-only">Müdür Onayı</span><span class="en-only">Manager Approval</span></span></a>
+  } @else {
+    <a routerLink="/workflow-taleplerim" routerLinkActive="active"><span>↗&nbsp; <span class="tr-only">Taleplerim</span><span class="en-only">My Requests</span></span></a>
+  }
+
   <a routerLink="/mail" routerLinkActive="active"><span>✉&nbsp; <span class="tr-only">Mail Gönder</span><span class="en-only">Send Mail</span></span></a>
   <a routerLink="/about" routerLinkActive="active"><span>◎&nbsp; <span class="tr-only">Hakkımızda</span><span class="en-only">About Us</span></span></a>
   <a routerLink="/contact" routerLinkActive="active"><span>✉&nbsp; <span class="tr-only">İletişim</span><span class="en-only">Contact</span></span></a>
