@@ -6,7 +6,9 @@ import { MusteriService } from '../../services/musteri.service';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { SignalRService } from '../../services/signalr.service';
-@Component({ selector:'app-musteri-listele', imports:[FormsModule], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
+import { MusteriCard } from '../../components/musteri-card/musteri-card';
+
+@Component({ selector:'app-musteri-listele', imports:[FormsModule, MusteriCard], templateUrl:'./musteri-listele.html', styleUrl:'./musteri-listele.css' })
 export class MusteriListele implements OnInit, OnDestroy {
   musteriler=signal<any[]>([]); search=''; sort=''; page=1; pageSize=5; cursorModu=false; nextCursor:number|null=null; currentCursor:number|null=null; cursorGecmisi:(number|null)[]=[]; araniyor=false; isEnglish=localStorage.getItem('language')==='en-US';
   readonly authService=inject(AuthService); private signalRService=inject(SignalRService);
