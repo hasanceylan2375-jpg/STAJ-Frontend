@@ -24,6 +24,8 @@ export const routes: Routes = [
   {path:'user-control',canActivate:[authGuard],loadComponent:()=>import('./pages/user-control-demo/user-control-demo').then(m=>m.UserControlDemo)},
   {path:'accordion-carousel',canActivate:[authGuard],loadComponent:()=>import('./pages/accordion-carousel/accordion-carousel').then(m=>m.AccordionCarousel)},
   {path:'local-storage',canActivate:[authGuard],loadComponent:()=>import('./pages/local-storage/local-storage').then(m=>m.LocalStorage)},
+  {path:'workflow-taleplerim',canActivate:[authGuard],loadComponent:()=>import('./pages/workflow-taleplerim/workflow-taleplerim').then(m=>m.WorkflowTaleplerim)},
+  {path:'workflow-onay',canActivate:[authGuard],loadComponent:()=>import('./pages/workflow-onay/workflow-onay').then(m=>m.WorkflowOnay)},
   {path:'not-found',loadComponent:()=>import('./pages/not-found/not-found').then(m=>m.NotFound)},
   {path:'**',redirectTo:'not-found'}
 ];
