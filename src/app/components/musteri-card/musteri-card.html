@@ -1,0 +1,29 @@
+<article class="customer-card" [class.compact]="variant === 'compact'" [class.loading]="variant === 'loading'" [class.empty]="variant === 'empty'">
+  @if (variant === 'loading') {
+    <div class="skeleton avatar"></div><div class="skeleton line wide"></div><div class="skeleton line"></div><div class="skeleton stats"></div>
+  } @else if (variant === 'empty') {
+    <div class="empty-icon">□</div><strong>Müşteri bulunamadı</strong><span>Arama kriterlerinizi değiştirerek tekrar deneyin.</span>
+  } @else {
+    <header class="card-header">
+      @if (customer?.profilFotoUrl) { <img class="avatar" [src]="customer.profilFotoUrl" [alt]="fullName"> }
+      @else { <div class="avatar initials">{{ initials }}</div> }
+      <div class="identity"><div class="name-row"><h3>{{ fullName }}</h3><span class="status" [class.passive]="status === 'passive'" [class.potential]="status === 'potential'">{{ statusLabel }}</span></div><p>{{ customer?.email || 'E-posta bilgisi yok' }}</p></div>
+      <div class="actions"><button type="button" aria-label="Görüntüle" (click)="handleView()">⌁</button><button type="button" aria-label="Düzenle" (click)="handleEdit()">✎</button><button type="button" aria-label="Sil" (click)="handleDelete()">⋮</button></div>
+    </header>
+
+    <section class="details">
+      <span>✉ {{ customer?.email || '—' }}</span><span>☎ {{ customer?.telefon || '—' }}</span>
+      <span>▣ {{ customer?.dogumTarihi ? (customer.dogumTarihi | date:'dd.MM.yyyy') : '—' }}</span>
+      <span>⌖ {{ customer?.konum || customer?.adres || '—' }}</span><span>◇ {{ customer?.musteriTuru || 'Bireysel' }}</span>
+    </section>
+
+    @if (showStats) {
+      <section class="stats">
+        <div><small>Toplam Sipariş</small><strong>{{ customer?.toplamSiparis ?? 0 }}</strong></div>
+        <div><small>Toplam Harcama</small><strong>₺{{ customer?.toplamHarcama ?? '0,00' }}</strong></div>
+        <div><small>Son Sipariş</small><strong>{{ customer?.sonSiparis || '—' }}</strong></div>
+        <div><small>Ortalama Sipariş</small><strong>₺{{ customer?.ortalamaSiparis ?? '0,00' }}</strong></div>
+      </section>
+    }
+  }
+</article>
