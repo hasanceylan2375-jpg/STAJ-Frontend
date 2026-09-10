@@ -1,0 +1,33 @@
+<div class="otp-page">
+  <div class="otp-card">
+    <div class="icon">🔐</div>
+    <h1>OTP (One-Time Password)</h1>
+    <p class="subtitle">Tek kullanımlık şifre ile güvenli doğrulama</p>
+
+    <label>E-posta Adresi</label>
+    <input type="email" [(ngModel)]="hedef" placeholder="ornek@mail.com" autocomplete="email">
+
+    <button type="button" (click)="gonder()" [disabled]="!hedef || (gonderildi && kalanSure > 30)">
+      OTP Gönder
+    </button>
+
+    @if (gonderildi) {
+      <div class="verify-box">
+        <label>6 Haneli OTP Kodu</label>
+        <input type="text" [(ngModel)]="kod" maxlength="6" inputmode="numeric" placeholder="123456" autocomplete="one-time-code">
+        <small>{{ kalanSure }} saniye geçerli</small>
+        <button type="button" (click)="dogrula()" [disabled]="!kod || kalanSure <= 0">Kodu Doğrula</button>
+      </div>
+    }
+
+    @if (mesaj) { <div class="success">✓ {{ mesaj }}</div> }
+    @if (hata) { <div class="error">⚠ {{ hata }}</div> }
+
+    <div class="features">
+      <span>✓ 60 saniye geçerlilik</span>
+      <span>✓ Tek kullanımlık</span>
+      <span>✓ 5 hatalı deneme limiti</span>
+      <span>✓ SHA-256 hash saklama</span>
+    </div>
+  </div>
+</div>
