@@ -95,45 +95,27 @@
   gap: 12px;
 }
 
-.captcha-refresh {
-  width: 38px !important;
-  min-height: 38px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: #ffffff !important;
-  color: #111111 !important;
-  border: 1px solid #d5d5d5 !important;
-  box-shadow: none !important;
-  font-size: 22px !important;
-}
-
-.captcha-refresh:hover:not(:disabled) {
-  transform: none !important;
-  box-shadow: none !important;
-}
-
 .captcha-help {
-  margin: 4px 0 10px;
+  margin: 4px 0 12px;
   color: #777777;
   font-size: 13px;
 }
 
-.captcha-question {
+.recaptcha-container {
+  min-height: 78px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 54px;
-  margin-bottom: 10px;
-  border: 1px dashed #bdbdbd;
-  border-radius: 10px;
-  background: #ffffff;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #111111;
+  overflow: hidden;
 }
 
-.login-container button:not(.captcha-refresh) {
+.captcha-error {
+  margin: 6px 0 0;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.login-container button {
   width: 100%;
   min-height: 52px;
   margin-top: 4px;
@@ -144,14 +126,19 @@
   box-shadow: 0 7px 0 #111111;
 }
 
-.login-container button:not(.captcha-refresh):hover:not(:disabled) {
+.login-container button:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 10px 0 #111111;
 }
 
-.login-container button:not(.captcha-refresh):active:not(:disabled) {
+.login-container button:active:not(:disabled) {
   transform: translateY(3px);
   box-shadow: 0 3px 0 #111111;
+}
+
+.login-container button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .login-link {
@@ -163,5 +150,11 @@
     width: calc(100% - 32px);
     margin-top: 24px;
     padding: 30px 22px 34px;
+  }
+
+  .recaptcha-container {
+    transform-origin: left center;
+    transform: scale(0.88);
+    width: 304px;
   }
 }
