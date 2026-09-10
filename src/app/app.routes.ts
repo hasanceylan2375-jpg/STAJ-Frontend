@@ -19,7 +19,6 @@ export const routes: Routes = [
  {path:'arac-ekle',canActivate:[authGuard],loadComponent:()=>import('./pages/arac-ekle/arac-ekle').then(m=>m.AracEkle)},
  {path:'arac-listele',canActivate:[authGuard],loadComponent:()=>import('./pages/arac-listele/arac-listele').then(m=>m.AracListele)},
  {path:'kredi-hesapla',canActivate:[authGuard],loadComponent:()=>import('./pages/kredi-hesapla/kredi-hesapla').then(m=>m.KrediHesapla)},
- {path:'otp',canActivate:[authGuard],loadComponent:()=>import('./pages/otp/otp').then(m=>m.Otp)},
  {path:'mail',canActivate:[authGuard],loadComponent:()=>import('./pages/mail/mail').then(m=>m.Mail)},
  {path:'google-map',canActivate:[authGuard],loadComponent:()=>import('./pages/google-map/google-map').then(m=>m.GoogleMap)},
  {path:'user-control',canActivate:[authGuard],loadComponent:()=>import('./pages/user-control-demo/user-control-demo').then(m=>m.UserControlDemo)},
