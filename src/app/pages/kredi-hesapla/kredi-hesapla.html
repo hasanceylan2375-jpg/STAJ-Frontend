@@ -9,35 +9,12 @@
   </div>
 
   <div class="form-grid">
-    <label>
-      Kredi Tutarı
-      <div class="input-unit"><input type="number" [(ngModel)]="krediTutari"><span>TL</span></div>
-    </label>
-    <label>
-      Vade
-      <div class="input-unit"><input type="number" [(ngModel)]="vade"><span>AY</span></div>
-    </label>
-    <label>
-      Faiz Oranı
-      <div class="input-unit"><input type="number" step="0.01" [(ngModel)]="faizOrani"><span>%</span></div>
-    </label>
-    <label>
-      BSMV Oranı
-      <div class="input-unit"><input type="number" step="0.01" [(ngModel)]="bsmvOrani"><span>%</span></div>
-    </label>
-    <label>
-      KKDF Oranı
-      <div class="input-unit"><input type="number" step="0.01" [(ngModel)]="kkdfOrani"><span>%</span></div>
-    </label>
-    <label>
-      Periyot
-      <select [(ngModel)]="periyot">
-        <option [ngValue]="1">Aylık</option>
-        <option [ngValue]="3">3 Aylık</option>
-        <option [ngValue]="6">6 Aylık</option>
-        <option [ngValue]="12">Yıllık</option>
-      </select>
-    </label>
+    <label>Kredi Tutarı<div class="input-unit"><input type="number" [(ngModel)]="krediTutari"><span>TL</span></div></label>
+    <label>Vade<div class="input-unit"><input type="number" [(ngModel)]="vade"><span>AY</span></div></label>
+    <label>Faiz Oranı<div class="input-unit"><input type="number" step="0.01" [(ngModel)]="faizOrani"><span>%</span></div></label>
+    <label>BSMV Oranı<div class="input-unit"><input type="number" step="0.01" [(ngModel)]="bsmvOrani"><span>%</span></div></label>
+    <label>KKDF Oranı<div class="input-unit"><input type="number" step="0.01" [(ngModel)]="kkdfOrani"><span>%</span></div></label>
+    <label>Periyot<select [(ngModel)]="periyot"><option [ngValue]="1">Aylık</option><option [ngValue]="3">3 Aylık</option><option [ngValue]="6">6 Aylık</option><option [ngValue]="12">Yıllık</option></select></label>
   </div>
 
   <div class="toolbar">
@@ -54,22 +31,14 @@
       <small>Bir yöntem seçin</small>
     </div>
     <div class="type-switch">
-      <button type="button" [class.active]="tip === 'EsitTaksitli'" (click)="tipSec('EsitTaksitli')">
-        <span class="mode-code">A</span>
-        <span><b>Eşit Taksitli</b><small>Her dönem sabit taksit</small></span>
-        <i>✓</i>
-      </button>
-      <button type="button" [class.active]="tip === 'EsitAnaparali'" (click)="tipSec('EsitAnaparali')">
-        <span class="mode-code">B</span>
-        <span><b>Eşit Anaparalı</b><small>Anapara her dönem eşit</small></span>
-        <i>✓</i>
-      </button>
+      <button type="button" [class.active]="tip === 'EsitTaksitli'" (click)="tipSec('EsitTaksitli')"><span class="mode-code">A</span><span><b>Eşit Taksitli</b><small>Her dönem sabit taksit</small></span><i>✓</i></button>
+      <button type="button" [class.active]="tip === 'EsitAnaparali'" (click)="tipSec('EsitAnaparali')"><span class="mode-code">B</span><span><b>Eşit Anaparalı</b><small>Anapara her dönem eşit</small></span><i>✓</i></button>
     </div>
   </div>
 
-  <button type="button" class="hesapla" (click)="hesapla()">
+  <button type="button" class="hesapla" [disabled]="hesapliyor" (click)="hesapla()">
     <span class="calc-icon">▶</span>
-    ÖDEME PLANINI OLUŞTUR
+    {{ hesapliyor ? 'HESAPLANIYOR...' : 'ÖDEME PLANINI OLUŞTUR' }}
     <span class="calc-arrow">→</span>
   </button>
 
@@ -84,13 +53,6 @@
 
   <div class="table-wrap" *ngIf="sonuc">
     <div class="table-head"><strong>ÖDEME PLANI</strong><span>{{sonuc.plan?.length}} dönem</span></div>
-    <table>
-      <thead><tr><th>No</th><th>Anapara</th><th>Faiz</th><th>BSMV</th><th>KKDF</th><th>Taksit</th><th>Kalan</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let x of sonuc.plan">
-          <td>{{x.taksitNo}}</td><td>{{x.anapara | number:'1.2-2'}}</td><td>{{x.faiz | number:'1.2-2'}}</td><td>{{x.bsmv | number:'1.2-2'}}</td><td>{{x.kkdf | number:'1.2-2'}}</td><td class="installment">{{x.taksit | number:'1.2-2'}}</td><td>{{x.kalanAnapara | number:'1.2-2'}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <table><thead><tr><th>No</th><th>Anapara</th><th>Faiz</th><th>BSMV</th><th>KKDF</th><th>Taksit</th><th>Kalan</th></tr></thead><tbody><tr *ngFor="let x of sonuc.plan"><td>{{x.taksitNo}}</td><td>{{x.anapara | number:'1.2-2'}}</td><td>{{x.faiz | number:'1.2-2'}}</td><td>{{x.bsmv | number:'1.2-2'}}</td><td>{{x.kkdf | number:'1.2-2'}}</td><td class="installment">{{x.taksit | number:'1.2-2'}}</td><td>{{x.kalanAnapara | number:'1.2-2'}}</td></tr></tbody></table>
   </div>
 </section>
