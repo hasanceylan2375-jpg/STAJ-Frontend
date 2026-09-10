@@ -5,6 +5,6 @@ import { HttpClient } from '@angular/common/http';
 @Component({selector:'app-kredi-hesapla',standalone:true,imports:[CommonModule,FormsModule],templateUrl:'./kredi-hesapla.html',styleUrl:'./kredi-hesapla.css'})
 export class KrediHesapla {
  private http=inject(HttpClient); krediTutari=100000; vade=120; faizOrani=3; bsmvOrani=15; kkdfOrani=15; periyot=1; tip='EsitTaksitli'; sonuc:any=null; hata='';
- hesapla(){this.hata='';this.sonuc=null;this.http.post<any>('api/Kredi/odeme-plani',{krediTutari:this.krediTutari,vade:this.vade,faizOrani:this.faizOrani,bsmvOrani:this.bsmvOrani,kkdfOrani:this.kkdfOrani,periyot:this.periyot,tip:this.tip}).subscribe({next:r=>this.sonuc=r,error:e=>this.hata=e?.error?.mesaj||'Ödeme planı oluşturulamadı.'});}
+ hesapla(){this.hata='';this.sonuc=null;this.http.post<any>('/api/Kredi/odeme-plani',{krediTutari:this.krediTutari,vade:this.vade,faizOrani:this.faizOrani,bsmvOrani:this.bsmvOrani,kkdfOrani:this.kkdfOrani,periyot:this.periyot,tip:this.tip}).subscribe({next:r=>this.sonuc=r,error:e=>this.hata=e?.error?.mesaj||'Ödeme planı oluşturulamadı.'});}
  konutOrnegi(){this.krediTutari=100000;this.vade=120;this.faizOrani=3;this.periyot=1;} aracOrnegi(){this.krediTutari=500000;this.vade=48;this.faizOrani=3;this.periyot=1;}
 }
