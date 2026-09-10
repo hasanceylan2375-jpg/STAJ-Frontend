@@ -4,7 +4,20 @@
   <form (ngSubmit)="login()">
     <div><label for="kullaniciAdi"><span class="tr-only">Kullanıcı Adı</span><span class="en-only">Username</span></label><input id="kullaniciAdi" type="text" name="kullaniciAdi" [(ngModel)]="kullaniciAdi" [placeholder]="isEnglish ? 'Enter your username' : 'Kullanıcı adınızı girin'" autocomplete="username" required /></div>
     <div><label for="sifre"><span class="tr-only">Şifre</span><span class="en-only">Password</span></label><input id="sifre" type="password" name="sifre" [(ngModel)]="sifre" [placeholder]="isEnglish ? 'Enter your password' : 'Şifrenizi girin'" autocomplete="current-password" required /></div>
-    <button type="submit"><span class="tr-only">Giriş Yap →</span><span class="en-only">Login →</span></button>
+
+    <div class="captcha-box">
+      <div class="captcha-header">
+        <strong><span class="tr-only">CAPTCHA</span><span class="en-only">CAPTCHA</span></strong>
+        <button type="button" class="captcha-refresh" (click)="loadCaptcha()" [disabled]="captchaLoading" aria-label="CAPTCHA yenile">↻</button>
+      </div>
+      <p class="captcha-help"><span class="tr-only">İnsan olduğunuzu doğrulamak için soruyu çözün.</span><span class="en-only">Solve the question to verify that you are human.</span></p>
+      <div class="captcha-question">{{ captchaLoading ? '...' : captchaQuestion }}</div>
+      <input id="captchaAnswer" type="number" name="captchaAnswer" [(ngModel)]="captchaAnswer" [placeholder]="isEnglish ? 'Your answer' : 'Cevabınız'" autocomplete="off" required />
+    </div>
+
+    <button type="submit" [disabled]="captchaLoading || !captchaId">
+      <span class="tr-only">Giriş Yap →</span><span class="en-only">Login →</span>
+    </button>
     <p class="login-link"><span class="tr-only">Hesabın yok mu? </span><span class="en-only">Don't have an account? </span><a routerLink="/register"><span class="tr-only">Kayıt Ol</span><span class="en-only">Register</span></a></p>
   </form>
 </section>
